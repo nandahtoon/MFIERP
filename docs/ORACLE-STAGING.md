@@ -6,7 +6,7 @@ The owner directed this integration to the existing Oracle Cloud Mifos X hosting
 
 The owner's canonical site, API URL and tenant were discovered from the connected deployment repository. Public HTTPS health, the web root, runtime config and actuator provenance were read successfully on 2026-11-18. Host-specific values are retained in the Git-ignored local `config/oracle-staging.json` profile and `.research/ORACLE-STAGING-EVIDENCE.md`, rather than published with the addon.
 
-The tenant and environment are separate fields. An observed version/commit is not a clean-build attestation, approved image pin, financial UAT result or permission to deploy to the host. The observed build reported dirty=true; infrastructure provenance must be reviewed before runtime acceptance.
+The tenant and environment are separate fields. An observed version/commit is not a clean-build attestation, approved image pin, financial UAT result or permission to deploy to the host. The observed build reported dirty=true; infrastructure provenance must be reviewed before runtime acceptance. MFIERP 20.0.8.0.1 now blocks mutation dispatch unless actuator git provenance explicitly attests `dirty=false` (boolean or string). A missing or dirty attestation fails closed; fix/rebuild the authorized staging runtime through MicroOps-Infra rather than bypassing this gate.
 
 Repeat sanitized public discovery with `py scripts/verify_staging.py config/oracle-staging.json`. This tool only sends GET requests, verifies HTTPS through the default trust store, and prints status/version/commit fields rather than complete response bodies.
 

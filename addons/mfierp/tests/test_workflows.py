@@ -40,7 +40,7 @@ class TestMfierpWorkflows(TransactionCase):
             "repay_loan", self.payload, self.loan.with_user(self.maker))
 
     def _mock_provenance(self, client):
-        client.return_value.info.return_value = {"git": {"build": {"version": "TEST"}, "commit": {"id": {"full": "a" * 40}}}}
+        client.return_value.info.return_value = {"git": {"build": {"version": "TEST"}, "commit": {"id": {"full": "a" * 40}}, "dirty": "false"}}
 
     def test_maker_checker_and_immutable_payload(self):
         command = self._command()
@@ -187,6 +187,21 @@ class TestMfierpWorkflows(TransactionCase):
             command._dispatch()
             self.assertEqual(command.state, "failed")
             client.return_value.request.assert_not_called()
+
+    def test_dispatch_blocks_dirty_or_missing_build_attestation(self):
+        for dirty in ("true", None):
+            command = self._command()
+            command.with_user(self.checker).action_approve()
+            command.write({"state": "dispatching"})
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                self._mock_provenance(client)
+                if dirty is None:
+                    client.return_value.info.return_value["git"].pop("dirty")
+                else:
+                    client.return_value.info.return_value["git"]["dirty"] = dirty
+                command._dispatch()
+                self.assertEqual(command.state, "failed")
+                client.return_value.request.assert_not_called()
 
     def test_disabled_connection_never_sends_post(self):
         command = self._command()

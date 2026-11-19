@@ -4,7 +4,7 @@
 
 Accepted by the project owner on 2026-11-18. Native Odoo screens replace the operator UI for the supported workflows. Apache Fineract remains responsible for financial calculations, business date, account lifecycle validation, balances, interest, repayment allocation, charges and its ledger. No Angular iframe, browser credential handoff, direct database integration or duplicated interest engine is used.
 
-Odoo is authoritative for integration configuration, maker/checker identity, immutable command payloads, local approval decisions and reconciliation evidence. Fineract is authoritative for remote outcomes. A locally approved command is not a completed transaction. A successful command response is not a refreshed balance.
+Odoo is authoritative for integration configuration, maker/checker identity, immutable command payloads, local approval decisions and reconciliation evidence. Fineract is authoritative for remote outcomes. A locally approved command is not a completed transaction. A successful command response is not a refreshed balance. Runtime dispatch additionally requires an explicit clean-build attestation from `git.dirty=false`; a pinned commit without this evidence is insufficient.
 
 ## Data flow
 
@@ -17,7 +17,7 @@ Odoo is authoritative for integration configuration, maker/checker identity, imm
 6. The cron worker selects approved commands using `FOR UPDATE SKIP LOCKED`. It persists `dispatching` through Odoo's cron transaction API before any remote POST.
 7. Dispatch validates the digest and registry schema, then sends one POST. There are no automatic POST retries. The remote idempotency header is additional protection; it is not assumed to be supported by every Fineract version.
 8. The response stores remote resource/command IDs without retaining response bodies. If only a remote command ID is returned, the item awaits Fineract-side verification.
-9. Transport failures, malformed successful responses and server failures require reconciliation. A crash leaves `dispatching` persisted. An administrator records independent evidence of applied/not applied; that action never resends a request.
+9. Transport failures, malformed successful responses and server failures require reconciliation. A crash leaves `dispatching` persisted. An administrator records independent evidence of applied/not applied; that action never resends a request. Resource-less scheduler start/stop may be confirmed only by a different administrator, with a fresh authenticated GET of the desired remote active state and a recorded independent audit note. Resource-less financial or unrelated operations remain blocked from applied reconciliation. A matching current scheduler state verifies an end state, not causal proof that a particular POST ran.
 
 ## Transaction boundary
 

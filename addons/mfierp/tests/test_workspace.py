@@ -118,6 +118,43 @@ class TestWorkspace(TestMfierpWorkflows):
             self.env["mfierp.command"]._cron_dispatch()
             self.assertEqual(client.return_value.request.call_count, 1)
 
+    def test_scheduler_resource_less_reconciliation_reads_remote_state(self):
+        capability = self.variant("/v1/scheduler", "start")
+        request = self.env["mfierp.request"].with_user(self.manager).create({
+            "capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.write({"state": "remote_pending"})
+        reviewer = self._make_user("mfierp_scheduler_reconciler", "group_manager")
+        wizard = self.env["mfierp.reconcile"].with_user(reviewer).create({
+            "command_id": command.id, "outcome": "done", "resource_id": 0,
+            "note": "Independently inspected scheduler audit and current remote status."})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"active": False}
+            with self.assertRaises(UserError):
+                wizard.action_record()
+            self.assertEqual(command.state, "remote_pending")
+            client.return_value.request.return_value = {"active": True}
+            wizard.action_record()
+            client.return_value.request.assert_called_with("GET", "scheduler")
+        self.assertEqual(command.state, "done")
+        self.assertFalse(command.result_resource_id)
+        self.assertEqual(command.resolved_by_id, reviewer)
+
+    def test_scheduler_maker_cannot_self_reconcile_without_resource_id(self):
+        capability = self.variant("/v1/scheduler", "stop")
+        request = self.env["mfierp.request"].with_user(self.manager).create({
+            "capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.write({"state": "remote_pending"})
+        wizard = self.env["mfierp.reconcile"].with_user(self.manager).create({
+            "command_id": command.id, "outcome": "done", "resource_id": 0,
+            "note": "Independently inspected scheduler audit and current remote status."})
+        with self.assertRaises(AccessError):
+            wizard.action_record()
+
     def test_collection_preview_is_projected_escaped_and_expires(self):
         capability = self.variant("/v1/collectionsheet", "generateCollectionSheet")
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})

@@ -95,6 +95,12 @@ class MfierpBackend(models.Model):
         if not isinstance(version, str) or not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
             raise UserError(_("Fineract must expose a version and full commit in actuator/info."))
         self.sudo().write({"observed_version": version, "observed_commit": commit, "verified_at": fields.Datetime.now()})
+        # A version/commit match alone cannot attest a reproducible build.
+        # Fineract git info normally publishes dirty as a bool or string.
+        dirty = git.get("dirty")
+        clean = dirty is False or (isinstance(dirty, str) and dirty.lower() == "false")
+        if require_pin and not clean:
+            raise UserError(_("A clean Fineract build (git.dirty=false) must be attested before dispatch."))
         pin = self.sudo()
         if require_pin and (not pin.expected_version or not pin.expected_commit):
             raise UserError(_("An administrator must pin the verified Fineract version and commit before dispatch."))

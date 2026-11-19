@@ -51,3 +51,10 @@ Commit `6d733cebf818e4d94497c6d76b8b62ffb615f460` also passed the [standard-imag
 Version 20.0.8.0.0 adds regressions for source-fixed standing-instruction updates, explicit unique provisioning product/category collections, age-range validation, independent administrator review, dividend payout-ID capture, mandatory dividend reconciliation, and manager-only scheduler controls. All 56 pure Python tests and 56 Odoo tests passed, including clean installation and upgrade in isolated databases. Remote business requests remain mocked. Standard-image CI for the preceding datatable implementation and evidence commit also passed at 3f97ef2 (run 44593101286); current checks are recorded on the draft PR.
 
 Playwright also verified Configuration → Scheduler Workflows and the separately listed fixed start/stop contracts in the upgraded synthetic local demo. No scheduler or other business command was submitted during this browser check.
+
+## 20.0.8.0.1 P1 hardening (pending exact-head CI)
+
+- Resource-less scheduler start/stop reconciliation requires a separate administrator, an evidence note and a fresh authenticated Fineract GET returning the expected `active` boolean. No remote POST is retried; other commands still require a positive verified resource ID when marked applied.
+- Before any dispatch, the pinned Fineract actuator info must explicitly attest `git.dirty=false`; dirty or missing values reject the request before network mutation.
+- Added mocked Odoo regressions for matching/mismatching scheduler state, independent administrator restriction and dirty/missing provenance.
+- No Oracle tenant mutation or shared deployment is authorized. Exact-head CI must be read after this commit; do not count this entry as a test pass.
