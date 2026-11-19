@@ -2,7 +2,7 @@
 {
     "name": "MFIERP — Mifos X Operations",
     "summary": "Native microfinance operations backed by Apache Fineract",
-    "version": "20.0.2.0.0",
+    "version": "20.0.3.0.0",
     "category": "Accounting/Accounting",
     "author": "MFIERP contributors",
     "website": "https://github.com/nandahtoon/MFIERP",

@@ -12,8 +12,8 @@ SOURCE_ROOT = f"https://github.com/nandahtoon/Mifosx-web-app/blob/{SOURCE_REVISI
 def command_variants(capabilities):
     variants = []
 
-    def add(path, command, area, component, fields, required=(), dates=True, fixed_path=None):
-        base = next(c for c in capabilities if c["method"] == "POST" and c["path"] == path)
+    def add(path, command, area, component, fields, required=(), dates=True, fixed_path=None, method="POST"):
+        base = next(c for c in capabilities if c["method"] == method and c["path"] == path)
         entry = deepcopy(base)
         entry.update(key=base["key"] + "__" + command, name=f"{area}: {command}", blocked="",
             description=f"Source-reviewed {command} command. Fineract validates eligibility, amounts and state transitions.",
@@ -28,10 +28,10 @@ def command_variants(capabilities):
         entry["parameters"] = params
         properties = {}
         for name, kind in fields.items():
-            properties[name] = {"type": kind}
-            if kind == "integer" and name.endswith("Id"):
+            properties[name] = deepcopy(kind) if isinstance(kind, dict) else {"type": kind}
+            if properties[name].get("type") == "integer" and name.endswith("Id"):
                 properties[name]["minimum"] = 1
-            if name.lower().endswith("date"):
+            if properties[name].get("type") == "string" and name.lower().endswith("date"):
                 properties[name]["format"] = "date"
         if dates:
             properties.update(dateFormat={"type": "string", "enum": ["yyyy-MM-dd"]}, locale={"type": "string", "enum": ["en"]})
@@ -159,4 +159,35 @@ def command_variants(capabilities):
     entry = add("/v1/jobs/{jobId}", "executeJob", "Job administration", "system/system.service.ts#L347", {}, dates=False)
     entry["admin_only"] = True
     entry["description"] += " This variant runs the job without custom parameters. Review job scope and effects before approval."
+    entry = add("/v1/rescheduleloans", "reschedule", "Loan rescheduling",
+        "loans/loans-view/loan-account-actions/loan-reschedule/loan-reschedule.component.ts",
+        {"loanId": "integer", "rescheduleFromDate": "string", "rescheduleReasonId": "integer", "submittedOnDate": "string",
+            "rescheduleReasonComment": "string", "adjustedDueDate": "string",
+            "graceOnPrincipal": {"type": "integer", "minimum": 0}, "graceOnInterest": {"type": "integer", "minimum": 0},
+            "extraTerms": {"type": "integer", "minimum": 0}, "newInterestRate": {"type": "number", "minimum": 0}},
+        ["loanId", "rescheduleFromDate", "rescheduleReasonId", "submittedOnDate"])
+    entry.update(context_resource="loans", context_fields={"loanId": "body"})
+    entry["description"] += " Submit and reconcile any penalty waivers separately before this request; no waiver is performed implicitly."
+    for command, date in [("approve", "approvedOnDate"), ("reject", "rejectedOnDate")]:
+        add("/v1/rescheduleloans/{scheduleId}", command, "Loan rescheduling",
+            "loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts", {date: "string"}, [date])
+    entry = add("/v1/rescheduleloans", "pending", "Loan rescheduling", "tasks/tasks.service.ts#L100",
+        {}, dates=False, method="GET")
+    entry.update(body=None, body_required=False)
+    for command in ["createjournalentry", "recreateprovisioningentry"]:
+        entry = add("/v1/provisioningentries/{entryId}", command, "Provisioning",
+            "accounting/accounting.service.ts#L386", {}, dates=False)
+        entry["admin_only"] = True
+    add("/v1/clients/{clientId}/charges/{chargeId}", "paycharge", "Client charges",
+        "clients/clients-view/charges/client-pay-charges/client-pay-charges.component.ts",
+        {"amount": {"type": "number", "minimum": 0, "exclusiveMinimum": True}, "transactionDate": "string"}, ["amount", "transactionDate"])
+    for command, source in [
+        ("pay", "savings/savings-account-view/view-charge/view-charge.component.ts"),
+        ("paycharge", "savings/saving-account-actions/apply-annual-fees-savings-account/apply-annual-fees-savings-account.component.ts"),
+    ]:
+        add("/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}", command, "Savings charges", source,
+            {"amount": {"type": "number", "minimum": 0, "exclusiveMinimum": True}, "dueDate": "string"}, ["amount", "dueDate"])
+    for command in ["waive", "inactivate"]:
+        add("/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}", command, "Savings charges",
+            "savings/savings-account-view/view-charge/view-charge.component.ts", {}, dates=False)
     return variants

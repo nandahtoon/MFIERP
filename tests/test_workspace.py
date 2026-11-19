@@ -46,6 +46,30 @@ class WorkspaceContracts(unittest.TestCase):
             with self.assertRaises(ValueError):
                 workspace.build_request(key, self.request(key, query=query))
 
+    def test_reschedule_approval_and_rejection_have_separate_date_contracts(self):
+        for command, date_field, forbidden in [("approve", "approvedOnDate", "rejectedOnDate"), ("reject", "rejectedOnDate", "approvedOnDate")]:
+            entry = next(c for c in workspace.capabilities().values() if c["path"] == "/v1/rescheduleloans/{scheduleId}"
+                and c["key"].endswith("__" + command))
+            key = entry["key"]
+            result = workspace.build_request(key, self.request(key, {"scheduleId": 3}, {"command": command}, {date_field: "2026-11-19"}))
+            self.assertEqual(result[:2], ("POST", "rescheduleloans/3"))
+            with self.assertRaises(ValueError):
+                workspace.build_request(key, self.request(key, {"scheduleId": 3}, {"command": command}, {forbidden: "2026-11-19"}))
+
+    def test_fractional_charge_payment_and_exclusive_bounds(self):
+        entry = next(c for c in workspace.capabilities().values() if c["path"] == "/v1/clients/{clientId}/charges/{chargeId}"
+            and c["key"].endswith("__paycharge"))
+        key = entry["key"]
+        body = {"amount": 2.75, "transactionDate": "2026-11-19"}
+        result = workspace.build_request(key, self.request(key, {"clientId": 7, "chargeId": 9}, {"command": "paycharge"}, body))
+        self.assertEqual(result[3]["amount"], 2.75)
+        for value in [0, -1, float("inf"), True]:
+            with self.assertRaises(ValueError):
+                workspace.build_request(key, self.request(key, {"clientId": 7, "chargeId": 9}, {"command": "paycharge"}, {**body, "amount": value}))
+        for schema in [{"type": "number", "maximum": 1, "exclusiveMaximum": True}, {"type": "number", "exclusiveMaximum": 1}]:
+            with self.assertRaises(ValueError):
+                workspace.validate(1, schema)
+
     def test_v2_contract_keeps_a_separate_fixed_version(self):
         key = self.find("GET", "/v2/groups")
         self.assertEqual(workspace.specification(key)["api_version"], "v2")

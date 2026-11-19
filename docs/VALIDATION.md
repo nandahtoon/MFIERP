@@ -4,16 +4,16 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace tests | 29 passed |
+| Python service/workspace tests | 31 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
 | Clean Odoo 20 install and post-install ORM/workflow tests | Passed GitHub standard-image CI, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 27 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 30 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
 
-Runtime environment: Linux `python:3.12-slim`, official Odoo source revision `c40402fab8c1509f3c68cd9cc5140f7790611d99`, PostgreSQL 18.3. The normal `odoo:20.0` image download was too slow, so validation used the official source and its Python dependency pins, with `psycopg2-binary` replacing source-built psycopg2 and optional python-ldap omitted. Relevant upstream addons and standard category manifests were fetched without modifying upstream application code. The first release also passed standard-image GitHub CI (run 44441559802). The expanded workspace passed standard-image install/upgrade plus service/static CI at commit 600c319 (run 44480659615). The secret-prefix and retention changes also passed CI at b81c717 (run 44480886662). The subsequent administrator variants have passed local tests and require their own CI result.
+Runtime environment: Linux `python:3.12-slim`, official Odoo source revision `c40402fab8c1509f3c68cd9cc5140f7790611d99`, PostgreSQL 18.3. The normal `odoo:20.0` image download was too slow, so validation used the official source and its Python dependency pins, with `psycopg2-binary` replacing source-built psycopg2 and optional python-ldap omitted. Relevant upstream addons and standard category manifests were fetched without modifying upstream application code. The first release also passed standard-image GitHub CI (run 44441559802). The expanded workspace passed standard-image install/upgrade plus service/static CI at commit 600c319 (run 44480659615). The secret-prefix and retention changes also passed CI at b81c717 (run 44480886662). The administrator variants also passed CI at e35702b (run 44481280391). Current 20.0.3.0.0 install/upgrade CI results are recorded in the draft PR checks.
 
 The ORM suite verifies company isolation for searches/actions, role enforcement, self-approval rejection, immutable payloads, target connection matching, single dispatch, pre-send reservation, uncertain-result non-replay, remote maker-checker pending handling, runtime pin drift, disabled dispatch, minimized snapshots, schedule/transaction rows, typed native submission, reconciliation evidence and report HTML escaping. Remote business calls are mocked.
 
@@ -21,7 +21,7 @@ A queue-selection issue found during actual Odoo testing was repaired: ORM state
 
 Browser validation used the Playwright skill and a dedicated local Odoo demo database. Verified native navigation and client list, typed client submission into the command register, and refusal of maker self-approval. A circular company default that emptied the connection picker was found, repaired and covered by a regression test. The demo data is unmistakably synthetic. Browser screenshots and session state are local ignored artifacts.
 
-The expanded suite verifies source-fixed commands, nested forms, transient owner isolation, protected binary capture/multipart dispatch, environment-secret binding, independent administrator review, revoked-participant denial and parent-ID-only contextual defaults. Browser checks verified catalog search/grouping, connection choice, fixed command values and nested Details editing; defects in default filtering and duplicate nested rows were repaired. Fresh standard-image installation passed. The final local upgrade suite has 27 tests, including retention of unknown outcomes, preservation of file audit hashes after byte purging, and independent administrator approval for commands without a request body. Source contracts were compiled deterministically and pinned; no live financial acceptance is implied.
+The expanded suite verifies source-fixed commands, nested forms, transient owner isolation, protected binary capture/multipart dispatch, environment-secret binding, independent administrator review, revoked-participant denial and parent-ID-only contextual defaults. Browser checks verified catalog search/grouping, connection choice, fixed command values and nested Details editing; defects in default filtering and duplicate nested rows were repaired. Fresh standard-image installation passed. The local upgrade suite now has 30 tests, including retention of unknown outcomes, preservation of file audit hashes after byte purging, and independent administrator approval for commands without a request body. Source contracts were compiled deterministically and pinned; no live financial acceptance is implied.
 
 ## Unproven gates
 
@@ -31,3 +31,7 @@ The expanded suite verifies source-fixed commands, nested forms, transient owner
 - Independent human/domain review, GitHub branch protection and release acceptance.
 
 No business API writes, remote credential changes, Oracle runtime changes or production changes were performed. See ORACLE-STAGING.md and COVERAGE.md for the concrete next acceptance work.
+
+Version 20.0.3.0.0 adds regression coverage for contextual loan IDs in reschedule body/query fields, reader access to request lists, one approved dispatch without implicit waivers, separate approval/rejection dates, administrator-only provisioning review, fractional charge payments and exclusive bounds. The initial local upgrade run passed all 30 ORM tests. Remote business calls remain mocked.
+
+Browser verification for 20.0.3.0.0 confirmed the path from the synthetic loan record through More Workflows to reschedule submission, with the connection and loan ID 201 correctly populated. Nested dates, reason and optional restructuring fields rendered in the native Details form. No remote write was submitted.

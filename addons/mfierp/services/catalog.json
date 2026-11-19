@@ -31824,6 +31824,36 @@
       "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts"
     },
     {
+      "key": "get_retrieveAllRescheduleLoans__list",
+      "name": "Loan rescheduling: list requests",
+      "category": "Reschedule Loans",
+      "method": "GET",
+      "path": "/v1/rescheduleloans",
+      "api_version": "v1",
+      "description": "Retrieve all reschedule requests.",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "loanId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveAllRescheduleLoans",
+      "context_resource": "loans",
+      "context_fields": {
+        "loanId": "query"
+      },
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L480"
+    },
+    {
       "key": "post_handleCommandClient__activate",
       "name": "Clients: activate",
       "category": "Client",
@@ -36266,6 +36296,707 @@
       "admin_only": true,
       "source_operation": "executeJob",
       "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L347",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_createRescheduleLoan__reschedule",
+      "name": "Loan rescheduling: reschedule",
+      "category": "Reschedule Loans",
+      "method": "POST",
+      "path": "/v1/rescheduleloans",
+      "api_version": "v1",
+      "description": "Source-reviewed reschedule command. Fineract validates eligibility, amounts and state transitions. Submit and reconcile any penalty waivers separately before this request; no waiver is performed implicitly.",
+      "parameters": [
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "reschedule"
+            ],
+            "default": "reschedule"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "loanId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "rescheduleFromDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "rescheduleReasonId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "submittedOnDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "rescheduleReasonComment": {
+            "type": "string"
+          },
+          "adjustedDueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "graceOnPrincipal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "graceOnInterest": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "extraTerms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "newInterestRate": {
+            "type": "number",
+            "minimum": 0
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "loanId",
+          "rescheduleFromDate",
+          "rescheduleReasonId",
+          "submittedOnDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "createRescheduleLoan",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/loan-reschedule/loan-reschedule.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "context_resource": "loans",
+      "context_fields": {
+        "loanId": "body"
+      }
+    },
+    {
+      "key": "post_updateRescheduleLoan__approve",
+      "name": "Loan rescheduling: approve",
+      "category": "Reschedule Loans",
+      "method": "POST",
+      "path": "/v1/rescheduleloans/{scheduleId}",
+      "api_version": "v1",
+      "description": "Source-reviewed approve command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "scheduleId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "approve"
+            ],
+            "default": "approve"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "approvedOnDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "approvedOnDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateRescheduleLoan",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_updateRescheduleLoan__reject",
+      "name": "Loan rescheduling: reject",
+      "category": "Reschedule Loans",
+      "method": "POST",
+      "path": "/v1/rescheduleloans/{scheduleId}",
+      "api_version": "v1",
+      "description": "Source-reviewed reject command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "scheduleId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "reject"
+            ],
+            "default": "reject"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "rejectedOnDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "rejectedOnDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateRescheduleLoan",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "get_retrieveAllRescheduleLoans__pending",
+      "name": "Loan rescheduling: pending",
+      "category": "Reschedule Loans",
+      "method": "GET",
+      "path": "/v1/rescheduleloans",
+      "api_version": "v1",
+      "description": "Source-reviewed pending command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "loanId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "pending"
+            ],
+            "default": "pending"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveAllRescheduleLoans",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/tasks/tasks.service.ts#L100",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_modifyProvisioningEntry__createjournalentry",
+      "name": "Provisioning: createjournalentry",
+      "category": "Provisioning Entries",
+      "method": "POST",
+      "path": "/v1/provisioningentries/{entryId}",
+      "api_version": "v1",
+      "description": "Source-reviewed createjournalentry command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "entryId",
+          "in": "path",
+          "name": "entryId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "createjournalentry"
+            ],
+            "default": "createjournalentry"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "modifyProvisioningEntry",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_modifyProvisioningEntry__recreateprovisioningentry",
+      "name": "Provisioning: recreateprovisioningentry",
+      "category": "Provisioning Entries",
+      "method": "POST",
+      "path": "/v1/provisioningentries/{entryId}",
+      "api_version": "v1",
+      "description": "Source-reviewed recreateprovisioningentry command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "entryId",
+          "in": "path",
+          "name": "entryId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "recreateprovisioningentry"
+            ],
+            "default": "recreateprovisioningentry"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "modifyProvisioningEntry",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_payOrWaiveClientCharge__paycharge",
+      "name": "Client charges: paycharge",
+      "category": "Client Charges",
+      "method": "POST",
+      "path": "/v1/clients/{clientId}/charges/{chargeId}",
+      "api_version": "v1",
+      "description": "Source-reviewed paycharge command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "clientId",
+          "in": "path",
+          "name": "clientId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "chargeId",
+          "in": "path",
+          "name": "chargeId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "paycharge"
+            ],
+            "default": "paycharge"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "amount",
+          "transactionDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "payOrWaiveClientCharge",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/charges/client-pay-charges/client-pay-charges.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsSavingsAccountCharge__pay",
+      "name": "Savings charges: pay",
+      "category": "Savings Charges",
+      "method": "POST",
+      "path": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "api_version": "v1",
+      "description": "Source-reviewed pay command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "savingsAccountId",
+          "in": "path",
+          "name": "savingsAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "savingsAccountChargeId",
+          "in": "path",
+          "name": "savingsAccountChargeId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "pay"
+            ],
+            "default": "pay"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "amount",
+          "dueDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsSavingsAccountCharge",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsSavingsAccountCharge__paycharge",
+      "name": "Savings charges: paycharge",
+      "category": "Savings Charges",
+      "method": "POST",
+      "path": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "api_version": "v1",
+      "description": "Source-reviewed paycharge command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "savingsAccountId",
+          "in": "path",
+          "name": "savingsAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "savingsAccountChargeId",
+          "in": "path",
+          "name": "savingsAccountChargeId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "paycharge"
+            ],
+            "default": "paycharge"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "amount",
+          "dueDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsSavingsAccountCharge",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/apply-annual-fees-savings-account/apply-annual-fees-savings-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsSavingsAccountCharge__waive",
+      "name": "Savings charges: waive",
+      "category": "Savings Charges",
+      "method": "POST",
+      "path": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "api_version": "v1",
+      "description": "Source-reviewed waive command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "savingsAccountId",
+          "in": "path",
+          "name": "savingsAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "savingsAccountChargeId",
+          "in": "path",
+          "name": "savingsAccountChargeId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "waive"
+            ],
+            "default": "waive"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsSavingsAccountCharge",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsSavingsAccountCharge__inactivate",
+      "name": "Savings charges: inactivate",
+      "category": "Savings Charges",
+      "method": "POST",
+      "path": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "api_version": "v1",
+      "description": "Source-reviewed inactivate command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "savingsAccountId",
+          "in": "path",
+          "name": "savingsAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "savingsAccountChargeId",
+          "in": "path",
+          "name": "savingsAccountChargeId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "inactivate"
+            ],
+            "default": "inactivate"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsSavingsAccountCharge",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
     }
   ],

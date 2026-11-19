@@ -19,6 +19,61 @@ class TestWorkspace(TestMfierpWorkflows):
             and c.get("source_form") and c["key"].endswith("__" + command))
         return self.env["mfierp.capability"].search([("key", "=", spec["key"])], limit=1)
 
+    def test_reschedule_from_loan_context_queues_one_independent_command(self):
+        capability = self.variant("/v1/rescheduleloans", "reschedule")
+        self.assertIn(capability, self.env["mfierp.capability"].search(self.loan.action_workspace()["domain"]))
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": self.loan.id})
+        request.action_load()
+        loan_field = request.input_ids.filtered(lambda row: row.key == "loanId")
+        self.assertEqual(loan_field.integer_value, 7)
+        for key in ["rescheduleFromDate", "submittedOnDate"]:
+            request.input_ids.filtered(lambda row, key=key: row.key == key).write({"date_value": "2026-11-19"})
+        request.input_ids.filtered(lambda row: row.key == "rescheduleReasonId").write({"integer_value": 3})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        self.assertEqual(command.payload["body"]["loanId"], 7)
+        self.assertEqual(command.state, "pending")
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 44}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_count, 1)
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "rescheduleloans"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "reschedule"})
+        self.assertEqual(command.state, "done")
+
+    def test_reschedule_list_uses_loan_context_and_readers_can_view_pending(self):
+        capability = self.env["mfierp.capability"].search([("name", "=", "Loan rescheduling: list requests")], limit=1)
+        request = self.env["mfierp.request"].with_user(self.reader).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": self.loan.id})
+        request.action_load()
+        self.assertTrue(request.input_ids.filtered(lambda row: row.key == "loanId").included)
+        self.assertEqual(request._envelope()["query"], {"loanId": 7})
+        pending = self.variant("/v1/rescheduleloans", "pending")
+        pending.with_user(self.reader)._assert_role()
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            client.return_value.request.return_value = [{"id": 44, "loanId": 7}]
+            request.action_execute()
+        self.assertFalse(request.command_id)
+
+    def test_provisioning_requires_manager_and_distinct_manager_review(self):
+        capability = self.variant("/v1/provisioningentries/{entryId}", "createjournalentry")
+        with self.assertRaises(AccessError):
+            capability.with_user(self.maker).action_open()
+        request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id,
+            "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "entryId").write({"integer_value": 5})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        with self.assertRaises(AccessError):
+            command.with_user(self.checker).action_approve()
+        reviewer = self._make_user("mfierp_provisioning_checker", "group_manager")
+        command.with_user(reviewer).action_approve()
+        self.assertEqual(command.payload["body"], {})
+        self.assertEqual(command.state, "approved")
+
     def test_source_reviewed_no_body_action_requires_independent_administrator(self):
         capability = self.variant("/v1/surveys/{id}", "activate")
         request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id,

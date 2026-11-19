@@ -5,8 +5,8 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 642,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 51,
+    "TYPED_CONTRACT_CANDIDATE": 650,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 43,
     "NOT_IN_DEPLOYED_OPENAPI": 2,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
@@ -895,11 +895,13 @@
       "source": "src/app/accounting/accounting.service.ts",
       "line": 388,
       "area": "accounting",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L388",
       "capabilities": [
-        "post_modifyProvisioningEntry"
+        "post_modifyProvisioningEntry",
+        "post_modifyProvisioningEntry__createjournalentry",
+        "post_modifyProvisioningEntry__recreateprovisioningentry"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -913,11 +915,13 @@
       "source": "src/app/accounting/accounting.service.ts",
       "line": 397,
       "area": "accounting",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L397",
       "capabilities": [
-        "post_modifyProvisioningEntry"
+        "post_modifyProvisioningEntry",
+        "post_modifyProvisioningEntry__createjournalentry",
+        "post_modifyProvisioningEntry__recreateprovisioningentry"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1773,11 +1777,12 @@
       "source": "src/app/clients/clients.service.ts",
       "line": 132,
       "area": "clients",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L132",
       "capabilities": [
-        "post_payOrWaiveClientCharge"
+        "post_payOrWaiveClientCharge",
+        "post_payOrWaiveClientCharge__paycharge"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1845,11 +1850,12 @@
       "source": "src/app/clients/clients.service.ts",
       "line": 176,
       "area": "clients",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L176",
       "capabilities": [
-        "post_payOrWaiveClientCharge"
+        "post_payOrWaiveClientCharge",
+        "post_payOrWaiveClientCharge__paycharge"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5332,11 +5338,13 @@
       "source": "src/app/loans/loans.service.ts",
       "line": 482,
       "area": "loans",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L482",
       "capabilities": [
-        "get_retrieveAllRescheduleLoans"
+        "get_retrieveAllRescheduleLoans",
+        "get_retrieveAllRescheduleLoans__list",
+        "get_retrieveAllRescheduleLoans__pending"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5350,11 +5358,13 @@
       "source": "src/app/loans/loans.service.ts",
       "line": 490,
       "area": "loans",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L490",
       "capabilities": [
-        "post_updateRescheduleLoan"
+        "post_updateRescheduleLoan",
+        "post_updateRescheduleLoan__approve",
+        "post_updateRescheduleLoan__reject"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5372,7 +5382,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L499",
       "capabilities": [
-        "post_createRescheduleLoan"
+        "post_createRescheduleLoan",
+        "post_createRescheduleLoan__reschedule"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5521,7 +5532,8 @@
         "post_createWorkingCapitalLoanProduct",
         "post_submitWorkingCapitalLoanApplication",
         "post_calculateOrSubmitLoanApplication__application",
-        "post_createGLJournalEntry__create"
+        "post_createGLJournalEntry__create",
+        "post_createRescheduleLoan__reschedule"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -5879,7 +5891,12 @@
         "post_createDelinquencyActionByExternalId",
         "post_createWorkingCapitalLoanNearBreachActionByExternalId",
         "post_executeWorkingCapitalLoanTransactionByExternalId",
-        "post_adjustLoanCharge"
+        "post_adjustLoanCharge",
+        "post_payOrWaiveClientCharge__paycharge",
+        "post_handleCommandsSavingsAccountCharge__pay",
+        "post_handleCommandsSavingsAccountCharge__paycharge",
+        "post_handleCommandsSavingsAccountCharge__waive",
+        "post_handleCommandsSavingsAccountCharge__inactivate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -6686,7 +6703,11 @@
         "post_handleCommandsRole__disable",
         "post_activateOrDeactivateSurvey__activate",
         "post_activateOrDeactivateSurvey__deactivate",
-        "post_executeJob__executeJob"
+        "post_executeJob__executeJob",
+        "post_updateRescheduleLoan__approve",
+        "post_updateRescheduleLoan__reject",
+        "post_modifyProvisioningEntry__createjournalentry",
+        "post_modifyProvisioningEntry__recreateprovisioningentry"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8668,7 +8689,11 @@
         "post_handleCommandsRole__disable",
         "post_activateOrDeactivateSurvey__activate",
         "post_activateOrDeactivateSurvey__deactivate",
-        "post_executeJob__executeJob"
+        "post_executeJob__executeJob",
+        "post_updateRescheduleLoan__approve",
+        "post_updateRescheduleLoan__reject",
+        "post_modifyProvisioningEntry__createjournalentry",
+        "post_modifyProvisioningEntry__recreateprovisioningentry"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8861,7 +8886,9 @@
         "get_retrieveAllUsers",
         "get_retrieveAllWorkingCapitalLoanProducts",
         "get_retrieveAllWorkingCapitalLoans",
-        "get_retrieveAllWorkingDays"
+        "get_retrieveAllWorkingDays",
+        "get_retrieveAllRescheduleLoans__list",
+        "get_retrieveAllRescheduleLoans__pending"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8959,7 +8986,8 @@
         "post_createWorkingCapitalLoanProduct",
         "post_submitWorkingCapitalLoanApplication",
         "post_calculateOrSubmitLoanApplication__application",
-        "post_createGLJournalEntry__create"
+        "post_createGLJournalEntry__create",
+        "post_createRescheduleLoan__reschedule"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -11415,12 +11443,16 @@
       "source": "src/app/savings/savings.service.ts",
       "line": 299,
       "area": "savings",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L299",
       "capabilities": [
         "post_createSavingsAccountTransactionBySavingsExternalId",
-        "post_handleCommandsSavingsAccountCharge"
+        "post_handleCommandsSavingsAccountCharge",
+        "post_handleCommandsSavingsAccountCharge__pay",
+        "post_handleCommandsSavingsAccountCharge__paycharge",
+        "post_handleCommandsSavingsAccountCharge__waive",
+        "post_handleCommandsSavingsAccountCharge__inactivate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -13503,11 +13535,13 @@
       "source": "src/app/tasks/tasks.service.ts",
       "line": 102,
       "area": "tasks",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/tasks/tasks.service.ts#L102",
       "capabilities": [
-        "get_retrieveAllRescheduleLoans"
+        "get_retrieveAllRescheduleLoans",
+        "get_retrieveAllRescheduleLoans__list",
+        "get_retrieveAllRescheduleLoans__pending"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."

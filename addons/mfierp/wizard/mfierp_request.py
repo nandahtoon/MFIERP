@@ -99,6 +99,14 @@ class MfierpRequest(models.TransientModel):
                     vals["integer_value"] = self.target_id.remote_id
                 elif kind == "string":
                     vals["text_value"] = str(self.target_id.remote_id)
+        if self.target_id:
+            from ..services.operations import RESOURCES
+            spec = workspace.specification(self.capability_id.key)
+            if spec.get("context_resource") == RESOURCES[self.target_id.kind][0] and spec.get("context_fields", {}).get(key) == location:
+                if kind == "integer":
+                    vals.update(included=True, integer_value=self.target_id.remote_id)
+                elif kind == "string":
+                    vals.update(included=True, text_value=str(self.target_id.remote_id))
         node = self.env["mfierp.input"].sudo().create(vals)
         if kind == "object":
             for name, child in schema.get("properties", {}).items():

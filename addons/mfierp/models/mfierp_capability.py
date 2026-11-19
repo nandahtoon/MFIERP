@@ -15,6 +15,7 @@ class MfierpCapability(models.Model):
     category = fields.Char(readonly=True, index=True)
     method = fields.Char(readonly=True, index=True)
     resource = fields.Char(readonly=True, index=True)
+    context_resource = fields.Char(readonly=True, index=True)
     description = fields.Text(readonly=True)
     executable = fields.Boolean(readonly=True, index=True)
     blocked_reason = fields.Char(readonly=True)
@@ -45,6 +46,7 @@ class MfierpCapability(models.Model):
         for key, spec in workspace.capabilities().items():
             vals = {"key": key, "name": spec["name"][:250], "category": spec["category"], "method": spec["method"],
                 "resource": spec["path"].removeprefix("/" + spec.get("api_version", "v1") + "/").split("/")[0], "description": spec["description"],
+                "context_resource": spec.get("context_resource"),
                 "executable": not bool(spec["blocked"]), "blocked_reason": spec["blocked"],
                 "admin_only": spec["admin_only"], "source_version": version}
             record = self.sudo().search([("key", "=", key)], limit=1)

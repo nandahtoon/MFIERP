@@ -115,6 +115,14 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
             raise ValueError(f"{label}: expected an integer.")
         if value < schema.get("minimum", -math.inf) or value > schema.get("maximum", math.inf):
             raise ValueError(f"{label}: number is outside the contract range.")
+        for bound, inclusive, comparison in [("exclusiveMinimum", "minimum", lambda left, right: left <= right),
+                ("exclusiveMaximum", "maximum", lambda left, right: left >= right)]:
+            constraint = schema.get(bound)
+            if isinstance(constraint, bool):
+                if constraint and inclusive in schema and comparison(value, schema[inclusive]):
+                    raise ValueError(f"{label}: number is outside the exclusive bounds.")
+            elif constraint is not None and comparison(value, constraint):
+                raise ValueError(f"{label}: number is outside the exclusive bounds.")
     elif kind == "boolean":
         if not isinstance(value, bool):
             raise ValueError(f"{label}: expected true or false.")

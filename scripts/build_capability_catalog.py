@@ -142,6 +142,12 @@ def compile_catalog(spec):
         blocked=inspect(journal["body"]) if journal["body"] else "Missing journal schema.",
         source_service="https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts")
     capabilities.append(journal)
+    reschedules = deepcopy(next(c for c in capabilities if c["method"] == "GET" and c["path"] == "/v1/rescheduleloans"))
+    reschedules.update(key=reschedules["key"] + "__list", name="Loan rescheduling: list requests",
+        parameters=[p for p in reschedules["parameters"] if p["name"] != "command"], blocked="",
+        context_resource="loans", context_fields={"loanId": "query"},
+        source_service="https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L480")
+    capabilities.append(reschedules)
     capabilities.extend(command_variants(capabilities))
     keys = [item["key"] for item in capabilities]
     if len(set(keys)) != len(keys):

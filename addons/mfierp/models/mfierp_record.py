@@ -179,7 +179,7 @@ class MfierpRecord(models.Model):
         self.check_access("read")
         return {"type": "ir.actions.act_window", "name": _("Related Fineract Workflows"),
             "res_model": "mfierp.capability", "view_mode": "list,form",
-            "domain": [("resource", "=", RESOURCES[self.kind][0])],
+            "domain": ["|", ("resource", "=", RESOURCES[self.kind][0]), ("context_resource", "=", RESOURCES[self.kind][0])],
             "context": {"default_backend_id": self.backend_id.id, "default_target_id": self.id,
                 "default_company_id": self.company_id.id}}
 

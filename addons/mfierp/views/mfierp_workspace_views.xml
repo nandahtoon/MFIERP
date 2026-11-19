@@ -88,5 +88,17 @@
         <field name="name">Extended Mifos X Workflows</field><field name="res_model">mfierp.capability</field>
         <field name="view_mode">list,form</field><field name="context">{'search_default_group_category': 1}</field>
     </record>
+    <record id="mfierp_reschedule_action" model="ir.actions.act_window">
+        <field name="name">Loan Rescheduling Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resource', '=', 'rescheduleloans'), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_provisioning_action" model="ir.actions.act_window">
+        <field name="name">Provisioning Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resource', 'in', ['provisioningentries', 'provisioningcriteria']), ('executable', '=', True)]</field>
+    </record>
+    <menuitem id="mfierp_menu_rescheduling" name="Loan Rescheduling" parent="mfierp_menu_operations" action="mfierp_reschedule_action" sequence="15"/>
+    <menuitem id="mfierp_menu_provisioning" name="Provisioning Workflows" parent="mfierp_menu_accounting" action="mfierp_provisioning_action" groups="mfierp.group_manager" sequence="23"/>
     <menuitem id="mfierp_menu_workspace" name="Extended Workflows" parent="mfierp_menu_root" action="mfierp_capability_action" sequence="35"/>
 </odoo>
