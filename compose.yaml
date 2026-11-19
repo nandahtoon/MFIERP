@@ -27,6 +27,7 @@ services:
       PASSWORD: ${MFIERP_DB_PASSWORD:?Set MFIERP_DB_PASSWORD in .env}
       MFIERP_DEFAULT_USERNAME: ${MFIERP_DEFAULT_USERNAME:-}
       MFIERP_DEFAULT_PASSWORD: ${MFIERP_DEFAULT_PASSWORD:-}
+      MFIERP_SECRET_BINDING_KEY: ${MFIERP_SECRET_BINDING_KEY:-}
       REQUESTS_CA_BUNDLE: ${REQUESTS_CA_BUNDLE:-/etc/ssl/certs/ca-certificates.crt}
     command: [odoo, --database=mfierp, --db-filter=^mfierp$, --no-database-list]
     volumes:

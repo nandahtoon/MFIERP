@@ -14,3 +14,11 @@ operation_company,Operation company boundary,mfierp.operation,,crud,"[('company_
 reconcile_manager,Reconciliation form,mfierp.reconcile,mfierp.group_manager,crud,
 report_reader,Report form,mfierp.report,mfierp.group_reader,crud,
 report_company,Report company boundary,mfierp.report,,crud,"[('company_id', 'in', company_ids)]"
+capability_reader,Source workflow contracts,mfierp.capability,mfierp.group_reader,r,
+request_reader,Native workflow form,mfierp.request,mfierp.group_reader,crud,
+request_company,Native workflow company and owner boundary,mfierp.request,,crud,"[('company_id', 'in', company_ids), ('create_uid', '=', user.id)]"
+input_reader,Typed workflow fields,mfierp.input,mfierp.group_reader,crud,
+input_company,Typed workflow field company and owner boundary,mfierp.input,,crud,"[('company_id', 'in', company_ids), ('create_uid', '=', user.id)]"
+upload_maker,Review submitted uploads,mfierp.upload,mfierp.group_operator,r,
+upload_checker,Review approved uploads,mfierp.upload,mfierp.group_checker,r,
+upload_company,Upload company boundary,mfierp.upload,,crud,"[('company_id', 'in', company_ids)]"

@@ -1,6 +1,14 @@
 # Functional coverage
 
-This release provides a native Odoo operational integration with 21 reviewed write operations. It does **not** reproduce every screen in the much larger Mifos X application. The boundaries below are part of the release contract.
+The original focused workspace provides 21 reviewed write operations. Version 20.0.2.0.0 adds the extended typed workspace described below. It does **not** establish full Mifos X feature parity. The table documents the focused screens; “remain upstream” means those dedicated screen workflows have not yet been verified, even where an underlying API form is now available.
+
+## Extended workspace
+
+Open **Extended Workflows**, choose an available contract and connection, load fields, then open Details to edit nested sections or add typed collection rows. Reads return an escaped table/structured preview or a bounded authenticated file download. Writes create an immutable command for a different checker; administrator operations require an independent administrator. “More Workflows” on a portfolio record carries its connection and target into compatible forms.
+
+The pinned catalog contains 966 API operations plus 63 fixed source-reviewed command variants and one constrained application contract, yielding 878 typed forms and 152 visible blocked contracts. Forms span documents, identifiers, addresses, household, collateral, charges, transfers, deposits, shares, products, organization, accounting, reports and administration. This is contract-level access, not a claim that each Mifos screen or tenant-specific business flow has passed acceptance. See the [parity evidence and remaining work](parity/README.md).
+
+Files are copied into protected command storage with SHA-256 review evidence; bytes never appear in JSON audit payloads. Finalized file content is purged after seven days; pending and uncertain content is retained. Deployment secret references are bound by HMAC to the reviewed value; changed secrets cause dispatch validation to fail. Product/configuration and ledger administration forms require the manager role. Revoked or archived participants and inactive connections cannot dispatch previously approved work.
 
 | Mifos X area | Native Odoo behavior | Boundary |
 | --- | --- | --- |

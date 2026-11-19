@@ -10,6 +10,8 @@ Native Odoo 20 Community screens for Mifos X operations, backed by Apache Finera
 - Account balances, remote repayment schedules, transaction history and charges; native table report execution.
 - Separate makers/checkers, immutable payload hashes, durable dispatch reservation, idempotency keys and manual reconciliation of unknown outcomes.
 - Odoo 20 `ir.access` security, multi-company isolation, bounded synchronization, service tests and Odoo workflow/security tests.
+- Extended native workspace compiled from 966 deployed Fineract API operations, with 63 separately reviewed Mifos command variants: 878 typed contracts and 152 explicitly blocked contracts.
+- Nested typed forms and repeated rows, protected document uploads/downloads, administrator-only configuration and deployment-secret references. All writes enter independent approval and the existing dispatch audit.
 
 ## Get started
 
@@ -27,6 +29,6 @@ See [deployment instructions](docs/DEPLOYMENT.md). The local developer app uses 
 | [Oracle staging](docs/ORACLE-STAGING.md) | Discovered hosting, runtime provenance and credential boundary |
 | [Agent conventions](AGENTS.md) | Rules for future coding work |
 
-The target is Odoo 20; Odoo 19 requires a separate security backport. This release is an operational integration, not complete Mifos X feature parity. Advanced deposits, shares, KYC uploads, group lending, product administration and other remaining workflows are listed in the coverage contract. Financial production acceptance requires verification against the intended Fineract version and tenant products.
+The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Financial production acceptance requires verification against the intended Fineract version and tenant products.
 
 The addon is licensed under LGPL-3.0-or-later. No upstream Angular or Java application code is vendored.

@@ -1,4 +1,10 @@
 <odoo noupdate="1">
+    <record id="cron_purge_uploads" model="ir.cron">
+        <field name="name">MFIERP: Expire Finalized Upload Content</field><field name="model_id" ref="model_mfierp_upload"/>
+        <field name="state">code</field><field name="code">model._cron_purge()</field>
+        <field name="interval_number">1</field><field name="interval_type">days</field>
+        <field name="user_id" ref="base.user_root"/><field name="active">True</field>
+    </record>
     <record id="cron_dispatch" model="ir.cron">
         <field name="name">MFIERP: Dispatch Approved Commands</field>
         <field name="model_id" ref="model_mfierp_command"/>

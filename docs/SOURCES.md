@@ -10,6 +10,8 @@ Reviewed on 2026-11-18. MFIERP is authoritative for integration decisions; upstr
 | [Mifos X Web App](https://github.com/openMF/web-app/tree/bc59713525c4a95ca21f2c9cf1e03f0f95a1771c) | `bc59713525c4a95ca21f2c9cf1e03f0f95a1771c` | Navigation taxonomy; clients, loans and savings service endpoint patterns; Angular UI is not copied |
 | [Apache Fineract](https://github.com/apache/fineract/tree/6a28754c6839fa64f5faf1873f9fcb52bc330fd9) | `6a28754c6839fa64f5faf1873f9fcb52bc330fd9` | Reports, journal, loan and savings REST contracts, command handling and financial authority |
 | [Fineract stable documentation](https://fineract.apache.org/docs/stable/) | Reports version 1.16.1 at review time | HTTPS, service authentication, command processing, idempotency and operational model |
+| [Owner's Mifos X frontend](https://github.com/nandahtoon/Mifosx-web-app/tree/34c7f278861ef25052f2e00d106d8527f5d270d3) | `34c7f278861ef25052f2e00d106d8527f5d270d3` | 720 literal HTTP calls, 180 action components, fixed command payloads and product accounting mappings; see parity inventory |
+| Oracle public OpenAPI | API 1.16.0-SNAPSHOT; canonicalized SHA-256 embedded in catalog | 602 paths, 966 HTTP operations and 1,491 schemas; transformed native contracts with Apache attribution |
 
 Additional framework references:
 
@@ -18,6 +20,8 @@ Additional framework references:
 - [Odoo 19 ORM](https://www.odoo.com/documentation/19.0/developer/reference/backend/orm.html), reviewed from the official documentation repository.
 
 No upstream Angular/Java application source is vendored. The addon is independently authored around the public Fineract API. Source reading is not a certification, full platform mastery or proof of complete feature parity. Runtime verification results are recorded separately in VALIDATION.md.
+
+Extended workspace research also used Odoo 20 `odoo/orm/fields_binary.py` (`BinaryValue`/`BinaryBytes`, rather than legacy base64 bytes), Fineract `fineract-core/.../api/DateParam.java` at the Apache revision above, and Python's standard-library HMAC API for constant-time secret-binding verification. The OpenAPI metadata is a licensed transformed artifact; Angular/Java implementation files remain an ignored local research cache.
 
 ## Owner's deployment and governance sources
 

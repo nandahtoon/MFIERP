@@ -2,3 +2,5 @@
 from . import mfierp_backend
 from . import mfierp_record
 from . import mfierp_command
+from . import mfierp_capability
+from . import mfierp_upload

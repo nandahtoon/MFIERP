@@ -2,12 +2,16 @@
 import hashlib
 import json
 import uuid
+import base64
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
+from odoo.tools import BinaryBytes
 
 from ..services.fineract import FineractError
 from ..services.operations import OPERATIONS, build_request
+from ..services import workspace
+from .mfierp_upload import upload_bytes
 
 
 class MfierpCommand(models.Model):
@@ -19,7 +23,9 @@ class MfierpCommand(models.Model):
     name = fields.Char(readonly=True, required=True)
     backend_id = fields.Many2one("mfierp.backend", string="Connection", required=True, readonly=True, ondelete="restrict", check_company=True)
     company_id = fields.Many2one(related="backend_id.company_id", store=True, index=True)
-    operation = fields.Selection([(key, item[0]) for key, item in OPERATIONS.items()], readonly=True, required=True)
+    operation = fields.Selection([(key, item[0]) for key, item in OPERATIONS.items()] + [("workspace", "Extended Fineract Workflow")], readonly=True, required=True)
+    capability_id = fields.Many2one("mfierp.capability", readonly=True, ondelete="restrict")
+    upload_ids = fields.One2many("mfierp.upload", "command_id", readonly=True)
     target_id = fields.Many2one("mfierp.record", readonly=True, ondelete="restrict", check_company=True)
     remote_target_id = fields.Integer(readonly=True)
     payload = fields.Json(readonly=True)
@@ -97,10 +103,84 @@ class MfierpCommand(models.Model):
         self.env.cr.execute("SELECT id FROM mfierp_command WHERE id = %s FOR UPDATE", [self.id])
         self.invalidate_recordset()
 
+    @api.model
+    def _enqueue_workspace(self, backend, capability, envelope, request=None):
+        spec = capability._assert_role()
+        if spec["method"] == "GET":
+            raise UserError(_("Read workflows do not create financial commands."))
+        backend.check_access("read")
+        if not backend.active or backend.company_id not in self.env.companies:
+            raise AccessError(_("Choose an active connection in an allowed company."))
+        try:
+            workspace.build_request(capability.key, envelope, allow_staged=True)
+        except (TypeError, ValueError) as exc:
+            raise UserError(str(exc)) from exc
+        envelope = json.loads(json.dumps(envelope))
+        uploads = self.env["mfierp.upload"]
+
+        def capture(marker, schema):
+            nonlocal uploads
+            if not request or marker["storage"] != "staged":
+                raise UserError(_("Uploads must originate in this workflow's protected form."))
+            request._assert_access()
+            if request.backend_id != backend or request.capability_id != capability:
+                raise UserError(_("Upload form does not match the reviewed operation."))
+            node = self.env["mfierp.input"].browse(marker["id"])
+            node.check_access("read")
+            if node.request_id != request or node.kind != "binary":
+                raise AccessError(_("Upload belongs to another workflow."))
+            raw = upload_bytes(node.binary_value)
+            if hashlib.sha256(raw).hexdigest() != marker["sha256"]:
+                raise UserError(_("Upload changed while the request was prepared."))
+            upload = self.env["mfierp.upload"].sudo().create({"name": marker["name"], "backend_id": backend.id,
+                "data": BinaryBytes(raw, filename=marker["name"]), "sha256": marker["sha256"]})
+            uploads |= upload
+            return {**marker, "storage": "command", "id": upload.id}
+
+        if spec["body"] is not None and envelope["body"] is not None:
+            envelope["body"] = workspace.map_uploads(envelope["body"], spec["body"], capture)
+        workspace.build_request(capability.key, envelope)
+        canonical = json.dumps(envelope, sort_keys=True, separators=(",", ":"))
+        command = self.sudo().create({"name": capability.name, "backend_id": backend.id, "capability_id": capability.id,
+            "operation": "workspace", "payload": envelope, "payload_digest": hashlib.sha256(canonical.encode()).hexdigest(),
+            "idempotency_key": str(uuid.uuid4()), "maker_id": self.env.uid})
+        uploads.sudo().write({"command_id": command.id})
+        return command
+
+    def _workspace_body(self, body):
+        spec = workspace.specification(self.capability_id.key)
+        multipart = spec.get("media_type") == "multipart/form-data"
+
+        def restore(marker, schema):
+            upload = self.env["mfierp.upload"].sudo().browse(marker["id"])
+            raw = upload._verified_bytes(self, marker)
+            return (marker["name"], raw, "application/octet-stream") if multipart else base64.b64encode(raw).decode("ascii")
+
+        if spec["body"] is not None and body is not None:
+            body = workspace.map_secrets(body, spec["body"])
+            body = workspace.map_uploads(body, spec["body"], restore)
+        if not multipart:
+            return body, None
+        if not isinstance(body, dict):
+            raise UserError(_("Multipart uploads require named form fields."))
+        files, values = [], {}
+        for name, value in body.items():
+            if isinstance(value, tuple):
+                files.append((name, value))
+            elif isinstance(value, list) and value and all(isinstance(item, tuple) for item in value):
+                files.extend((name, item) for item in value)
+            else:
+                values[name] = json.dumps(value) if isinstance(value, (dict, list, bool)) else str(value)
+        if not files:
+            raise UserError(_("Select the file required by this upload workflow."))
+        return values, files
+
     def action_approve(self):
         self._lock()
         if not self.env.user.has_group("mfierp.group_checker"):
             raise AccessError(_("An MFIERP checker role is required."))
+        if self.capability_id and self.capability_id.admin_only and not self.env.user.has_group("mfierp.group_manager"):
+            raise AccessError(_("An independent MFIERP administrator must review this administration workflow."))
         if self.maker_id == self.env.user:
             raise UserError(_("A different person must approve this command."))
         if self.state != "pending":
@@ -123,17 +203,40 @@ class MfierpCommand(models.Model):
             raise UserError(_("Command was not reserved for dispatch."))
         digest = hashlib.sha256(json.dumps(self.payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         if digest != self.payload_digest or not self.checker_id or self.checker_id == self.maker_id:
-            self.write({"state": "failed", "status_message": _("Command integrity or approval check failed.")})
+            self.write({"state": "failed", "completed_at": fields.Datetime.now(), "status_message": _("Command integrity or approval check failed.")})
             return
         try:
-            path, params = build_request(self.operation, self.remote_target_id, self.payload)
+            maker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_operator"
+            checker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_checker"
+            for user, group in [(self.maker_id, maker_group), (self.checker_id, checker_group)]:
+                if not user.active or self.company_id not in user.company_ids or not user.has_group(group):
+                    raise AccessError(_("Command participants no longer have the required role or company access."))
+            if self.operation == "workspace":
+                if not self.capability_id:
+                    raise ValueError("Workflow contract is missing.")
+                method, path, params, body = workspace.build_request(self.capability_id.key, self.payload)
+                if method == "GET":
+                    raise ValueError("A command cannot dispatch a read workflow.")
+            else:
+                method = "POST"
+                path, params = build_request(self.operation, self.remote_target_id, self.payload)
+                body = self.payload
             backend = self.backend_id.sudo()
-            if backend.environment == "production" or not backend.mutation_enabled:
+            if not backend.active or backend.environment == "production" or not backend.mutation_enabled:
                 raise UserError(_("Financial dispatch is disabled for this connection."))
             client = backend._client()
             backend._verify_runtime(client)
-            result = client.request("POST", path, params=params,
-                payload=self.payload, idempotency_key=self.idempotency_key)
+            files = None
+            if self.operation == "workspace":
+                body, files = self._workspace_body(body)
+            result = client.request(method, path, params=params,
+                payload=body, idempotency_key=self.idempotency_key,
+                **({"allow_empty": True, "api_version": workspace.specification(self.capability_id.key).get("api_version", "v1"),
+                    **({"files": files} if files is not None else {})} if self.operation == "workspace" else {}))
+            if self.operation == "workspace" and (not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId"))):
+                self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
+                    "status_message": _("Fineract accepted the request. Re-read and reconcile the affected resource or job before confirming its outcome.")})
+                return
             if not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId")):
                 raise FineractError("Unrecognized command response; reconcile with Fineract.", uncertain=True)
             # A commandId without resourceId may mean Fineract's own maker checker queue.
@@ -142,9 +245,10 @@ class MfierpCommand(models.Model):
                 "result_command_id": result.get("commandId"), "completed_at": fields.Datetime.now(),
                 "status_message": _("Remote response recorded. Refresh the portfolio to verify current state.")})
         except FineractError as exc:
-            self.write({"state": "uncertain" if exc.uncertain else "failed", "status_message": str(exc)})
-        except (UserError, ValueError):
-            self.write({"state": "failed", "status_message": _("Connection configuration or command validation failed before dispatch.")})
+            self.write({"state": "uncertain" if exc.uncertain else "failed", "status_message": str(exc),
+                "completed_at": False if exc.uncertain else fields.Datetime.now()})
+        except (AccessError, UserError, ValueError):
+            self.write({"state": "failed", "completed_at": fields.Datetime.now(), "status_message": _("Connection configuration or command validation failed before dispatch.")})
 
     @api.model
     def _cron_dispatch(self):

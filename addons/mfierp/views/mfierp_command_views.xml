@@ -45,6 +45,9 @@
                     </group>
                     <notebook>
                         <page string="Payload for Review"><field name="payload_preview" class="font-monospace" nolabel="1"/></page>
+                        <page string="Files for Review" invisible="not upload_ids"><field name="upload_ids"><list create="false" edit="false" delete="false">
+                            <field name="name"/><field name="sha256"/><field name="data" filename="name"/><field name="purged_at"/>
+                        </list></field></page>
                         <page string="Audit References"><group><field name="idempotency_key"/><field name="payload_digest"/></group></page>
                     </notebook>
                 </sheet>

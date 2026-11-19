@@ -121,6 +121,36 @@ class TransportTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.client.request("GET", path)
 
+    @patch.object(fineract.requests, "request")
+    def test_multipart_upload_and_empty_delete_response(self, request):
+        response = MagicMock(status_code=204)
+        response.iter_content.return_value = []
+        request.return_value.__enter__.return_value = response
+        self.assertEqual(self.client.request("DELETE", "clients/1/identifiers/2", allow_empty=True), {})
+        files = [("file", ("synthetic.pdf", b"synthetic", "application/pdf"))]
+        self.client.request("POST", "clients/1/documents", payload={"name": "Synthetic"}, files=files, allow_empty=True)
+        self.assertEqual(request.call_args.kwargs["files"], files)
+        self.assertNotIn("json", request.call_args.kwargs)
+
+    @patch.object(fineract.requests, "request")
+    def test_bounded_binary_download_remains_authenticated(self, request):
+        response = MagicMock(status_code=200, headers={"Content-Type": "application/pdf"})
+        response.iter_content.return_value = [b"synthetic pdf"]
+        request.return_value.__enter__.return_value = response
+        result = self.client.request("GET", "clients/1/documents/2/attachment", binary=True)
+        self.assertEqual(result["data"], "c3ludGhldGljIHBkZg==")
+        self.assertEqual(request.call_args.kwargs["auth"], ("svc", "secret"))
+
+    @patch.object(fineract.requests, "request")
+    def test_v2_stays_on_the_configured_host_and_api_root(self, request):
+        response = MagicMock(status_code=200)
+        response.iter_content.return_value = [b'{"pageItems":[]}']
+        request.return_value.__enter__.return_value = response
+        self.client.request("GET", "groups", api_version="v2")
+        self.assertTrue(request.call_args.args[1].endswith("/fineract-provider/api/v2/groups"))
+        with self.assertRaises(ValueError):
+            self.client.request("GET", "groups", api_version="../other")
+
 
 if __name__ == "__main__":
     unittest.main()
