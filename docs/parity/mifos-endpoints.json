@@ -5,8 +5,8 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 654,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 38,
+    "TYPED_CONTRACT_CANDIDATE": 656,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 36,
     "NOT_IN_DEPLOYED_OPENAPI": 3,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
@@ -1321,7 +1321,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L225",
       "capabilities": [
-        "get_retrieveTemplateMeeting"
+        "get_retrieveTemplateMeeting",
+        "get_retrieveTemplateMeeting__templateCentersAttendance"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1337,7 +1338,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L230",
       "capabilities": [
-        "post_createMeeting"
+        "post_createMeeting",
+        "post_createMeeting__recordCentersAttendance"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -2745,11 +2747,13 @@
       "source": "src/app/collections/collections.service.ts",
       "line": 31,
       "area": "collections",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/collections.service.ts#L31",
       "capabilities": [
-        "post_generateCollectionSheet"
+        "post_generateCollectionSheet",
+        "post_generateCollectionSheet__generateCollectionSheet",
+        "post_generateCollectionSheet__saveCollectionSheet"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -2786,11 +2790,13 @@
       "source": "src/app/collections/collections.service.ts",
       "line": 45,
       "area": "collections",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/collections.service.ts#L45",
       "capabilities": [
-        "post_generateCollectionSheet"
+        "post_generateCollectionSheet",
+        "post_generateCollectionSheet__generateCollectionSheet",
+        "post_generateCollectionSheet__saveCollectionSheet"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3875,7 +3881,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L294",
       "capabilities": [
-        "get_retrieveTemplateMeeting"
+        "get_retrieveTemplateMeeting",
+        "get_retrieveTemplateMeeting__templateGroupsAttendance"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3891,7 +3898,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L305",
       "capabilities": [
-        "post_createMeeting"
+        "post_createMeeting",
+        "post_createMeeting__recordGroupsAttendance"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5443,7 +5451,9 @@
         "post_submitWorkingCapitalLoanApplication",
         "post_calculateOrSubmitLoanApplication__application",
         "post_createGLJournalEntry__create",
-        "post_createRescheduleLoan__reschedule"
+        "post_createRescheduleLoan__reschedule",
+        "post_generateCollectionSheet__generateCollectionSheet",
+        "post_generateCollectionSheet__saveCollectionSheet"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8465,7 +8475,9 @@
         "post_submitWorkingCapitalLoanApplication",
         "post_calculateOrSubmitLoanApplication__application",
         "post_createGLJournalEntry__create",
-        "post_createRescheduleLoan__reschedule"
+        "post_createRescheduleLoan__reschedule",
+        "post_generateCollectionSheet__generateCollectionSheet",
+        "post_generateCollectionSheet__saveCollectionSheet"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",

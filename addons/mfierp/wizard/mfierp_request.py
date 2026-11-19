@@ -82,6 +82,7 @@ class MfierpRequest(models.TransientModel):
         if kind not in dict(TYPES):
             raise UserError(_("This field requires a dedicated typed contract."))
         label = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", key).replace("_", " ").strip().capitalize()
+        label = schema.get("title", label)[:250]
         singleton = schema.get("enum", [])
         locked = key in {"dateFormat", "locale"} or len(singleton) == 1
         vals = {"request_id": self.id, "parent_id": parent.id if parent else False,

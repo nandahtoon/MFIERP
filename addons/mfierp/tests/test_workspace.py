@@ -14,6 +14,84 @@ from ..services.fineract import FineractError
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_collection_preview_is_projected_escaped_and_expires(self):
+        capability = self.variant("/v1/collectionsheet", "generateCollectionSheet")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "officeId").write({"integer_value": 1})
+        request.input_ids.filtered(lambda row: row.key == "transactionDate").write({"date_value": "2026-11-19"})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"clients": [{"clientName": "<script>synthetic</script>", "loans": [
+                {"loanId": 7, "totalDue": 12.5, "chargesDue": 0.75, "password": "not-retained"}]}]}
+            command._dispatch()
+        self.assertEqual(command.state, "done")
+        self.assertEqual(command.preview_data["rows"][0]["due"], 12.5)
+        self.assertEqual(command.preview_data["rows"][0]["charges"], 0.75)
+        self.assertNotIn("not-retained", str(command.preview_data))
+        self.assertNotIn("<script>", str(command.preview_html))
+        with self.assertRaises(AccessError):
+            command.with_user(self.reader).read(["preview_data"])
+        digest = command.preview_digest
+        command.write({"completed_at": fields.Datetime.subtract(fields.Datetime.now(), days=8)})
+        self.env["mfierp.command"]._cron_purge_previews()
+        self.assertFalse(command.preview_data)
+        self.assertTrue(command.preview_purged_at)
+        self.assertEqual(command.preview_digest, digest)
+
+    def test_collection_posting_waits_for_account_reconciliation(self):
+        capability = self.variant("/v1/collectionsheet", "saveCollectionSheet")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key in ["transactionDate", "actualDisbursementDate"]).write({"date_value": "2026-11-19"})
+        repayments = request.input_ids.filtered(lambda row: row.key == "bulkRepaymentTransactions")
+        repayments.action_add_item()
+        repayments.child_ids.child_ids.filtered(lambda row: row.key == "loanId").write({"integer_value": 7})
+        repayments.child_ids.child_ids.filtered(lambda row: row.key == "transactionAmount").write({"number_value": 12.5})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 99, "commandId": 77}
+            command._dispatch()
+            self.assertEqual(command.state, "remote_pending")
+            self.assertEqual(command.result_command_id, 77)
+            with self.assertRaises(UserError):
+                command._dispatch()
+            self.assertEqual(client.return_value.request.call_count, 1)
+
+    def test_malformed_references_after_sending_are_uncertain(self):
+        command = self._command()
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": "invalid-reference"}
+            command._dispatch()
+            self.assertEqual(command.state, "uncertain")
+            self.assertFalse(command.completed_at)
+
+    def test_attendance_uses_scoped_option_objects_and_requires_review(self):
+        group = self.env["mfierp.record"]._upsert(self.backend, "group", {"id": 8, "name": "Synthetic group"})
+        capability = self.variant("/v1/{entityType}/{entityId}/meetings", "recordGroupsAttendance")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": group.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "calendarId").write({"integer_value": 3})
+        request.input_ids.filtered(lambda row: row.key == "meetingDate").write({"date_value": "2026-11-19"})
+        attendance = request.input_ids.filtered(lambda row: row.key == "clientsAttendance")
+        attendance.action_add_item()
+        attendance.child_ids.child_ids.filtered(lambda row: row.key == "clientId").write({"integer_value": 7})
+        option = attendance.child_ids.child_ids.filtered(lambda row: row.key == "attendanceType")
+        option.child_ids.filtered(lambda row: row.key == "id").write({"integer_value": 1})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        self.assertEqual(command.state, "pending")
+        self.assertEqual(command.payload["body"]["clientsAttendance"], [{"clientId": 7, "attendanceType": {"id": 1}}])
+        self.assertNotIn("calenderId", command.payload["query"])
     def test_calendar_context_rejects_an_unrelated_entity_kind(self):
         capability = self.variant("/v1/{entityType}/{entityId}/calendars/{calendarId}", "editGroupsMeeting")
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,

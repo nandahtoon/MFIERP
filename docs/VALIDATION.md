@@ -4,11 +4,11 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory tests | 41 passed |
+| Python service/workspace/inventory tests | 45 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
 | Clean Odoo 20 install and post-install ORM/workflow tests | Passed GitHub standard-image CI, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 38 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 42 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -41,3 +41,5 @@ Four inventory regressions verify that named routes cannot be counted as numeric
 Version 20.0.4.0.0 service regressions check separate deposit collection/transaction-ID routes, rejection of undefined/zero/extra IDs, omission of source-removed fields, fixed-zero reversals and GET-only transaction templates. ORM regressions cover fractional deposit submission, independent approval, timeout non-replay, immutable reversal constants, reader template access and stale-form rejection before network access. Previous release head dbaa44b passed standard-image CI (run 44534026663); current commit verification is recorded in PR checks.
 
 Version 20.0.5.0.0 adds source-contract tests for unique membership/transfer collections, weekly conditional fields, fixed entity types and separation of date rescheduling from recurrence changes. ORM tests exercise native array rows through independent review and POST dispatch, contextual IDs through PUT calendar dispatch, reader calendar access and rejection of unrelated entity kinds. The previous release passed standard-image CI at 564ad6c (run 44538450544); current exact-head checks are recorded on the PR.
+
+Version 20.0.6.0.0 adds regressions for collection projection/bounds, non-empty unique payment collections, matching dates, published attendance option objects, preview escaping and role boundaries, preview expiry with retained hashes, post-response reconciliation, and malformed-reference uncertainty after sending. All 42 local Odoo tests passed; service/inventory tests passed 45 cases. Preview due/charges remain separate remote values in assertions. No live financial operation was performed.

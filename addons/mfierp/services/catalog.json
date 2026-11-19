@@ -39350,6 +39350,678 @@
       "source_operation": "retrieveTemplateCenter",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
       "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts"
+    },
+    {
+      "key": "post_createMeeting__recordGroupsAttendance",
+      "name": "Groups: record attendance",
+      "category": "Meetings",
+      "method": "POST",
+      "path": "/v1/{entityType}/{entityId}/meetings",
+      "api_version": "v1",
+      "description": "Source-reviewed recordGroupsAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "calendarId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "meetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "clientsAttendance": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "clientId",
+            "items": {
+              "type": "object",
+              "required": [
+                "clientId",
+                "attendanceType"
+              ],
+              "properties": {
+                "clientId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "attendanceType": {
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "calendarId",
+          "meetingDate",
+          "clientsAttendance"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "createMeeting",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-attendance/group-attendance.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateMeeting__templateGroupsAttendance",
+      "name": "Groups: template attendance",
+      "category": "Meetings",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/meetings/template",
+      "api_version": "v1",
+      "description": "Source-reviewed templateGroupsAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "in": "query",
+          "name": "calendarId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateMeeting",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-attendance/group-attendance.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "get_retrieveAllMeetings__listGroupsAttendance",
+      "name": "Groups: list attendance",
+      "category": "Meetings",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/meetings",
+      "api_version": "v1",
+      "description": "Source-reviewed listGroupsAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveAllMeetings",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-attendance/group-attendance.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "post_createMeeting__recordCentersAttendance",
+      "name": "Centers: record attendance",
+      "category": "Meetings",
+      "method": "POST",
+      "path": "/v1/{entityType}/{entityId}/meetings",
+      "api_version": "v1",
+      "description": "Source-reviewed recordCentersAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "calendarId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "meetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "clientsAttendance": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "clientId",
+            "items": {
+              "type": "object",
+              "required": [
+                "clientId",
+                "attendanceType"
+              ],
+              "properties": {
+                "clientId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "attendanceType": {
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "calendarId",
+          "meetingDate",
+          "clientsAttendance"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "createMeeting",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/center-attendance/center-attendance.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateMeeting__templateCentersAttendance",
+      "name": "Centers: template attendance",
+      "category": "Meetings",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/meetings/template",
+      "api_version": "v1",
+      "description": "Source-reviewed templateCentersAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "in": "query",
+          "name": "calendarId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateMeeting",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/center-attendance/center-attendance.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "get_retrieveAllMeetings__listCentersAttendance",
+      "name": "Centers: list attendance",
+      "category": "Meetings",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/meetings",
+      "api_version": "v1",
+      "description": "Source-reviewed listCentersAttendance workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveAllMeetings",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/center-attendance/center-attendance.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+    },
+    {
+      "key": "post_generateCollectionSheet__generateCollectionSheet",
+      "name": "Individual collection sheets: generateCollectionSheet",
+      "category": "Collection Sheet",
+      "method": "POST",
+      "path": "/v1/collectionsheet",
+      "api_version": "v1",
+      "description": "Source-reviewed generateCollectionSheet command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "generateCollectionSheet"
+            ],
+            "default": "generateCollectionSheet"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "officeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "staffId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "officeId",
+          "transactionDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "generateCollectionSheet",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/individual-collection-sheet/individual-collection-sheet.component.ts",
+      "response_mode": "collection_preview",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/collectionsheet/api/CollectionSheetApiResource.java"
+    },
+    {
+      "key": "post_generateCollectionSheet__saveCollectionSheet",
+      "name": "Individual collection sheets: saveCollectionSheet",
+      "category": "Collection Sheet",
+      "method": "POST",
+      "path": "/v1/collectionsheet",
+      "api_version": "v1",
+      "description": "Source-reviewed saveCollectionSheet command. Fineract validates eligibility, amounts and state transitions. Enter independently reviewed amounts; Odoo does not calculate totals. One row per account. Savings deposit types 100 and 300 only. Reconcile every affected account after posting.",
+      "parameters": [
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "saveCollectionSheet"
+            ],
+            "default": "saveCollectionSheet"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "actualDisbursementDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "bulkDisbursementTransactions": {
+            "type": "object",
+            "title": "Repayments and savings dues",
+            "properties": {
+              "bulkRepaymentTransactions": {
+                "type": "array",
+                "title": "Loan repayments",
+                "minItems": 1,
+                "maxItems": 100,
+                "x-mfierp-unique-by": "loanId",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "paymentTypeId": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "accountNumber": {
+                      "type": "string"
+                    },
+                    "checkNumber": {
+                      "type": "string"
+                    },
+                    "routingCode": {
+                      "type": "string"
+                    },
+                    "receiptNumber": {
+                      "type": "string"
+                    },
+                    "bankNumber": {
+                      "type": "string"
+                    },
+                    "loanId": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "transactionAmount": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMinimum": true
+                    }
+                  },
+                  "required": [
+                    "loanId",
+                    "transactionAmount"
+                  ]
+                }
+              },
+              "bulkSavingsDueTransactions": {
+                "type": "array",
+                "title": "Savings dues",
+                "minItems": 1,
+                "maxItems": 100,
+                "x-mfierp-unique-by": "savingsId",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "paymentTypeId": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "accountNumber": {
+                      "type": "string"
+                    },
+                    "checkNumber": {
+                      "type": "string"
+                    },
+                    "routingCode": {
+                      "type": "string"
+                    },
+                    "receiptNumber": {
+                      "type": "string"
+                    },
+                    "bankNumber": {
+                      "type": "string"
+                    },
+                    "savingsId": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "transactionAmount": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMinimum": true
+                    },
+                    "depositAccountType": {
+                      "type": "integer",
+                      "enum": [
+                        100,
+                        300
+                      ]
+                    }
+                  },
+                  "required": [
+                    "savingsId",
+                    "transactionAmount",
+                    "depositAccountType"
+                  ]
+                }
+              }
+            },
+            "x-mfierp-nonempty-any": [
+              "bulkRepaymentTransactions",
+              "bulkSavingsDueTransactions"
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "actualDisbursementDate",
+          "bulkDisbursementTransactions"
+        ],
+        "x-mfierp-equal-fields": [
+          [
+            "transactionDate",
+            "actualDisbursementDate"
+          ]
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "generateCollectionSheet",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/individual-collection-sheet/individual-collection-sheet.component.ts",
+      "require_reconciliation": true
     }
   ],
   "schemas": {

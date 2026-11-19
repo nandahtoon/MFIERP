@@ -110,9 +110,14 @@
         <field name="domain">[('executable', '=', True), '|', ('resource', 'in', ['groups', 'centers']), ('context_resource', 'in', ['groups', 'centers'])]</field>
         <field name="context">{'search_default_group_category': 1}</field>
     </record>
+    <record id="mfierp_collection_sheet_action" model="ir.actions.act_window">
+        <field name="name">Individual Collection Sheets</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', '=', 'collectionsheet'), ('executable', '=', True)]</field>
+    </record>
     <menuitem id="mfierp_menu_rescheduling" name="Loan Rescheduling" parent="mfierp_menu_operations" action="mfierp_reschedule_action" sequence="15"/>
     <menuitem id="mfierp_menu_provisioning" name="Provisioning Workflows" parent="mfierp_menu_accounting" action="mfierp_provisioning_action" groups="mfierp.group_manager" sequence="23"/>
     <menuitem id="mfierp_menu_deposits" name="Deposit Workflows" parent="mfierp_menu_portfolio" action="mfierp_deposit_action" sequence="19"/>
     <menuitem id="mfierp_menu_group_center_workflows" name="Group and Center Workflows" parent="mfierp_menu_portfolio" action="mfierp_group_center_workflow_action" sequence="20"/>
+    <menuitem id="mfierp_menu_collection_sheets" name="Individual Collection Sheets" parent="mfierp_menu_operations" action="mfierp_collection_sheet_action" groups="mfierp.group_operator,mfierp.group_checker" sequence="16"/>
     <menuitem id="mfierp_menu_workspace" name="Extended Workflows" parent="mfierp_menu_root" action="mfierp_capability_action" sequence="35"/>
 </odoo>

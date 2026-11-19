@@ -1,6 +1,6 @@
 # Mifos X parity evidence
 
-The extended workspace contains **1,079 contracts**: 966 HTTP operations from the Oracle-hosted public Fineract OpenAPI definition, plus 100 separately source-reviewed command variants and 13 reviewed forms without a command parameter. **927 have typed forms; 152 remain blocked**. A form's availability is not proof of operator workflow parity, API correctness in every tenant configuration, or live acceptance.
+The extended workspace contains **1,087 contracts**: 966 HTTP operations from the Oracle-hosted public Fineract OpenAPI definition, plus 102 separately source-reviewed command variants and 19 reviewed forms without a command parameter. **935 have typed forms; 152 remain blocked**. A form's availability is not proof of operator workflow parity, API correctness in every tenant configuration, or live acceptance.
 
 The public API snapshot identifies Fineract 1.16.0-SNAPSHOT. Its canonicalized SHA-256 and component schemas are embedded in `addons/mfierp/services/catalog.json`. No host address, service credential or business observations are included. Apache metadata attribution and license accompany the catalog.
 
@@ -10,8 +10,8 @@ The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP
 
 | Inventory status | Calls | Meaning |
 | --- | ---: | --- |
-| TYPED_CONTRACT_CANDIDATE | 654 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
-| CONTRACT_REQUIRES_SOURCE_WORK | 38 | Matching API metadata exists but no usable typed candidate |
+| TYPED_CONTRACT_CANDIDATE | 656 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
+| CONTRACT_REQUIRES_SOURCE_WORK | 36 | Matching API metadata exists but no usable typed candidate |
 | DYNAMIC_RESOURCE_REQUIRES_REVIEW | 25 | Resource itself is computed by the frontend; matching route templates alone are insufficient |
 | NOT_IN_DEPLOYED_OPENAPI | 3 | No compatible published operation; investigate service ownership and deployment |
 
@@ -19,7 +19,7 @@ The inventory is intentionally conservative about verification: every `operator_
 
 ## Separately reviewed variants
 
-`scripts/command_contracts.py` declares 100 fixed commands, reviewed against the pinned component `submit()` implementations. The compiled entries include their source links. They cover client activation/reactivation/closure/rejection/withdrawal/staff assignment/savings linkage/transfers; loan approval/rejection/withdrawal/disbursement to savings/officer assignment/reversals/closure/waiver/recovery/charge-off; savings lifecycle/officer changes; fixed and recurring deposit approval/rejection/withdrawal/closure; savings holds/blocking/as-of interest; group and center activation/closure; group staff assignment; shares activation/approval/rejection/closure/purchase/redemption/reversal; manager-only role enable/disable, survey activation/deactivation and job execution without custom parameters; loan reschedule submission/approval/rejection/pending reads; charge payment/waiver/inactivation; and provisioning journal generation/recreation.
+`scripts/command_contracts.py` declares 102 fixed commands, reviewed against the pinned component `submit()` implementations. The compiled entries include their source links. They cover client activation/reactivation/closure/rejection/withdrawal/staff assignment/savings linkage/transfers; loan approval/rejection/withdrawal/disbursement to savings/officer assignment/reversals/closure/waiver/recovery/charge-off; savings lifecycle/officer changes; fixed and recurring deposit approval/rejection/withdrawal/closure; savings holds/blocking/as-of interest; group and center activation/closure; group staff assignment; shares activation/approval/rejection/closure/purchase/redemption/reversal; manager-only role enable/disable, survey activation/deactivation and job execution without custom parameters; loan reschedule submission/approval/rejection/pending reads; charge payment/waiver/inactivation; and provisioning journal generation/recreation.
 
 Each variant exposes exactly one command value. The unresolved parent operation remains visible as a gap; no generic command textbox can bypass it. Loan-product fee/penalty accounting mappings are narrowed to source-confirmed charge/account IDs, avoiding recursive response projections. Java DateParam and MIME wrapper schemas are normalized to their actual wire types. Six v2 operations use the same configured host and tenant with a fixed version selector. Manual Fineract journal creation uses its typed default POST contract without a free-form command. A separate loan application contract permits declared borrower/product fields and explicitly excludes tenant-defined datatables; its unresolved generic parent remains blocked.
 
@@ -70,3 +70,13 @@ Ten additional non-command forms cover scoped group/center calendar reads, repea
 Mifos source references at the pinned revision: manage-group-members.component.ts, manage-groups.component.ts, group-transfer-clients.component.ts and its HTML option values, attach/edit group/center meeting components and the meeting-schedule components. Apache GroupsApiResource.java corroborates group transfer behavior; CalendarsApiResource.java corroborates scoped calendar routes. These classes were reviewed at the Apache revision recorded above. No recurrence or repayment calculations were copied into Odoo.
 
 Validation also checks that a workflow bound to a group cannot carry a loan/center record as its context. All membership and calendar writes retain independent approval, immutable payloads, runtime provenance checks and non-replay of unknown outcomes.
+
+## Attendance and individual collections in 20.0.6.0.0
+
+Six scoped attendance forms expose group/center templates, meeting lists and attendance submission. The pinned frontend sends scalar attendance types, while published metadata and the reviewed Java MeetingCreateRequest/MeetingAttendanceData DTOs require an EnumOptionData object. MFIERP follows the published object shape (required id, optional code/value) and rejects duplicate client IDs. The frontend calenderId query typo is omitted; the authoritative calendarId field is sent in the body or declared query. Authenticated acceptance of this normalization is still required.
+
+Individual collection generation is a POST-based read in the reviewed CollectionSheetApiResource. It remains independently approved and uses the same dispatch gates. Its bounded projection contains up to 200 clients/500 account rows, remote due and charge amounts, product/client labels and payment type options. No totals or rounding from the frontend are copied. Extra response fields are discarded and HTML is escaped. Preview data is eligible for purge after seven days in bounded daily batches, retaining its digest and audit references.
+
+Collection posting is a separate immutable command. Only explicit positive loan repayments and savings/recurring dues (100/300) are supported. Empty collections, duplicate account IDs and mismatched transaction/disbursement dates are rejected. Even successful responses with IDs remain pending verification until every affected account/transaction is reconciled. There is no automatic preview-to-post chain or uncertain-result retry. Joint-liability collection sheets and bulk disbursements remain separate work.
+
+Malformed references or response-processing errors after network dispatch now become uncertain rather than pre-send failures. This preserves the sending barrier and avoids treating a possibly applied request as safe to repeat.

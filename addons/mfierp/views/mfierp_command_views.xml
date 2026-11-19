@@ -44,6 +44,7 @@
                         <field name="resolution_note" invisible="not resolution_note"/>
                     </group>
                     <notebook>
+                        <page string="Collection Preview" invisible="not preview_digest"><field name="preview_html"/><group><field name="preview_digest"/><field name="preview_purged_at"/></group></page>
                         <page string="Payload for Review"><field name="payload_preview" class="font-monospace" nolabel="1"/></page>
                         <page string="Files for Review" invisible="not upload_ids"><field name="upload_ids"><list create="false" edit="false" delete="false">
                             <field name="name"/><field name="sha256"/><field name="data" filename="name"/><field name="purged_at"/>

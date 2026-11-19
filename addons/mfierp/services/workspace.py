@@ -37,6 +37,13 @@ def contract_digest(key):
     return hashlib.sha256((catalog_fingerprint() + ":" + key).encode()).hexdigest()
 
 
+def command_references(result):
+    values = [result.get(key) for key in ["resourceId", "commandId"]] if isinstance(result, dict) else [None, None]
+    if any(value is not None and (isinstance(value, bool) or not isinstance(value, int) or value < 1) for value in values):
+        raise ValueError("Invalid Fineract command references; reconcile the request.")
+    return values
+
+
 def resolve(schema):
     seen = set()
     overrides = {}
@@ -100,6 +107,11 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
         for rule in schema.get("x-mfierp-required-when", []):
             if rule["field"] in value and value[rule["field"]] == rule["equals"] and set(rule["required"]) - value.keys():
                 raise ValueError(f"{label}: conditional fields are missing: {', '.join(rule['required'])}.")
+        if schema.get("x-mfierp-nonempty-any") and not any(value.get(key) for key in schema["x-mfierp-nonempty-any"]):
+            raise ValueError(f"{label}: include at least one transaction collection.")
+        for left, right in schema.get("x-mfierp-equal-fields", []):
+            if left in value and right in value and value[left] != value[right]:
+                raise ValueError(f"{label}: {left} and {right} must match.")
         for key, child in value.items():
             if props[key].get("readOnly"):
                 raise ValueError(f"{label}: response-only field is prohibited.")
@@ -113,6 +125,10 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
             raise ValueError(f"{label}: duplicate list items are prohibited.")
         for item in value:
             validate(item, schema.get("items", {}), label, depth + 1, allow_staged)
+        if schema.get("x-mfierp-unique-by"):
+            identities = [item.get(schema["x-mfierp-unique-by"]) for item in value if isinstance(item, dict)]
+            if len(identities) != len(set(identities)):
+                raise ValueError(f"{label}: duplicate account or client IDs are prohibited.")
     elif kind in {"number", "integer"}:
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
             raise ValueError(f"{label}: expected a finite number.")

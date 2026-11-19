@@ -310,4 +310,49 @@ def command_variants(capabilities):
         for param in entry["parameters"]:
             if param["in"] == "path" and param["schema"].get("type") == "integer":
                 param["schema"]["minimum"] = 1
+    for resource in ["groups", "centers"]:
+        singular = "group" if resource == "groups" else "center"
+        form = f"{resource}/{resource}-view/{singular}-actions/{singular}-attendance/{singular}-attendance.component.ts"
+        for method, path, suffix in [
+            ("POST", "/v1/{entityType}/{entityId}/meetings", "record"),
+            ("GET", "/v1/{entityType}/{entityId}/meetings/template", "template"),
+            ("GET", "/v1/{entityType}/{entityId}/meetings", "list"),
+        ]:
+            attendance = {"type": "array", "minItems": 1, "maxItems": 100, "x-mfierp-unique-by": "clientId",
+                "items": {"type": "object", "required": ["clientId", "attendanceType"], "properties": {
+                    "clientId": {"type": "integer", "minimum": 1}, "attendanceType": {"type": "object", "required": ["id"],
+                        "properties": {"id": {"type": "integer", "minimum": 1}, "code": {"type": "string"}, "value": {"type": "string"}}}}}}
+            entry = add(path, None, resource.capitalize() + " attendance", form,
+                {"calendarId": "integer", "meetingDate": "string", "clientsAttendance": attendance} if method == "POST" else {},
+                ["calendarId", "meetingDate", "clientsAttendance"] if method == "POST" else [],
+                method=method, fixed_path={"entityType": resource}, dates=method == "POST", suffix=suffix + resource.capitalize() + "Attendance")
+            entry.update(context_resource=resource, context_fields={"entityId": "path"})
+            entry["source_backend"] = "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/meeting/api/MeetingsApiResource.java"
+            entry["name"] = resource.capitalize() + ": " + suffix + " attendance"
+            if method == "GET":
+                entry.update(body=None, body_required=False)
+    source = "collections/individual-collection-sheet/individual-collection-sheet.component.ts"
+    entry = add("/v1/collectionsheet", "generateCollectionSheet", "Individual collection sheets", source,
+        {"officeId": "integer", "staffId": "integer", "transactionDate": "string"}, ["officeId", "transactionDate"])
+    entry["response_mode"] = "collection_preview"
+    entry["source_backend"] = "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/collectionsheet/api/CollectionSheetApiResource.java"
+    payment = {"paymentTypeId": {"type": "integer", "minimum": 1}, **{
+        key: {"type": "string"} for key in ["accountNumber", "checkNumber", "routingCode", "receiptNumber", "bankNumber"]}}
+    collections = {}
+    for field, identity in [("bulkRepaymentTransactions", "loanId"), ("bulkSavingsDueTransactions", "savingsId")]:
+        properties = {**payment, identity: {"type": "integer", "minimum": 1},
+            "transactionAmount": {"type": "number", "minimum": 0, "exclusiveMinimum": True}}
+        required = [identity, "transactionAmount"]
+        if identity == "savingsId":
+            properties["depositAccountType"] = {"type": "integer", "enum": [100, 300]}
+            required.append("depositAccountType")
+        collections[field] = {"type": "array", "title": "Loan repayments" if identity == "loanId" else "Savings dues", "minItems": 1, "maxItems": 100, "x-mfierp-unique-by": identity,
+            "items": {"type": "object", "properties": properties, "required": required}}
+    entry = add("/v1/collectionsheet", "saveCollectionSheet", "Individual collection sheets", source,
+        {"transactionDate": "string", "actualDisbursementDate": "string", "bulkDisbursementTransactions": {
+            "type": "object", "title": "Repayments and savings dues", "properties": collections, "x-mfierp-nonempty-any": list(collections)}},
+        ["transactionDate", "actualDisbursementDate", "bulkDisbursementTransactions"])
+    entry["body"]["x-mfierp-equal-fields"] = [["transactionDate", "actualDisbursementDate"]]
+    entry["require_reconciliation"] = True
+    entry["description"] += " Enter independently reviewed amounts; Odoo does not calculate totals. One row per account. Savings deposit types 100 and 300 only. Reconcile every affected account after posting."
     return variants

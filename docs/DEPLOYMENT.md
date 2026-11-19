@@ -56,3 +56,5 @@ Enable automatic sync per connection only after manual sync succeeds. Sync needs
 Monitor `dispatching`, `uncertain` and `remote_pending` commands, sync timestamps/failures and cron failures. Reconcile with independent evidence; never edit/delete command rows to clear an incident.
 
 Back up PostgreSQL and the Odoo filestore consistently. Test restore. Before enabling dispatch after an older-backup restore, compare the command register against Fineract: disable dispatch, reconcile already applied requests, then re-enable it to avoid duplicates.
+
+Collection preview snapshots are company-scoped and readable by operators/checkers. They are eligible for purge after seven days (100 per daily batch); hashes remain. Payment posting responses require per-account reconciliation regardless of response IDs. Changing a loaded form contract requires starting a fresh form. Preview generation is POST-based and therefore also requires independent approval, enabled staging dispatch and pinned runtime provenance.

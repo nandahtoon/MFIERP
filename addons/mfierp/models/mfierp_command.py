@@ -3,6 +3,7 @@ import hashlib
 import json
 import uuid
 import base64
+from html import escape
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
@@ -11,6 +12,7 @@ from odoo.tools import BinaryBytes
 from ..services.fineract import FineractError
 from ..services.operations import OPERATIONS, build_request
 from ..services import workspace
+from ..services.collection_sheet import project_preview
 from .mfierp_upload import upload_bytes
 
 
@@ -34,7 +36,7 @@ class MfierpCommand(models.Model):
     idempotency_key = fields.Char(readonly=True, required=True, index=True)
     state = fields.Selection([
         ("pending", "Awaiting Approval"), ("approved", "Approved"), ("dispatching", "Dispatching"),
-        ("done", "Confirmed"), ("remote_pending", "Fineract Approval Pending"),
+        ("done", "Confirmed"), ("remote_pending", "Remote Verification Pending"),
         ("rejected", "Rejected"), ("failed", "Rejected by Fineract"), ("uncertain", "Reconciliation Required"),
     ], default="pending", readonly=True, required=True, index=True)
     maker_id = fields.Many2one("res.users", readonly=True, required=True)
@@ -45,10 +47,42 @@ class MfierpCommand(models.Model):
     result_resource_id = fields.Integer(readonly=True)
     result_command_id = fields.Integer(readonly=True)
     status_message = fields.Char(readonly=True)
+    preview_data = fields.Json(readonly=True)
+    preview_digest = fields.Char(readonly=True)
+    preview_purged_at = fields.Datetime(readonly=True)
+    preview_html = fields.Html(compute="_compute_preview_html", sanitize=True)
     resolution_note = fields.Text(readonly=True)
     resolved_by_id = fields.Many2one("res.users", readonly=True)
 
     _key_unique = models.Constraint("UNIQUE(idempotency_key)", "Command idempotency keys must be unique.")
+
+    @api.depends("preview_data")
+    def _compute_preview_html(self):
+        for command in self:
+            data = command.preview_data
+            if not data:
+                command.preview_html = False
+                continue
+            keys = ["client", "kind", "remote_id", "product", "currency", "due", "charges"]
+            headings = [_("Client"), _("Account Type"), _("Remote ID"), _("Product"), _("Currency"), _("Due (Remote)"), _("Charges (Remote)")]
+            header = "".join("<th>" + escape(title) + "</th>" for title in headings)
+            rows = "".join("<tr>" + "".join("<td>" + escape("—" if row.get(key) is None else str(row[key])) + "</td>" for key in keys) + "</tr>" for row in data["rows"])
+            note = _("Amounts are copied from Fineract. No totals are calculated or payments posted by this preview.")
+            if not data["rows"]:
+                note += " " + _("No loan or savings rows were included in this preview.")
+            if data["truncated"]:
+                note += " " + _("Preview limit reached; narrow the office or staff selection.")
+            options = "; ".join(f"{row['id']}: {row['name']}" for row in data["payment_types"])
+            if options:
+                options = _("Payment types: ") + options
+            command.preview_html = f'<p>{escape(note)}</p><table class="table table-striped"><thead><tr>{header}</tr></thead><tbody>{rows}</tbody></table><p>{escape(options)}</p>'
+
+    @api.model
+    def _cron_purge_previews(self):
+        cutoff = fields.Datetime.subtract(fields.Datetime.now(), days=7)
+        self.sudo().search([("preview_digest", "!=", False), ("preview_purged_at", "=", False),
+            ("completed_at", "<", cutoff), ("state", "=", "done")], limit=100).write({
+                "preview_data": False, "preview_purged_at": fields.Datetime.now()})
 
     @api.depends("payload")
     def _compute_payload_preview(self):
@@ -205,6 +239,7 @@ class MfierpCommand(models.Model):
         if digest != self.payload_digest or not self.checker_id or self.checker_id == self.maker_id:
             self.write({"state": "failed", "completed_at": fields.Datetime.now(), "status_message": _("Command integrity or approval check failed.")})
             return
+        request_sent = False
         try:
             maker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_operator"
             checker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_checker"
@@ -229,10 +264,25 @@ class MfierpCommand(models.Model):
             files = None
             if self.operation == "workspace":
                 body, files = self._workspace_body(body)
+            request_sent = True
             result = client.request(method, path, params=params,
                 payload=body, idempotency_key=self.idempotency_key,
                 **({"allow_empty": True, "api_version": workspace.specification(self.capability_id.key).get("api_version", "v1"),
                     **({"files": files} if files is not None else {})} if self.operation == "workspace" else {}))
+            if self.operation == "workspace":
+                spec = workspace.specification(self.capability_id.key)
+                if spec.get("response_mode") == "collection_preview":
+                    preview = project_preview(result)
+                    self.write({"preview_data": preview, "preview_digest": hashlib.sha256(json.dumps(preview, sort_keys=True).encode()).hexdigest(),
+                        "state": "done", "completed_at": fields.Datetime.now(), "status_message": _("Fineract collection preview received. No collection posting was requested.")})
+                    return
+                if spec.get("require_reconciliation"):
+                    resource_id, command_id = workspace.command_references(result)
+                    self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
+                        "result_resource_id": resource_id, "result_command_id": command_id,
+                        "status_message": _("Collection response received. Reconcile every affected account and transaction before confirming the posting.")})
+                    return
+            resource_id, command_id = workspace.command_references(result)
             if self.operation == "workspace" and (not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId"))):
                 self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
                     "status_message": _("Fineract accepted the request. Re-read and reconcile the affected resource or job before confirming its outcome.")})
@@ -241,14 +291,15 @@ class MfierpCommand(models.Model):
                 raise FineractError("Unrecognized command response; reconcile with Fineract.", uncertain=True)
             # A commandId without resourceId may mean Fineract's own maker checker queue.
             state = "done" if result.get("resourceId") else "remote_pending"
-            self.write({"state": state, "result_resource_id": result.get("resourceId"),
-                "result_command_id": result.get("commandId"), "completed_at": fields.Datetime.now(),
+            self.write({"state": state, "result_resource_id": resource_id,
+                "result_command_id": command_id, "completed_at": fields.Datetime.now(),
                 "status_message": _("Remote response recorded. Refresh the portfolio to verify current state.")})
         except FineractError as exc:
             self.write({"state": "uncertain" if exc.uncertain else "failed", "status_message": str(exc),
                 "completed_at": False if exc.uncertain else fields.Datetime.now()})
         except (AccessError, UserError, ValueError):
-            self.write({"state": "failed", "completed_at": fields.Datetime.now(), "status_message": _("Connection configuration or command validation failed before dispatch.")})
+            self.write({"state": "uncertain" if request_sent else "failed", "completed_at": False if request_sent else fields.Datetime.now(),
+                "status_message": _("Response processing failed after dispatch; reconcile before resubmitting.") if request_sent else _("Connection configuration or command validation failed before dispatch.")})
 
     @api.model
     def _cron_dispatch(self):
