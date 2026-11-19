@@ -34,3 +34,7 @@ See [deployment instructions](docs/DEPLOYMENT.md). The local developer app uses 
 The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Financial production acceptance requires verification against the intended Fineract version and tenant products.
 
 The addon is licensed under LGPL-3.0-or-later. No upstream Angular or Java application code is vendored.
+
+## Codex full-parity implementation charter
+
+For the owner-approved full Mifos X operator parity objective, see [Codex Master Implementation Specification](docs/CODEX_MASTER_IMPLEMENTATION_SPEC.md) and [Parity Acceptance Matrix](docs/PARITY_ACCEPTANCE_MATRIX.md). These distinguish API-contract coverage, completed workflows and authenticated financial UAT. The development target is full source-backed end-to-end workflow coverage, not a pilot-only release or a catalog of API forms. All staging/production mutation and release approvals remain separate.
