@@ -137,5 +137,6 @@ class MfierpOperation(models.TransientModel):
         if self.is_create and self.target_id:
             raise UserError(_("Clear the target for a create operation."))
         command = self.env["mfierp.command"]._enqueue(self.backend_id, self.operation, self._payload(), self.target_id)
-        return {"type": "ir.actions.act_window", "name": _("Submitted Command"),
+        return {"id": self.env.ref("mfierp.mfierp_command_action").id,
+            "type": "ir.actions.act_window", "name": _("Submitted Command"),
             "res_model": "mfierp.command", "res_id": command.id, "view_mode": "form", "target": "current"}

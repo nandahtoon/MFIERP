@@ -184,6 +184,7 @@ class TestMfierpWorkflows(TransactionCase):
         wizard = self.env["mfierp.operation"].with_user(self.maker).create({"backend_id": self.backend.id,
             "operation": "create_client", "office_id": office.id, "firstname": "Test", "lastname": "Client"})
         result = wizard.action_submit()
+        self.assertEqual(result["id"], self.env.ref("mfierp.mfierp_command_action").id)
         command = self.env["mfierp.command"].browse(result["res_id"])
         self.assertEqual(command.maker_id, self.maker)
         self.assertEqual(command.payload["officeId"], 1)
