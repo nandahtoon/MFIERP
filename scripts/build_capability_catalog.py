@@ -136,6 +136,12 @@ def compile_catalog(spec):
         description="Submit a loan application using the declared fields. Tenant-defined datatables are excluded and require a separate reviewed contract. Fineract validates product and borrower rules.",
         source_service="https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L546")
     capabilities.append(loan)
+    journal = deepcopy(next(c for c in capabilities if c["method"] == "POST" and c["path"] == "/v1/journalentries"))
+    journal.update(key=journal["key"] + "__create", name="Accounting: create journal entry",
+        parameters=[p for p in journal["parameters"] if p["name"] != "command"],
+        blocked=inspect(journal["body"]) if journal["body"] else "Missing journal schema.",
+        source_service="https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts")
+    capabilities.append(journal)
     capabilities.extend(command_variants(capabilities))
     keys = [item["key"] for item in capabilities]
     if len(set(keys)) != len(keys):

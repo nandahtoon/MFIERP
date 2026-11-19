@@ -91,7 +91,15 @@ class WorkspaceContracts(unittest.TestCase):
             command = next(p for p in entry["parameters"] if p["name"] == "command")
             self.assertEqual(len(command["schema"]["enum"]), 1)
             schema = entry["body"]
-            self.assertTrue(set(schema["required"]) <= schema["properties"].keys())
+            if schema is not None:
+                self.assertTrue(set(schema["required"]) <= schema["properties"].keys())
+
+    def test_administrative_no_body_command_is_fixed_and_privileged(self):
+        entry = next(c for c in workspace.capabilities().values() if c.get("source_form")
+            and c["path"] == "/v1/surveys/{id}" and c["key"].endswith("__activate"))
+        result = workspace.build_request(entry["key"], self.request(entry["key"], {"id": 7}, {"command": "activate"}))
+        self.assertIsNone(result[3])
+        self.assertTrue(entry["admin_only"])
 
     def test_path_traversal_and_url_parameters_are_rejected(self):
         schema = {"type": "object", "properties": {"value": {"type": "string"}}}

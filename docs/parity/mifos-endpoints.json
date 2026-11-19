@@ -5,8 +5,8 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 634,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 59,
+    "TYPED_CONTRACT_CANDIDATE": 642,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 51,
     "NOT_IN_DEPLOYED_OPENAPI": 2,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
@@ -283,11 +283,12 @@
       "source": "src/app/accounting/accounting.service.ts",
       "line": 66,
       "area": "accounting",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L66",
       "capabilities": [
-        "post_createGLJournalEntry"
+        "post_createGLJournalEntry",
+        "post_createGLJournalEntry__create"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -483,11 +484,12 @@
       "source": "src/app/accounting/accounting.service.ts",
       "line": 187,
       "area": "accounting",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L187",
       "capabilities": [
-        "post_createGLJournalEntry"
+        "post_createGLJournalEntry",
+        "post_createGLJournalEntry__create"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5518,7 +5520,8 @@
         "post_createUser",
         "post_createWorkingCapitalLoanProduct",
         "post_submitWorkingCapitalLoanApplication",
-        "post_calculateOrSubmitLoanApplication__application"
+        "post_calculateOrSubmitLoanApplication__application",
+        "post_createGLJournalEntry__create"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -6678,7 +6681,12 @@
         "post_handleCommandsGroup__close",
         "post_handleCommandsCenter__activate",
         "post_handleCommandsCenter__close",
-        "post_handleCommandsGroup__assignStaff"
+        "post_handleCommandsGroup__assignStaff",
+        "post_handleCommandsRole__enable",
+        "post_handleCommandsRole__disable",
+        "post_activateOrDeactivateSurvey__activate",
+        "post_activateOrDeactivateSurvey__deactivate",
+        "post_executeJob__executeJob"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8655,7 +8663,12 @@
         "post_handleCommandsGroup__close",
         "post_handleCommandsCenter__activate",
         "post_handleCommandsCenter__close",
-        "post_handleCommandsGroup__assignStaff"
+        "post_handleCommandsGroup__assignStaff",
+        "post_handleCommandsRole__enable",
+        "post_handleCommandsRole__disable",
+        "post_activateOrDeactivateSurvey__activate",
+        "post_activateOrDeactivateSurvey__deactivate",
+        "post_executeJob__executeJob"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8945,7 +8958,8 @@
         "post_createUser",
         "post_createWorkingCapitalLoanProduct",
         "post_submitWorkingCapitalLoanApplication",
-        "post_calculateOrSubmitLoanApplication__application"
+        "post_calculateOrSubmitLoanApplication__application",
+        "post_createGLJournalEntry__create"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -11981,11 +11995,13 @@
       "source": "src/app/system/system.service.ts",
       "line": 138,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L138",
       "capabilities": [
-        "post_handleCommandsRole"
+        "post_handleCommandsRole",
+        "post_handleCommandsRole__enable",
+        "post_handleCommandsRole__disable"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -11999,11 +12015,13 @@
       "source": "src/app/system/system.service.ts",
       "line": 147,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L147",
       "capabilities": [
-        "post_handleCommandsRole"
+        "post_handleCommandsRole",
+        "post_handleCommandsRole__enable",
+        "post_handleCommandsRole__disable"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -12210,11 +12228,13 @@
       "source": "src/app/system/system.service.ts",
       "line": 256,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L256",
       "capabilities": [
-        "post_activateOrDeactivateSurvey"
+        "post_activateOrDeactivateSurvey",
+        "post_activateOrDeactivateSurvey__activate",
+        "post_activateOrDeactivateSurvey__deactivate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -12228,11 +12248,13 @@
       "source": "src/app/system/system.service.ts",
       "line": 265,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L265",
       "capabilities": [
-        "post_activateOrDeactivateSurvey"
+        "post_activateOrDeactivateSurvey",
+        "post_activateOrDeactivateSurvey__activate",
+        "post_activateOrDeactivateSurvey__deactivate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -12416,11 +12438,12 @@
       "source": "src/app/system/system.service.ts",
       "line": 348,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L348",
       "capabilities": [
-        "post_executeJob"
+        "post_executeJob",
+        "post_executeJob__executeJob"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -12434,11 +12457,12 @@
       "source": "src/app/system/system.service.ts",
       "line": 356,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L356",
       "capabilities": [
-        "post_executeJob"
+        "post_executeJob",
+        "post_executeJob__executeJob"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."

@@ -13,6 +13,32 @@ from .test_workflows import TestMfierpWorkflows
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def variant(self, path, command):
+        from ..services import workspace
+        spec = next(c for c in workspace.capabilities().values() if c["path"] == path
+            and c.get("source_form") and c["key"].endswith("__" + command))
+        return self.env["mfierp.capability"].search([("key", "=", spec["key"])], limit=1)
+
+    def test_source_reviewed_no_body_action_requires_independent_administrator(self):
+        capability = self.variant("/v1/surveys/{id}", "activate")
+        request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id,
+            "backend_id": self.backend.id})
+        request.action_load()
+        self.assertEqual(len(request.root_input_ids), 2)
+        request.input_ids.filtered(lambda row: row.key == "id").write({"integer_value": 7})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        with self.assertRaises(AccessError):
+            command.with_user(self.checker).action_approve()
+        administrator = self._make_user("mfierp_survey_checker", "group_manager")
+        command.with_user(administrator).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {}
+            command._dispatch()
+            self.assertIsNone(client.return_value.request.call_args.kwargs["payload"])
+            self.assertEqual(command.state, "remote_pending")
+
     def test_retention_preserves_unknown_outcomes_and_audit_hashes(self):
         raw = b"synthetic retention evidence"
         command = self._command()
@@ -32,7 +58,7 @@ class TestWorkspace(TestMfierpWorkflows):
         self.assertEqual(upload.sha256, hashlib.sha256(raw).hexdigest())
 
     def test_source_reviewed_command_is_fixed_in_the_native_form(self):
-        capability = self.env["mfierp.capability"].search([("key", "like", "__reactivate"), ("resource", "=", "clients")], limit=1)
+        capability = self.variant("/v1/clients/{clientId}", "reactivate")
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
         request.action_load()
         node = request.input_ids.filtered(lambda row: row.key == "command")

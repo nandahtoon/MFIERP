@@ -31805,6 +31805,25 @@
       "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L546"
     },
     {
+      "key": "post_createGLJournalEntry__create",
+      "name": "Accounting: create journal entry",
+      "category": "Journal Entries",
+      "method": "POST",
+      "path": "/v1/journalentries",
+      "api_version": "v1",
+      "description": "Note: A Balanced (simple) Journal entry would have atleast one \"Debit\" and one \"Credit\" entry whose amounts are equal \nCompound Journal entries may have \"n\" debits and \"m\" credits where both \"m\" and \"n\" are greater than 0 and the net sum or all debits and credits are equal \n\n\nMandatory Fields\nofficeId, transactionDate\n\n\ncredits- glAccountId, amount, comments\n\n \ndebits-  glAccountId, amount, comments\n\n \nOptional Fields\npaymentTypeId, accountNumber, checkNumber, routingCode, receiptNumber, bankNumber",
+      "parameters": [],
+      "body": {
+        "$ref": "#/components/schemas/JournalEntryCommand"
+      },
+      "media_type": "application/json",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "createGLJournalEntry",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts"
+    },
+    {
       "key": "post_handleCommandClient__activate",
       "name": "Clients: activate",
       "category": "Client",
@@ -36032,6 +36051,221 @@
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
       "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/undo-approval-shares-account/undo-approval-shares-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsRole__enable",
+      "name": "Role administration: enable",
+      "category": "Roles",
+      "method": "POST",
+      "path": "/v1/roles/{roleId}",
+      "api_version": "v1",
+      "description": "Source-reviewed enable command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "roleId",
+          "in": "path",
+          "name": "roleId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "enable"
+            ],
+            "default": "enable"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "handleCommandsRole",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsRole__disable",
+      "name": "Role administration: disable",
+      "category": "Roles",
+      "method": "POST",
+      "path": "/v1/roles/{roleId}",
+      "api_version": "v1",
+      "description": "Source-reviewed disable command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "roleId",
+          "in": "path",
+          "name": "roleId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "disable"
+            ],
+            "default": "disable"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "handleCommandsRole",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_activateOrDeactivateSurvey__activate",
+      "name": "Survey administration: activate",
+      "category": "Spm-Surveys",
+      "method": "POST",
+      "path": "/v1/surveys/{id}",
+      "api_version": "v1",
+      "description": "Source-reviewed activate command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "activate"
+            ],
+            "default": "activate"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "activateOrDeactivateSurvey",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_activateOrDeactivateSurvey__deactivate",
+      "name": "Survey administration: deactivate",
+      "category": "Spm-Surveys",
+      "method": "POST",
+      "path": "/v1/surveys/{id}",
+      "api_version": "v1",
+      "description": "Source-reviewed deactivate command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "deactivate"
+            ],
+            "default": "deactivate"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "activateOrDeactivateSurvey",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_executeJob__executeJob",
+      "name": "Job administration: executeJob",
+      "category": "SCHEDULER JOB",
+      "method": "POST",
+      "path": "/v1/jobs/{jobId}",
+      "api_version": "v1",
+      "description": "Source-reviewed executeJob command. Fineract validates eligibility, amounts and state transitions. This variant runs the job without custom parameters. Review job scope and effects before approval.",
+      "parameters": [
+        {
+          "description": "jobId",
+          "in": "path",
+          "name": "jobId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "executeJob"
+            ],
+            "default": "executeJob"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "executeJob",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L347",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
     }
   ],

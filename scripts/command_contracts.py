@@ -37,6 +37,7 @@ def command_variants(capabilities):
             properties.update(dateFormat={"type": "string", "enum": ["yyyy-MM-dd"]}, locale={"type": "string", "enum": ["en"]})
         entry["body"] = {"type": "object", "properties": properties, "required": list(required)}
         variants.append(entry)
+        return entry
 
     client = "clients/clients-view/client-actions/"
     for command, component, fields, required, dates in [
@@ -147,4 +148,15 @@ def command_variants(capabilities):
     ]:
         add("/v1/accounts/{type}/{accountId}", command, "Shares", f"{prefix}{component}/{component}.component.ts", fields, required,
             dates=command != "undoapproval", fixed_path={"type": "share"})
+    for command in ["enable", "disable"]:
+        entry = add("/v1/roles/{roleId}", command, "Role administration", "system/system.service.ts#L136",
+            {}, dates=False)
+        entry["admin_only"] = True
+    for command in ["activate", "deactivate"]:
+        entry = add("/v1/surveys/{id}", command, "Survey administration", "system/system.service.ts#L255",
+            {}, dates=False)
+        entry.update(body=None, body_required=False, admin_only=True)
+    entry = add("/v1/jobs/{jobId}", "executeJob", "Job administration", "system/system.service.ts#L347", {}, dates=False)
+    entry["admin_only"] = True
+    entry["description"] += " This variant runs the job without custom parameters. Review job scope and effects before approval."
     return variants
