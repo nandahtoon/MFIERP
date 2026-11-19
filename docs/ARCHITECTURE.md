@@ -50,3 +50,8 @@ Sync preserves historical records absent from a later response; it does not infe
 ## Odoo version policy
 
 This module targets Odoo 20 Community, Python 3.12+, PostgreSQL 16+. Odoo 19 was reviewed as a migration reference, not declared compatible. Odoo 20 replaces `ir.model.access`/`ir.rule` with `ir.access`, uses `res.groups.privilege`, and uses `group_ids` on users. Backporting requires a separate 19.0 branch, security conversion and independent installation tests. Native list/form/search views avoid an Angular or custom JavaScript runtime dependency.
+
+
+## ADR 002 — edition-neutral core and optional CRM/Accounting integrations
+
+The owner subsequently required BOTH Odoo 20 Community and Enterprise compatibility with native CRM and Accounting integration. [ADR 002](ODOO_20_EDITION_CRM_ACCOUNTING_ADR.md) is the detailed design amendment. The current manifest is edition-neutral but native CRM/account crosswalk/bridge modules have NOT yet been implemented, and Enterprise is not yet tested. Fineract remains authoritative for the microfinance subledger and financial events; Odoo can independently account for its own ERP-originated expenses/invoices. A signed, isolated, OFF-by-default summarized journal bridge may map verified Fineract accounting batches to the ERP consolidated GL without duplicate per-loan posting. The general ban on duplicating/recalculating the Fineract financial engine still applies.

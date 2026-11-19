@@ -1,11 +1,11 @@
 # MFIERP — Codex Master Implementation Specification (Full Mifos X Operator Parity)
 
 Status: OWNER-DIRECTED IMPLEMENTATION TARGET; this is a specification, NOT evidence of completion or authorization to merge/deploy.
-Last reviewed: 2026-11-19. Baseline feature branch: feat/odoo20-mifos-native. Owner's goal: complete, reliable, commercial-ready, low-complexity, productive native Odoo 20 Community user experience comparable to the relevant Mifos X operator workflows, powered by Apache Fineract.
+Last reviewed: 2026-11-19. Baseline feature branch: feat/odoo20-mifos-native. Owner's goal: complete, reliable, commercial-ready, low-complexity, productive native Odoo 20 Community and Enterprise user experience comparable to the relevant Mifos X operator workflows, powered by Apache Fineract.
 
 ## 0. Non-negotiable north star
 
-Deliver an Odoo 20 Community native operator application with 100% VERIFIED parity against an explicitly inventoried, owner-approved Mifos X / Fineract target feature set, not simply 100% generated API forms. Preserve capabilities already implemented; fill, validate and integrate the missing workflow, operational controls, administration, reporting and usability gaps. Complete in evidence-backed increments, not one giant unreviewed change. "100%" is an acceptance goal, NEVER a status until the exit gate in Section 12 is satisfied.
+Deliver an Odoo 20 Community and Enterprise native operator application with 100% VERIFIED parity against an explicitly inventoried, owner-approved Mifos X / Fineract target feature set, not simply 100% generated API forms. Preserve capabilities already implemented; fill, validate and integrate the missing workflow, operational controls, administration, reporting and usability gaps. Complete in evidence-backed increments, not one giant unreviewed change. "100%" is an acceptance goal, NEVER a status until the exit gate in Section 12 is satisfied.
 
 Full parity means an operator can finish the relevant business task in Odoo without opening Mifos X, with remote Fineract outcomes demonstrably correct. Do not interpret Mifos X UI parity as a request to rewrite Apache Fineract or its ledger. For in-scope features not supported by the deployed Fineract version, record an upstream capability blocker with owner decision; never counterfeit functionality or claim parity.
 
@@ -29,7 +29,7 @@ If one source conflicts with another, record a decision log with revision/path/l
 - No Fineract source fork, no remote database writes/reads bypassing supported APIs, no embedded Mifos Angular iframe, no browser-held Fineract service secrets, no duplicate loans/ledger engine, no speculative MicroOps backend, no second tenant or cloned Oracle stack merely to avoid a missing feature.
 - MFIERP's company is an Odoo security boundary; a Fineract tenant is a distinct deployment/identity concept. One tenant may be shared only under explicit security/segregation approval; default tenant does not magically imply per-company security.
 - UI forms and local snapshots must never assert financial truth without a fresh Fineract read. Show an explicit as-of/detail-refresh timestamp, stale status, currency and source.
-- Favor native Odoo 20 Community models, views and actions over custom frontend framework. Keep narrow service adapters, stable tested contracts, small dependencies, simple Compose development footprint and affordable operations.
+- Favor native Odoo 20 Community and Enterprise models, views and actions over custom frontend framework. Keep narrow service adapters, stable tested contracts, small dependencies, simple Compose development footprint and affordable operations.
 - Commercial readiness includes licensing/attribution, tenant/company/office access rules, supportability, versioned install/migration, durable backups and audit controls. It does NOT automatically authorize SaaS multi-tenancy, billing/subscriptions or live customer onboarding. Document such future architecture separately.
 
 ## 3. Definition of 100% functional parity
@@ -102,7 +102,7 @@ Domain lists describe the INVENTORY REQUIREMENT, not proof every underlying oper
 
 ## 6. Standard native UI / screen flow contract
 
-Use native Odoo 20 Community only and preserve its security model; prefer standard list/form/search/kanban/activity/wizard views over a new JS SPA.
+Use native Odoo 20 Community and Enterprise only and preserve its security model; prefer standard list/form/search/kanban/activity/wizard views over a new JS SPA.
 Top-level information architecture should be task-focused, not a 942-item endpoint catalogue:
 - Home / My Tasks: pending reviews, remote pending, exceptions, stale sync, today's work, source timestamps.
 - Organization & Administration: connections, offices, staff/users/roles, configuration, scheduler with manager controls.
@@ -210,3 +210,10 @@ Do not claim parity or promote to production while any mandatory item is unverif
 ## 14. Definition of agent final reporting
 
 Briefly report: Goal / Outcome / Files and commit / Test & CI evidence / Feature-matrix statuses / Risks & blockers / Next unblocked work. Keep reports concise in Burmese when communicating with the owner; code/docs and machine-readable evidence may be in English.
+
+
+## OWNER REQUIREMENT UPDATE — BOTH Odoo 20 editions and native ERP integrations (2026-11-19; overrides Community-only language above)
+
+The required product is an installable Odoo 20 addon family supporting **both Community AND Enterprise** with the same financial-domain core and optional Odoo-native CRM/Accounting integration. Read [ADR 002](ODOO_20_EDITION_CRM_ACCOUNTING_ADR.md) in full; it is a mandatory extension of this master mandate and defines dependency boundaries, `mfierp_crm`, `mfierp_account`, edition-specific optional features, GL ownership/anti-double-booking, security, install/upgrade tests and WP-ERP-01 through WP-ERP-05. Apply these work packages in conjunction with WP00–WP08; update the parity matrix accordingly. Community and licensed Enterprise must be independently tested; no EE code may be copied into the CE/core addon.
+
+ERP accounting may use normal Odoo `account.move` for **Odoo-originated** corporate transactions. Fineract remains canonical for loans/savings/financial events. Read-only source GL reconciliation is the default. A summarized ERP journal bridge is optional, disabled and blocked until independently signed chart mapping/financial ownership, no-double-counting controls and authorized UAT. CRM lead Won never auto-creates/activates Fineract clients. For project completion, both editions, CRM and supported accounting integration must be verified; a missing Enterprise test is a blocker, not 100% completion. No automatic financial writes are newly authorized by this document.

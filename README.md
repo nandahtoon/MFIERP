@@ -38,3 +38,8 @@ The addon is licensed under LGPL-3.0-or-later. No upstream Angular or Java appli
 ## Codex full-parity implementation charter
 
 For the owner-approved full Mifos X operator parity objective, see [Codex Master Implementation Specification](docs/CODEX_MASTER_IMPLEMENTATION_SPEC.md) and [Parity Acceptance Matrix](docs/PARITY_ACCEPTANCE_MATRIX.md). These distinguish API-contract coverage, completed workflows and authenticated financial UAT. The development target is full source-backed end-to-end workflow coverage, not a pilot-only release or a catalog of API forms. All staging/production mutation and release approvals remain separate.
+
+
+## Dual-edition ERP target (not yet implemented)
+
+The owner-approved future design targets Odoo 20 **Community and Enterprise**. The core MFIERP addon remains lightweight and independent of Odoo CRM/Accounting; optional `mfierp_crm`, `mfierp_account` and licensed Enterprise adapter addons provide native integration only when installed. Currently these bridges are NOT implemented or tested in EE. See [ADR 002](docs/ODOO_20_EDITION_CRM_ACCOUNTING_ADR.md) and [Codex master](docs/CODEX_MASTER_IMPLEMENTATION_SPEC.md). Fineract remains the canonical microfinance ledger, Odoo handles its own ERP accounting; cross-system consolidated postings are separately approved and off by default.

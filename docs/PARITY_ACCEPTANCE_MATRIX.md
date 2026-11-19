@@ -54,3 +54,16 @@ Never equate them. Keep live UAT percentage independent from either.
 10. Office isolation and revoked permissions tested through direct RPC, report/export and record contexts.
 
 **Release prohibited** until every mandatory gate in the master specification is satisfied.
+
+
+## Owner amendment: Odoo 20 CE / EE ERP integration gates
+
+| Gate | Required user outcome | Actual status as of mandate | Evidence needed |
+| --- | --- | --- | --- |
+| ERP-01 | Edition-neutral MFIERP core on Odoo 20 CE and EE | CE tests pass; EE untested | Clean install + upgrade + security + browser tests per edition |
+| ERP-02 | Optional CRM lead/partner/client mapping and approved Fineract onboarding | Not implemented | Native flow, permissions, duplicate and consent tests, synthetic UAT |
+| ERP-03 | Optional Odoo Accounting read-only GL mapping/reconciliation | Not implemented | Account map, source-vs-target comparison, ACL and accounting review |
+| ERP-04 | Optional summarized GL posting bridge, disabled by default | Not implemented, requires separate RED financial approval | Signed ownership/mapping and accountant approval, duplicate-safe balanced batch UAT |
+| ERP-05 | Licensed Enterprise-specific enhancements | Not implemented | Independent EE-only module test, CE core unaffected |
+
+See docs/ODOO_20_EDITION_CRM_ACCOUNTING_ADR.md. API form count alone does not establish edition, CRM or Accounting acceptance.
