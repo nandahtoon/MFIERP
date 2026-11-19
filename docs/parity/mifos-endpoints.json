@@ -5,8 +5,8 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 643,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 49,
+    "TYPED_CONTRACT_CANDIDATE": 649,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 43,
     "NOT_IN_DEPLOYED_OPENAPI": 3,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
@@ -2970,7 +2970,9 @@
         "post_handleCommandsFixedDepositAccount__reject",
         "post_handleCommandsFixedDepositAccount__withdrawnByApplicant",
         "post_handleCommandsFixedDepositAccount__close",
-        "post_handleCommandsFixedDepositAccount__prematureClose"
+        "post_handleCommandsFixedDepositAccount__prematureClose",
+        "post_handleCommandsFixedDepositAccount__activate",
+        "post_handleCommandsFixedDepositAccount__undoapproval"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3001,11 +3003,13 @@
       "source": "src/app/deposits/fixed-deposits/fixed-deposits.service.ts",
       "line": 76,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts#L76",
       "capabilities": [
-        "post_handleCommandsFixedDepositAccountTransaction"
+        "post_handleCommandsFixedDepositAccountTransaction",
+        "post_handleCommandsFixedDepositAccountTransaction__modify",
+        "post_handleCommandsFixedDepositAccountTransaction__undo"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3019,11 +3023,12 @@
       "source": "src/app/deposits/fixed-deposits/fixed-deposits.service.ts",
       "line": 87,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts#L87",
       "capabilities": [
-        "get_accountClosureTemplate"
+        "get_accountClosureTemplate",
+        "get_accountClosureTemplate__close"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3202,11 +3207,13 @@
       "source": "src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "line": 87,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L87",
       "capabilities": [
-        "post_transactionRecurringDepositAccountTransaction"
+        "post_transactionRecurringDepositAccountTransaction",
+        "post_transactionRecurringDepositAccountTransaction__deposit",
+        "post_transactionRecurringDepositAccountTransaction__withdrawal"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3230,7 +3237,9 @@
         "post_handleCommandsRecurringDepositAccount__reject",
         "post_handleCommandsRecurringDepositAccount__withdrawnByApplicant",
         "post_handleCommandsRecurringDepositAccount__close",
-        "post_handleCommandsRecurringDepositAccount__prematureClose"
+        "post_handleCommandsRecurringDepositAccount__prematureClose",
+        "post_handleCommandsRecurringDepositAccount__activate",
+        "post_handleCommandsRecurringDepositAccount__undoapproval"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3294,11 +3303,12 @@
       "source": "src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "line": 125,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L125",
       "capabilities": [
-        "get_accountClosureTemplateRecurringDepositAccount"
+        "get_accountClosureTemplateRecurringDepositAccount",
+        "get_accountClosureTemplateRecurringDepositAccount__close"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3312,11 +3322,13 @@
       "source": "src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "line": 135,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L135",
       "capabilities": [
-        "get_retrieveTemplateRecurringDepositAccountTransaction"
+        "get_retrieveTemplateRecurringDepositAccountTransaction",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__deposit",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__withdrawal"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3335,7 +3347,9 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L143",
       "capabilities": [
         "get_retrieveTemplateRecurringDepositAccountTransaction",
-        "get_retrieveOneRecurringDepositAccountTransaction"
+        "get_retrieveOneRecurringDepositAccountTransaction",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__deposit",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__withdrawal"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3354,7 +3368,9 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L153",
       "capabilities": [
         "get_retrieveTemplateRecurringDepositAccountTransaction",
-        "get_retrieveOneRecurringDepositAccountTransaction"
+        "get_retrieveOneRecurringDepositAccountTransaction",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__deposit",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__withdrawal"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3368,11 +3384,13 @@
       "source": "src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "line": 172,
       "area": "deposits",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L172",
       "capabilities": [
-        "post_handleCommandsRecurringDepositAccountTransaction"
+        "post_handleCommandsRecurringDepositAccountTransaction",
+        "post_handleCommandsRecurringDepositAccountTransaction__modify",
+        "post_handleCommandsRecurringDepositAccountTransaction__undo"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5858,7 +5876,9 @@
         "get_getWorkingCapitalLoanRateChangeHistoryByExternalId",
         "get_retrieveWorkingCapitalLoanTransactionsByExternalId",
         "get_getWorkingCapitalLoanTransactionTemplateById",
-        "get_retrieveWorkingCapitalLoanTransactionById"
+        "get_retrieveWorkingCapitalLoanTransactionById",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__deposit",
+        "get_retrieveTemplateRecurringDepositAccountTransaction__withdrawal"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."

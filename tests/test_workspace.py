@@ -12,6 +12,44 @@ spec.loader.exec_module(workspace)
 
 
 class WorkspaceContracts(unittest.TestCase):
+    def variant(self, path, command, method="POST"):
+        return next(c for c in workspace.capabilities().values() if c["path"] == path and c["method"] == method
+            and c.get("source_form") and c["key"].endswith("__" + command))
+
+    def test_deposit_cash_routes_cannot_turn_into_adjustments(self):
+        for deposit in ["fixed", "recurring"]:
+            name = deposit + "DepositAccountId"
+            entry = self.variant(f"/v1/{deposit}depositaccounts/{{{name}}}/transactions", "deposit")
+            key = entry["key"]
+            body = {"transactionDate": "2026-11-19", "transactionAmount": 2.75, "paymentTypeId": 3}
+            result = workspace.build_request(key, self.request(key, {name: 12}, {"command": "deposit"}, body))
+            self.assertEqual(result[:2], ("POST", f"{deposit}depositaccounts/12/transactions"))
+            for path in [{name: "undefined"}, {name: 0}, {name: 12, "transactionId": 44}]:
+                with self.assertRaises(ValueError):
+                    workspace.build_request(key, self.request(key, path, {"command": "deposit"}, body))
+            with self.assertRaises(ValueError):
+                workspace.build_request(key, self.request(key, {name: 12}, {"command": "deposit"}, {**body, "note": "not transmitted by source"}))
+
+    def test_deposit_reversal_amount_is_fixed_and_requires_transaction_id(self):
+        for deposit in ["fixed", "recurring"]:
+            name = deposit + "DepositAccountId"
+            entry = self.variant(f"/v1/{deposit}depositaccounts/{{{name}}}/transactions/{{transactionId}}", "undo")
+            key = entry["key"]
+            body = {"transactionDate": "2026-11-19", "transactionAmount": 0}
+            path = {name: 12, "transactionId": 44}
+            result = workspace.build_request(key, self.request(key, path, {"command": "undo"}, body))
+            self.assertEqual(result[1], f"{deposit}depositaccounts/12/transactions/44")
+            for changed in [{**body, "transactionAmount": 1}, {"transactionDate": "2026-11-19"}]:
+                with self.assertRaises(ValueError):
+                    workspace.build_request(key, self.request(key, path, {"command": "undo"}, changed))
+
+    def test_recurring_transaction_template_commands_are_separate_reads(self):
+        path = "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/template"
+        for command in ["deposit", "withdrawal"]:
+            entry = self.variant(path, command, "GET")
+            result = workspace.build_request(entry["key"], self.request(entry["key"], {"recurringDepositAccountId": 12}, {"command": command}))
+            self.assertEqual(result[0], "GET")
+            self.assertIsNone(result[3])
     def request(self, key, path=None, query=None, body=None):
         return {"contract_digest": workspace.contract_digest(key), "path": path or {}, "query": query or {}, "body": body}
 

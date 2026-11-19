@@ -5,14 +5,70 @@ import os
 import hashlib
 
 from odoo import fields
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
 
 from .test_workflows import TestMfierpWorkflows
+from ..services.fineract import FineractError
 
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_form_contract_is_pinned_when_loaded_and_cannot_be_rebound(self):
+        request = self.form(self.reader, "GET", "/v1/clients")
+        self.assertTrue(request.contract_digest)
+        with self.assertRaises(AccessError):
+            request.write({"contract_digest": "forged"})
+        with patch("odoo.addons.mfierp.wizard.mfierp_request.workspace.contract_digest", return_value="changed"):
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                with self.assertRaises(UserError):
+                    request.action_execute()
+                client.assert_not_called()
+
+    def test_deposit_timeout_is_reserved_once_and_never_replayed(self):
+        capability = self.variant("/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions", "deposit")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "recurringDepositAccountId").write({"integer_value": 12})
+        request.input_ids.filtered(lambda row: row.key == "transactionDate").write({"date_value": "2026-11-19"})
+        request.input_ids.filtered(lambda row: row.key == "transactionAmount").write({"number_value": 2.75})
+        request.input_ids.filtered(lambda row: row.key == "paymentTypeId").write({"integer_value": 3})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        self.assertEqual(command.payload["body"]["transactionAmount"], 2.75)
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.side_effect = FineractError("Synthetic timeout", uncertain=True)
+            command._dispatch()
+            self.assertEqual(command.state, "uncertain")
+            with self.assertRaises(UserError):
+                command._dispatch()
+            self.assertEqual(client.return_value.request.call_count, 1)
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "recurringdepositaccounts/12/transactions"))
+
+    def test_deposit_undo_constant_cannot_be_changed_through_rpc(self):
+        capability = self.variant("/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}", "undo")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        amount = request.input_ids.filtered(lambda row: row.key == "transactionAmount")
+        self.assertEqual(amount.number_value, 0)
+        self.assertTrue(amount.locked)
+        with self.assertRaises(AccessError):
+            amount.write({"number_value": 100})
+
+    def test_reader_can_read_deposit_closure_template_without_a_command(self):
+        capability = self.variant("/v1/fixeddepositaccounts/{accountId}/template", "close")
+        request = self.env["mfierp.request"].with_user(self.reader).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "accountId").write({"integer_value": 12})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            client.return_value.request.return_value = {"id": 12, "maturityAmount": 102.75}
+            request.action_execute()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("GET", "fixeddepositaccounts/12/template"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "close"})
+        self.assertFalse(request.command_id)
+
     def variant(self, path, command):
         from ..services import workspace
         spec = next(c for c in workspace.capabilities().values() if c["path"] == path

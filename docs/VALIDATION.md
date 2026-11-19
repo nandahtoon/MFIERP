@@ -4,11 +4,11 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory tests | 35 passed |
+| Python service/workspace/inventory tests | 38 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
 | Clean Odoo 20 install and post-install ORM/workflow tests | Passed GitHub standard-image CI, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 30 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 34 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -37,3 +37,5 @@ Version 20.0.3.0.0 adds regression coverage for contextual loan IDs in reschedul
 Browser verification for 20.0.3.0.0 confirmed the path from the synthetic loan record through More Workflows to reschedule submission, with the connection and loan ID 201 correctly populated. Nested dates, reason and optional restructuring fields rendered in the native Details form. No remote write was submitted.
 
 Four inventory regressions verify that named routes cannot be counted as numeric ID lookups, concrete document routes still match generic entity routes, share-only contracts cannot count as loan contracts, and computed resources remain review items.
+
+Version 20.0.4.0.0 service regressions check separate deposit collection/transaction-ID routes, rejection of undefined/zero/extra IDs, omission of source-removed fields, fixed-zero reversals and GET-only transaction templates. ORM regressions cover fractional deposit submission, independent approval, timeout non-replay, immutable reversal constants, reader template access and stale-form rejection before network access. Previous release head dbaa44b passed standard-image CI (run 44534026663); current commit verification is recorded in PR checks.

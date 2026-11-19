@@ -36998,6 +36998,1144 @@
       "source_operation": "handleCommandsSavingsAccountCharge",
       "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+    },
+    {
+      "key": "post_handleCommandsFixedDepositAccount__activate",
+      "name": "Fixed deposit transactions: activate",
+      "category": "Fixed Deposit Account",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{accountId}",
+      "api_version": "v1",
+      "description": "Source-reviewed activate command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "activate"
+            ],
+            "default": "activate"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "activatedOnDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "activatedOnDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsFixedDepositAccount",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/activate-fixed-deposits-account/activate-fixed-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsFixedDepositAccount__undoapproval",
+      "name": "Fixed deposit transactions: undoapproval",
+      "category": "Fixed Deposit Account",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{accountId}",
+      "api_version": "v1",
+      "description": "Source-reviewed undoapproval command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "undoapproval"
+            ],
+            "default": "undoapproval"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsFixedDepositAccount",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/undo-approval-fixed-deposits-account/undo-approval-fixed-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
+    },
+    {
+      "key": "post_transaction__deposit",
+      "name": "Fixed deposit transactions: deposit",
+      "category": "Fixed Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions",
+      "api_version": "v1",
+      "description": "Source-reviewed deposit command. Fineract validates eligibility, amounts and state transitions. New cash transactions use the collection route without a transaction ID; the frontend's undefined-ID route is not reproduced.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "fixedDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "deposit"
+            ],
+            "default": "deposit"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "transaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_transaction__withdrawal",
+      "name": "Fixed deposit transactions: withdrawal",
+      "category": "Fixed Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions",
+      "api_version": "v1",
+      "description": "Source-reviewed withdrawal command. Fineract validates eligibility, amounts and state transitions. New cash transactions use the collection route without a transaction ID; the frontend's undefined-ID route is not reproduced.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "fixedDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "withdrawal"
+            ],
+            "default": "withdrawal"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "transaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsFixedDepositAccountTransaction__modify",
+      "name": "Fixed deposit transactions: modify",
+      "category": "Fixed Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}",
+      "api_version": "v1",
+      "description": "Source-reviewed modify command. Fineract validates eligibility, amounts and state transitions. Adjust an existing transaction using its remote ID; Fineract validates reversals and resulting balances.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "fixedDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "transactionId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "modify"
+            ],
+            "default": "modify"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsFixedDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsFixedDepositAccountTransaction__undo",
+      "name": "Fixed deposit transactions: undo",
+      "category": "Fixed Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}",
+      "api_version": "v1",
+      "description": "Source-reviewed undo command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "fixedDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "transactionId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "undo"
+            ],
+            "default": "undo"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "enum": [
+              0
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsFixedDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposit-account-view/view-transaction/view-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "get_accountClosureTemplate__close",
+      "name": "Fixed deposit transactions: close",
+      "category": "Fixed Deposit Account",
+      "method": "GET",
+      "path": "/v1/fixeddepositaccounts/{accountId}/template",
+      "api_version": "v1",
+      "description": "Source-reviewed close command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "close"
+            ],
+            "default": "close"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "accountClosureTemplate",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsRecurringDepositAccount__activate",
+      "name": "Recurring deposit transactions: activate",
+      "category": "Recurring Deposit Account",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{accountId}",
+      "api_version": "v1",
+      "description": "Source-reviewed activate command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "activate"
+            ],
+            "default": "activate"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "activatedOnDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "activatedOnDate"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsRecurringDepositAccount",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/activate-recurring-deposits-account/activate-recurring-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsRecurringDepositAccount__undoapproval",
+      "name": "Recurring deposit transactions: undoapproval",
+      "category": "Recurring Deposit Account",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{accountId}",
+      "api_version": "v1",
+      "description": "Source-reviewed undoapproval command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "undoapproval"
+            ],
+            "default": "undoapproval"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsRecurringDepositAccount",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/undo-approval-recurring-deposits-account/undo-approval-recurring-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
+    },
+    {
+      "key": "post_transactionRecurringDepositAccountTransaction__deposit",
+      "name": "Recurring deposit transactions: deposit",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions",
+      "api_version": "v1",
+      "description": "Source-reviewed deposit command. Fineract validates eligibility, amounts and state transitions. New cash transactions use the collection route without a transaction ID; the frontend's undefined-ID route is not reproduced.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "deposit"
+            ],
+            "default": "deposit"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount",
+          "paymentTypeId"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "transactionRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_transactionRecurringDepositAccountTransaction__withdrawal",
+      "name": "Recurring deposit transactions: withdrawal",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions",
+      "api_version": "v1",
+      "description": "Source-reviewed withdrawal command. Fineract validates eligibility, amounts and state transitions. New cash transactions use the collection route without a transaction ID; the frontend's undefined-ID route is not reproduced.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "withdrawal"
+            ],
+            "default": "withdrawal"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount",
+          "paymentTypeId"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "transactionRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsRecurringDepositAccountTransaction__modify",
+      "name": "Recurring deposit transactions: modify",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}",
+      "api_version": "v1",
+      "description": "Source-reviewed modify command. Fineract validates eligibility, amounts and state transitions. Adjust an existing transaction using its remote ID; Fineract validates reversals and resulting balances.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "description": "transactionId",
+          "in": "path",
+          "name": "transactionId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "modify"
+            ],
+            "default": "modify"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "checkNumber": {
+            "type": "string"
+          },
+          "routingCode": {
+            "type": "string"
+          },
+          "receiptNumber": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/edit-transaction/edit-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsRecurringDepositAccountTransaction__undo",
+      "name": "Recurring deposit transactions: undo",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "POST",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}",
+      "api_version": "v1",
+      "description": "Source-reviewed undo command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "description": "transactionId",
+          "in": "path",
+          "name": "transactionId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "undo"
+            ],
+            "default": "undo"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "transactionAmount": {
+            "type": "number",
+            "enum": [
+              0
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "transactionDate",
+          "transactionAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/view-transaction/view-transaction.component.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "get_accountClosureTemplateRecurringDepositAccount__close",
+      "name": "Recurring deposit transactions: close",
+      "category": "Recurring Deposit Account",
+      "method": "GET",
+      "path": "/v1/recurringdepositaccounts/{accountId}/template",
+      "api_version": "v1",
+      "description": "Source-reviewed close command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "close"
+            ],
+            "default": "close"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "accountClosureTemplateRecurringDepositAccount",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateRecurringDepositAccountTransaction__deposit",
+      "name": "Recurring deposit transactions: deposit",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "GET",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/template",
+      "api_version": "v1",
+      "description": "Source-reviewed deposit command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "deposit"
+            ],
+            "default": "deposit"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateRecurringDepositAccountTransaction__withdrawal",
+      "name": "Recurring deposit transactions: withdrawal",
+      "category": "Recurring Deposit Account Transactions",
+      "method": "GET",
+      "path": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/template",
+      "api_version": "v1",
+      "description": "Source-reviewed withdrawal command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "recurringDepositAccountId",
+          "in": "path",
+          "name": "recurringDepositAccountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "withdrawal"
+            ],
+            "default": "withdrawal"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateRecurringDepositAccountTransaction",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     }
   ],
   "schemas": {

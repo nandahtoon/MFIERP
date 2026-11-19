@@ -34,6 +34,7 @@ class MfierpRequest(models.TransientModel):
     input_ids = fields.One2many("mfierp.input", "request_id", string="Workflow Fields")
     root_input_ids = fields.One2many("mfierp.input", "request_id", string="Workflow Fields", domain=[("parent_id", "=", False)])
     initialized = fields.Boolean(readonly=True)
+    contract_digest = fields.Char(readonly=True)
     result_text = fields.Text(readonly=True)
     result_html = fields.Html(readonly=True, sanitize=True)
     result_status = fields.Char(readonly=True)
@@ -46,12 +47,12 @@ class MfierpRequest(models.TransientModel):
     def create(self, vals_list):
         if not self.env.su:
             for vals in vals_list:
-                if any(vals.get(key) for key in ("initialized", "result_text", "result_html", "result_status", "command_id", "download_data", "download_name")):
+                if any(vals.get(key) for key in ("initialized", "contract_digest", "result_text", "result_html", "result_status", "command_id", "download_data", "download_name")):
                     raise AccessError(_("Workflow outcomes cannot be supplied by the client."))
         return super().create(vals_list)
 
     def write(self, vals):
-        if not self.env.su and {"initialized", "result_text", "result_html", "result_status", "command_id", "download_data", "download_name"} & vals.keys():
+        if not self.env.su and {"initialized", "contract_digest", "result_text", "result_html", "result_status", "command_id", "download_data", "download_name"} & vals.keys():
             raise AccessError(_("Workflow outcomes are maintained by authorized actions."))
         if not self.env.su and {"capability_id", "backend_id", "company_id", "target_id"} & vals.keys() and any(self.mapped("initialized")):
             raise UserError(_("Start a new workflow form to change its connection, company or operation."))
@@ -122,13 +123,15 @@ class MfierpRequest(models.TransientModel):
             self._node(param["name"], param["schema"], param["in"], required=param.get("required", False))
         if spec["body"] is not None:
             self._node("details", spec["body"], "body", required=spec["body_required"])
-        self.sudo().write({"initialized": True})
+        self.sudo().write({"initialized": True, "contract_digest": workspace.contract_digest(self.capability_id.key)})
         return True
 
     def _envelope(self):
         if not self.initialized:
             raise UserError(_("Load the workflow fields first."))
-        envelope = {"contract_digest": workspace.contract_digest(self.capability_id.key), "path": {}, "query": {}, "body": None}
+        if self.contract_digest != workspace.contract_digest(self.capability_id.key):
+            raise UserError(_("The source contract changed. Open a new workflow form before submitting or reading."))
+        envelope = {"contract_digest": self.contract_digest, "path": {}, "query": {}, "body": None}
         for node in self.input_ids.filtered(lambda line: not line.parent_id):
             if node.included or node.required:
                 if node.location == "body":

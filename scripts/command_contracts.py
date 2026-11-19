@@ -190,4 +190,58 @@ def command_variants(capabilities):
     for command in ["waive", "inactivate"]:
         add("/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}", command, "Savings charges",
             "savings/savings-account-view/view-charge/view-charge.component.ts", {}, dates=False)
+    deposit_entries = []
+    deposit_payment = {"transactionDate": "string", "transactionAmount": {"type": "number", "minimum": 0, "exclusiveMinimum": True},
+        "paymentTypeId": "integer", "accountNumber": "string", "checkNumber": "string", "routingCode": "string",
+        "receiptNumber": "string", "bankNumber": "string"}
+    for deposit in ["fixed", "recurring"]:
+        account_key = deposit + "DepositAccountId"
+        resource = f"/v1/{deposit}depositaccounts/{{{account_key}}}"
+        area = deposit.capitalize() + " deposit transactions"
+        cash_form = ("deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts"
+            if deposit == "fixed" else "deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts")
+        backend_source = ("https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/"
+            f"fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/{deposit.capitalize()}DepositAccountTransactionsApiResource.java")
+        account_backend = backend_source.replace("AccountTransactionsApiResource.java", "AccountsApiResource.java")
+        for command, component, fields, required, dates in [
+            ("activate", f"activate-{deposit}-deposits-account", {"activatedOnDate": "string"}, ["activatedOnDate"], True),
+            ("undoapproval", f"undo-approval-{deposit}-deposits-account", {"note": "string"}, [], False),
+        ]:
+            form = f"deposits/{deposit}-deposits/{deposit}-deposits-account-actions/{component}/{component}.component.ts"
+            entry = add(f"/v1/{deposit}depositaccounts/{{accountId}}", command, area, form, fields, required, dates=dates)
+            entry["source_backend"] = account_backend
+            deposit_entries.append(entry)
+        for command in ["deposit", "withdrawal"]:
+            required = ["transactionDate", "transactionAmount"] + (["paymentTypeId"] if deposit == "recurring" else [])
+            entry = add(resource + "/transactions", command, area, cash_form, deposit_payment, required)
+            entry["source_backend"] = backend_source
+            entry["description"] += " New cash transactions use the collection route without a transaction ID; the frontend's undefined-ID route is not reproduced."
+            deposit_entries.append(entry)
+        edit_form = (cash_form if deposit == "fixed" else
+            "deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/edit-transaction/edit-transaction.component.ts")
+        entry = add(resource + "/transactions/{transactionId}", "modify", area, edit_form,
+            deposit_payment, ["transactionDate", "transactionAmount"])
+        entry["source_backend"] = backend_source
+        entry["description"] += " Adjust an existing transaction using its remote ID; Fineract validates reversals and resulting balances."
+        deposit_entries.append(entry)
+        undo_form = ("deposits/fixed-deposits/fixed-deposit-account-view/view-transaction/view-transaction.component.ts"
+            if deposit == "fixed" else "deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/view-transaction/view-transaction.component.ts")
+        entry = add(resource + "/transactions/{transactionId}", "undo", area, undo_form,
+            {"transactionDate": "string", "transactionAmount": {"type": "number", "enum": [0]}}, ["transactionDate", "transactionAmount"])
+        entry["source_backend"] = backend_source
+        deposit_entries.append(entry)
+        entry = add(f"/v1/{deposit}depositaccounts/{{accountId}}/template", "close", area,
+            f"deposits/{deposit}-deposits/{deposit}-deposits.service.ts", {}, dates=False, method="GET")
+        entry.update(body=None, body_required=False, source_backend=account_backend)
+        deposit_entries.append(entry)
+        if deposit == "recurring":
+            for command in ["deposit", "withdrawal"]:
+                entry = add(resource + "/transactions/template", command, area,
+                    "deposits/recurring-deposits/recurring-deposits.service.ts", {}, dates=False, method="GET")
+                entry.update(body=None, body_required=False, source_backend=backend_source)
+                deposit_entries.append(entry)
+    for entry in deposit_entries:
+        for param in entry["parameters"]:
+            if param["in"] == "path" and param["schema"].get("type") == "integer":
+                param["schema"]["minimum"] = 1
     return variants
