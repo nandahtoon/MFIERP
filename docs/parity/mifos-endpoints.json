@@ -5,9 +5,9 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 656,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 36,
+    "TYPED_CONTRACT_CANDIDATE": 662,
     "NOT_IN_DEPLOYED_OPENAPI": 3,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 30,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
   "calls": [
@@ -51,11 +51,12 @@
       "source": "src/app/account-transfers/account-transfers.service.ts",
       "line": 44,
       "area": "account-transfers",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/account-transfers/account-transfers.service.ts#L44",
       "capabilities": [
-        "put_updateStandingInstruction"
+        "put_updateStandingInstruction",
+        "put_updateStandingInstruction__update"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5453,7 +5454,10 @@
         "post_createGLJournalEntry__create",
         "post_createRescheduleLoan__reschedule",
         "post_generateCollectionSheet__generateCollectionSheet",
-        "post_generateCollectionSheet__saveCollectionSheet"
+        "post_generateCollectionSheet__saveCollectionSheet",
+        "post_createProvisioningCriteria__createCriteria",
+        "post_handleCommandsScheduler__start",
+        "post_handleCommandsScheduler__stop"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -5612,7 +5616,9 @@
         "put_updateConfiguration_1",
         "put_updateUser",
         "put_updateWorkingCapitalLoanProduct",
-        "put_modifyWorkingCapitalLoanApplicationById"
+        "put_modifyWorkingCapitalLoanApplicationById",
+        "put_updateStandingInstruction__update",
+        "put_updateProvisioningCriteria__updateCriteria"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -6712,11 +6718,12 @@
       "source": "src/app/organization/organization.service.ts",
       "line": 57,
       "area": "organization",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L57",
       "capabilities": [
-        "post_createProvisioningCriteria"
+        "post_createProvisioningCriteria",
+        "post_createProvisioningCriteria__createCriteria"
       ],
       "remaining_contract_issues": [
         "Request object has no declared fields; a reviewed schema is required."
@@ -6730,11 +6737,12 @@
       "source": "src/app/organization/organization.service.ts",
       "line": 66,
       "area": "organization",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L66",
       "capabilities": [
-        "put_updateProvisioningCriteria"
+        "put_updateProvisioningCriteria",
+        "put_updateProvisioningCriteria__updateCriteria"
       ],
       "remaining_contract_issues": [
         "Request object has no declared fields; a reviewed schema is required."
@@ -8477,7 +8485,10 @@
         "post_createGLJournalEntry__create",
         "post_createRescheduleLoan__reschedule",
         "post_generateCollectionSheet__generateCollectionSheet",
-        "post_generateCollectionSheet__saveCollectionSheet"
+        "post_generateCollectionSheet__saveCollectionSheet",
+        "post_createProvisioningCriteria__createCriteria",
+        "post_handleCommandsScheduler__start",
+        "post_handleCommandsScheduler__stop"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8798,7 +8809,9 @@
         "put_updateConfiguration_1",
         "put_updateUser",
         "put_updateWorkingCapitalLoanProduct",
-        "put_modifyWorkingCapitalLoanApplicationById"
+        "put_modifyWorkingCapitalLoanApplicationById",
+        "put_updateStandingInstruction__update",
+        "put_updateProvisioningCriteria__updateCriteria"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8993,11 +9006,12 @@
       "source": "src/app/products/products.service.ts",
       "line": 119,
       "area": "products",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L119",
       "capabilities": [
-        "post_createShareDividend"
+        "post_createShareDividend",
+        "post_createShareDividend__createDividend"
       ],
       "remaining_contract_issues": [
         "Opaque JSON request body needs a source-reviewed field schema."
@@ -9027,11 +9041,12 @@
       "source": "src/app/products/products.service.ts",
       "line": 133,
       "area": "products",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L133",
       "capabilities": [
-        "put_updateShareDividend"
+        "put_updateShareDividend",
+        "put_updateShareDividend__approve"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -11749,11 +11764,13 @@
       "source": "src/app/system/system.service.ts",
       "line": 331,
       "area": "system",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L331",
       "capabilities": [
-        "post_handleCommandsScheduler"
+        "post_handleCommandsScheduler",
+        "post_handleCommandsScheduler__start",
+        "post_handleCommandsScheduler__stop"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."

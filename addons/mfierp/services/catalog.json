@@ -23299,7 +23299,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveSchedulerStatus"
     },
     {
@@ -23324,7 +23324,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "Command variants need source-reviewed schemas before execution.",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "handleCommandsScheduler"
     },
     {
@@ -40022,6 +40022,572 @@
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
       "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/individual-collection-sheet/individual-collection-sheet.component.ts",
       "require_reconciliation": true
+    },
+    {
+      "key": "put_updateStandingInstruction__update",
+      "name": "Standing instructions: update",
+      "category": "Standing Instructions",
+      "method": "PUT",
+      "path": "/v1/standinginstructions/{standingInstructionId}",
+      "api_version": "v1",
+      "description": "Source-reviewed update command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "standingInstructionId",
+          "in": "path",
+          "name": "standingInstructionId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "update"
+            ],
+            "default": "update"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "status": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "instructionType": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "validTill": {
+            "type": "string",
+            "format": "date"
+          },
+          "recurrenceType": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "recurrenceInterval": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "recurrenceFrequency": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "recurrenceOnMonthDay": {
+            "type": "string",
+            "pattern": "^(0[1-9]|[12][0-9]|3[01]) (January|February|March|April|May|June|July|August|September|October|November|December)$",
+            "description": "Day and English month, for example 19 November. Fineract validates the calendar date."
+          },
+          "monthDayFormat": {
+            "type": "string",
+            "enum": [
+              "dd MMMM"
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "priority",
+          "status",
+          "validFrom",
+          "validTill",
+          "recurrenceType"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateStandingInstruction",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/account-transfers/edit-standing-instructions/edit-standing-instructions.component.ts",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-account-transfer/src/main/java/org/apache/fineract/portfolio/account/data/request/StandingInstructionUpdateRequest.java"
+    },
+    {
+      "key": "post_createProvisioningCriteria__createCriteria",
+      "name": "Provisioning criteria: createCriteria",
+      "category": "Provisioning Criteria",
+      "method": "POST",
+      "path": "/v1/provisioningcriteria",
+      "api_version": "v1",
+      "description": "Source-reviewed createCriteria workflow. Fineract validates eligibility, amounts and state transitions. Select explicit loan products and every required category from the remote template. Fineract calculates provisions and validates ledger accounts; no journals are created in Odoo.",
+      "parameters": [],
+      "body": {
+        "type": "object",
+        "properties": {
+          "criteriaName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "loanProducts": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "id",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "name": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "includeInBorrowerCycle": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "definitions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "categoryId",
+            "items": {
+              "type": "object",
+              "required": [
+                "categoryId",
+                "minAge",
+                "maxAge",
+                "provisioningPercentage",
+                "liabilityAccount",
+                "expenseAccount"
+              ],
+              "x-mfierp-greater-than": [
+                [
+                  "maxAge",
+                  "minAge"
+                ]
+              ],
+              "properties": {
+                "categoryId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "categoryName": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "minAge": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxAge": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "provisioningPercentage": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "liabilityAccount": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "expenseAccount": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "criteriaName",
+          "loanProducts",
+          "definitions"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "createProvisioningCriteria",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/loan-provisioning-criteria/create-loan-provisioning-criteria/create-loan-provisioning-criteria.component.ts",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/organisation/provisioning/serialization/ProvisioningCriteriaDefinitionJsonDeserializer.java"
+    },
+    {
+      "key": "put_updateProvisioningCriteria__updateCriteria",
+      "name": "Provisioning criteria: updateCriteria",
+      "category": "Provisioning Criteria",
+      "method": "PUT",
+      "path": "/v1/provisioningcriteria/{criteriaId}",
+      "api_version": "v1",
+      "description": "Source-reviewed updateCriteria workflow. Fineract validates eligibility, amounts and state transitions. Select explicit loan products and every required category from the remote template. Fineract calculates provisions and validates ledger accounts; no journals are created in Odoo.",
+      "parameters": [
+        {
+          "description": "criteriaId",
+          "in": "path",
+          "name": "criteriaId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "criteriaName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "loanProducts": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "id",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "name": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "includeInBorrowerCycle": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "definitions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "x-mfierp-unique-by": "categoryId",
+            "items": {
+              "type": "object",
+              "required": [
+                "categoryId",
+                "minAge",
+                "maxAge",
+                "provisioningPercentage",
+                "liabilityAccount",
+                "expenseAccount"
+              ],
+              "x-mfierp-greater-than": [
+                [
+                  "maxAge",
+                  "minAge"
+                ]
+              ],
+              "properties": {
+                "categoryId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "categoryName": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "minAge": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxAge": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "provisioningPercentage": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "liabilityAccount": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "expenseAccount": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "criteriaName",
+          "loanProducts",
+          "definitions"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "updateProvisioningCriteria",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/loan-provisioning-criteria/edit-loan-provisioning-criteria/edit-loan-provisioning-criteria.component.ts",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/organisation/provisioning/serialization/ProvisioningCriteriaDefinitionJsonDeserializer.java"
+    },
+    {
+      "key": "post_createShareDividend__createDividend",
+      "name": "Share dividends: createDividend",
+      "category": "Self Dividend",
+      "method": "POST",
+      "path": "/v1/shareproduct/{productId}/dividend",
+      "api_version": "v1",
+      "description": "Source-reviewed createDividend workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "productId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "dividendPeriodStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dividendPeriodEndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dividendAmount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "dividendPeriodStartDate",
+          "dividendPeriodEndDate",
+          "dividendAmount"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "createShareDividend",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/share-products/create-dividend/create-dividend.component.ts",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/shareproducts/api/ShareDividendApiResource.java",
+      "require_reconciliation": true,
+      "reconciliation_scope": "dividend",
+      "capture_subresource": true
+    },
+    {
+      "key": "put_updateShareDividend__approve",
+      "name": "Share dividends: approve",
+      "category": "Self Dividend",
+      "method": "PUT",
+      "path": "/v1/shareproduct/{productId}/dividend/{dividendId}",
+      "api_version": "v1",
+      "description": "Source-reviewed approve command. Fineract validates eligibility, amounts and state transitions. Approval changes the remote payout plan; it does not prove completed payments. Reconcile the plan and affected accounts.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "productId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "dividendId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "approve"
+            ],
+            "default": "approve"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "updateShareDividend",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/share-products/view-dividend/view-dividend.component.ts",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/shareproducts/service/ShareProductWritePlatformServiceJpaRepositoryImpl.java",
+      "require_reconciliation": true,
+      "reconciliation_scope": "dividend"
+    },
+    {
+      "key": "post_handleCommandsScheduler__start",
+      "name": "Scheduler: start",
+      "category": "Scheduler",
+      "method": "POST",
+      "path": "/v1/scheduler",
+      "api_version": "v1",
+      "description": "Source-reviewed start command. Fineract validates eligibility, amounts and state transitions. Re-read scheduler status after dispatch and reconcile its outcome before confirming it.",
+      "parameters": [
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "start"
+            ],
+            "default": "start"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "handleCommandsScheduler",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts"
+    },
+    {
+      "key": "post_handleCommandsScheduler__stop",
+      "name": "Scheduler: stop",
+      "category": "Scheduler",
+      "method": "POST",
+      "path": "/v1/scheduler",
+      "api_version": "v1",
+      "description": "Source-reviewed stop command. Fineract validates eligibility, amounts and state transitions. Re-read scheduler status after dispatch and reconcile its outcome before confirming it.",
+      "parameters": [
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "stop"
+            ],
+            "default": "stop"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "media_type": "",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "handleCommandsScheduler",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts"
     }
   ],
   "schemas": {

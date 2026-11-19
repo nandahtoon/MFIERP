@@ -4,11 +4,11 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory/datatable tests | 51 passed |
+| Python service/workspace/inventory/datatable/administration tests | 56 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
-| Clean Odoo 20 install and post-install ORM/workflow tests | 52 passed locally, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 52 passed locally, 0 failures/errors |
+| Clean Odoo 20 install and post-install ORM/workflow tests | 56 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 56 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -47,3 +47,7 @@ Version 20.0.6.0.0 adds regressions for collection projection/bounds, non-empty 
 Version 20.0.7.0.0 adds typed registered-datatable entry contracts, bounded escaped reads, single-/multi-row routes, company and role isolation, immutable metadata, stale-form and pre-dispatch metadata checks, independent administrator approval for office/product entries, contextual parent IDs and uncertain-outcome non-replay. Dispatch also locks and rechecks the reservation against reconciliation before network access. A stable source snapshot passed 51 pure Python tests, Ruff, syntax/XML/manifest checks, and 52 post-install tests on both a clean install and upgrade in a new isolated MFIERP test database using the source-based runtime described above. Remote business calls remain mocked; this does not establish live tenant acceptance.
 
 Commit `6d733cebf818e4d94497c6d76b8b62ffb615f460` also passed the [standard-image service, clean install and upgrade CI](https://github.com/nandahtoon/MFIERP/actions/runs/44592700116). Playwright checked the registered-table menu, native table details, separate parent/entry identifiers and nested typed fields using an explicitly synthetic local fixture. No remote request was submitted during browser verification; the user's archived connection remained archived.
+
+Version 20.0.8.0.0 adds regressions for source-fixed standing-instruction updates, explicit unique provisioning product/category collections, age-range validation, independent administrator review, dividend payout-ID capture, mandatory dividend reconciliation, and manager-only scheduler controls. All 56 pure Python tests and 56 Odoo tests passed, including clean installation and upgrade in isolated databases. Remote business requests remain mocked. Standard-image CI for the preceding datatable implementation and evidence commit also passed at 3f97ef2 (run 44593101286); current checks are recorded on the draft PR.
+
+Playwright also verified Configuration → Scheduler Workflows and the separately listed fixed start/stop contracts in the upgraded synthetic local demo. No scheduler or other business command was submitted during this browser check.

@@ -38,6 +38,7 @@
                     </group>
                     <group string="Remote Outcome" invisible="state in ['pending', 'approved', 'rejected']">
                         <field name="result_resource_id" string="Fineract Resource ID" invisible="not result_resource_id"/>
+                        <field name="result_subresource_id" invisible="not result_subresource_id"/>
                         <field name="result_command_id" string="Fineract Command ID" invisible="not result_command_id"/>
                         <field name="status_message"/>
                         <field name="resolved_by_id" invisible="not resolved_by_id"/>

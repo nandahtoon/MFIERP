@@ -44,6 +44,13 @@ def command_references(result):
     return values
 
 
+def subresource_reference(result):
+    value = result.get("subResourceId") if isinstance(result, dict) else None
+    if value is not None and (isinstance(value, bool) or not isinstance(value, int) or value < 1):
+        raise ValueError("Invalid Fineract subresource reference; reconcile the request.")
+    return value
+
+
 def resolve(schema):
     seen = set()
     overrides = {}
@@ -116,6 +123,9 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
             if props[key].get("readOnly"):
                 raise ValueError(f"{label}: response-only field is prohibited.")
             validate(child, props[key], key, depth + 1, allow_staged)
+        for greater, lesser in schema.get("x-mfierp-greater-than", []):
+            if greater in value and lesser in value and value[greater] <= value[lesser]:
+                raise ValueError(f"{label}: {greater} must be greater than {lesser}.")
     elif kind == "array":
         if not isinstance(value, list) or len(value) > min(schema.get("maxItems", 100), 100):
             raise ValueError(f"{label}: expected a list of at most 100 items.")

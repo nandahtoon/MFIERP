@@ -14,6 +14,110 @@ from ..services.fineract import FineractError
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_standing_instruction_update_is_typed_and_independently_dispatched(self):
+        capability = self.variant("/v1/standinginstructions/{standingInstructionId}", "update")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        for key, value in [("standingInstructionId", 7), ("priority", 1), ("status", 2), ("recurrenceType", 1)]:
+            request.input_ids.filtered(lambda row, name=key: row.key == name).write({"integer_value": value})
+        for key, value in [("validFrom", "2026-11-19"), ("validTill", "2027-11-19")]:
+            request.input_ids.filtered(lambda row, name=key: row.key == name).write({"date_value": value})
+        with self.assertRaises(AccessError):
+            request.input_ids.filtered(lambda row: row.key == "command").write({"text_value": "delete"})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 7}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "standinginstructions/7"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "update"})
+        self.assertEqual(command.state, "done")
+
+    def test_provisioning_criteria_native_rows_require_valid_ranges_and_administrator_review(self):
+        capability = self.variant("/v1/provisioningcriteria", "createCriteria")
+        with self.assertRaises(AccessError):
+            capability.with_user(self.maker).action_open()
+        request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        request.input_ids.filtered(lambda row: row.key == "criteriaName").write({"text_value": "Synthetic Criteria"})
+        products = request.input_ids.filtered(lambda row: row.key == "loanProducts")
+        products.action_add_item()
+        products.child_ids.child_ids.filtered(lambda row: row.key == "id").write({"integer_value": 3})
+        definitions = request.input_ids.filtered(lambda row: row.key == "definitions")
+        definitions.action_add_item()
+        for key, value in [("categoryId", 1), ("minAge", 0), ("maxAge", 0), ("liabilityAccount", 8), ("expenseAccount", 9)]:
+            definitions.child_ids.child_ids.filtered(lambda row, name=key: row.key == name).write({"integer_value": value})
+        definitions.child_ids.child_ids.filtered(lambda row: row.key == "provisioningPercentage").write({"number_value": 2.5})
+        with self.assertRaises(UserError):
+            request.action_execute()
+        definitions.child_ids.child_ids.filtered(lambda row: row.key == "maxAge").write({"integer_value": 30})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        with self.assertRaises(AccessError):
+            command.with_user(self.checker).action_approve()
+        reviewer = self._make_user("mfierp_criteria_reviewer", "group_manager")
+        command.with_user(reviewer).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 4}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "provisioningcriteria"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["payload"]["definitions"][0]["provisioningPercentage"], 2.5)
+        self.assertEqual(command.state, "done")
+
+    def test_dividend_payout_id_is_preserved_and_approval_never_confirms_payment(self):
+        reviewer = self._make_user("mfierp_dividend_reviewer", "group_manager")
+        for path, suffix in [("/v1/shareproduct/{productId}/dividend", "createDividend"),
+                ("/v1/shareproduct/{productId}/dividend/{dividendId}", "approve")]:
+            request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": self.variant(path, suffix).id,
+                "backend_id": self.backend.id})
+            request.action_load()
+            request.input_ids.filtered(lambda row: row.key == "productId").write({"integer_value": 3})
+            if suffix == "createDividend":
+                request.input_ids.filtered(lambda row: row.key == "dividendPeriodStartDate").write({"date_value": "2026-01-01"})
+                request.input_ids.filtered(lambda row: row.key == "dividendPeriodEndDate").write({"date_value": "2026-11-19"})
+                request.input_ids.filtered(lambda row: row.key == "dividendAmount").write({"number_value": 12.5})
+            else:
+                request.input_ids.filtered(lambda row: row.key == "dividendId").write({"integer_value": 19})
+            command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+            command.with_user(reviewer).action_approve()
+            command.write({"state": "dispatching"})
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                self._mock_provenance(client)
+                client.return_value.request.return_value = {"resourceId": 3, "subResourceId": 19}
+                command._dispatch()
+                self.assertEqual(client.return_value.request.call_count, 1)
+                self.assertEqual(command.state, "remote_pending")
+                self.assertIn("does not establish completed payment", command.status_message)
+                self.assertEqual(command.result_subresource_id, 19 if suffix == "createDividend" else 0)
+
+    def test_scheduler_requires_independent_administrators_and_empty_response_stays_pending(self):
+        capability = self.variant("/v1/scheduler", "start")
+        with self.assertRaises(AccessError):
+            capability.with_user(self.maker).action_open()
+        with self.assertRaises(AccessError):
+            self.capability("GET", "/v1/scheduler").with_user(self.reader).action_open()
+        request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id, "backend_id": self.backend.id})
+        request.action_load()
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        with self.assertRaises(AccessError):
+            command.with_user(self.checker).action_approve()
+        reviewer = self._make_user("mfierp_scheduler_reviewer", "group_manager")
+        command.with_user(reviewer).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {}
+            command._dispatch()
+            self.assertEqual(command.state, "remote_pending")
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "scheduler"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "start"})
+            self.assertEqual(client.return_value.request.call_args.kwargs["payload"], {})
+            self.env["mfierp.command"]._cron_dispatch()
+            self.assertEqual(client.return_value.request.call_count, 1)
+
     def test_collection_preview_is_projected_escaped_and_expires(self):
         capability = self.variant("/v1/collectionsheet", "generateCollectionSheet")
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})

@@ -123,7 +123,7 @@ def compile_catalog(spec):
                 "media_type": media_type,
                 "body_required": operation.get("requestBody", {}).get("required", False),
                 "blocked": blocked, "admin_only": contains_secret(body) or bool(re.search(
-                    r"/(users|roles|permissions|configuration|passwordpreferences|hooks|jobs|datatables|codes|businessdate|cache|accountnumberformats|loanproducts|savingsproducts|fixeddepositproducts|recurringdepositproducts|shareproducts|shareproduct|glaccounts|journalentries|glclosures|provisioningcriteria|reports)(/|$)", path, re.I)),
+                    r"/(users|roles|permissions|configuration|passwordpreferences|hooks|jobs|scheduler|datatables|codes|businessdate|cache|accountnumberformats|loanproducts|savingsproducts|fixeddepositproducts|recurringdepositproducts|shareproducts|shareproduct|glaccounts|journalentries|glclosures|provisioningcriteria|reports)(/|$)", path, re.I)),
                 "source_operation": operation.get("operationId")})
     # Mifos createLoansAccount() posts without a command. Keep this distinct
     # from the unresolved calculation/other command variants at the same URL.

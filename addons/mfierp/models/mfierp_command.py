@@ -47,6 +47,7 @@ class MfierpCommand(models.Model):
     dispatched_at = fields.Datetime(readonly=True)
     completed_at = fields.Datetime(readonly=True)
     result_resource_id = fields.Integer(readonly=True)
+    result_subresource_id = fields.Integer(readonly=True, string="Fineract Subresource ID")
     result_command_id = fields.Integer(readonly=True)
     status_message = fields.Char(readonly=True)
     preview_data = fields.Json(readonly=True)
@@ -321,9 +322,13 @@ class MfierpCommand(models.Model):
                     return
                 if spec.get("require_reconciliation"):
                     resource_id, command_id = workspace.command_references(result)
+                    subresource_id = workspace.subresource_reference(result) if spec.get("capture_subresource") else None
+                    message = (_("Dividend response received. Reconcile the payout plan and affected accounts. Approval does not establish completed payment.")
+                        if spec.get("reconciliation_scope") == "dividend" else
+                        _("Collection response received. Reconcile every affected account and transaction before confirming the posting."))
                     self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
                         "result_resource_id": resource_id, "result_command_id": command_id,
-                        "status_message": _("Collection response received. Reconcile every affected account and transaction before confirming the posting.")})
+                        "result_subresource_id": subresource_id, "status_message": message})
                     return
             resource_id, command_id = workspace.command_references(result)
             if self.operation == "workspace" and (not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId"))):
