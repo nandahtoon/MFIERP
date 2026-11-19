@@ -31914,8 +31914,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/activate-client/activate-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/activate-client/activate-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__reactivate",
@@ -31978,8 +31978,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reactivate-client/reactivate-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reactivate-client/reactivate-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__close",
@@ -32047,8 +32047,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/close-client/close-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/close-client/close-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__reject",
@@ -32116,8 +32116,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reject-client/reject-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reject-client/reject-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__withdraw",
@@ -32185,8 +32185,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/withdraw-client/withdraw-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/withdraw-client/withdraw-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__undoRejection",
@@ -32249,8 +32249,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/undo-client-rejection/undo-client-rejection.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/undo-client-rejection/undo-client-rejection.component.ts"
     },
     {
       "key": "post_handleCommandClient__assignStaff",
@@ -32301,8 +32301,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/client-assign-staff/client-assign-staff.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/client-assign-staff/client-assign-staff.component.ts"
     },
     {
       "key": "post_handleCommandClient__updateSavingsAccount",
@@ -32353,8 +32353,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/update-client-savings-account/update-client-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/update-client-savings-account/update-client-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandClient__proposeTransfer",
@@ -32425,8 +32425,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/transfer-client/transfer-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/transfer-client/transfer-client.component.ts"
     },
     {
       "key": "post_handleCommandClient__acceptTransfer",
@@ -32474,8 +32474,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/accept-client-transfer/accept-client-transfer.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/accept-client-transfer/accept-client-transfer.component.ts"
     },
     {
       "key": "post_handleCommandClient__rejectTransfer",
@@ -32523,8 +32523,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reject-client-transfer/reject-client-transfer.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/reject-client-transfer/reject-client-transfer.component.ts"
     },
     {
       "key": "post_handleCommandClient__withdrawTransfer",
@@ -32572,8 +32572,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandClient",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/undo-client-transfer/undo-client-transfer.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/client-actions/undo-client-transfer/undo-client-transfer.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__approve",
@@ -32646,8 +32646,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/approve-loan/approve-loan.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/approve-loan/approve-loan.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__reject",
@@ -32713,8 +32713,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/reject-loan/reject-loan.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/reject-loan/reject-loan.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__withdrawnByApplicant",
@@ -32777,8 +32777,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/withdrawn-by-client/withdrawn-by-client.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/withdrawn-by-client/withdrawn-by-client.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__disbursetosavings",
@@ -32850,8 +32850,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/disburse-to-savings-account/disburse-to-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/disburse-to-savings-account/disburse-to-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__assignLoanOfficer",
@@ -32923,8 +32923,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/assign-loan-officer/assign-loan-officer.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/assign-loan-officer/assign-loan-officer.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__undoapproval",
@@ -32972,8 +32972,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-approval/undo-approval.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-approval/undo-approval.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__undodisbursal",
@@ -33021,8 +33021,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-disbursal/undo-disbursal.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-disbursal/undo-disbursal.component.ts"
     },
     {
       "key": "post_handleCommandsLoan__undolastdisbursal",
@@ -33070,8 +33070,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-disbursal/undo-disbursal.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-disbursal/undo-disbursal.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__close",
@@ -33137,8 +33137,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/loans-account-close/loans-account-close.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/loans-account-close/loans-account-close.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__close-rescheduled",
@@ -33204,8 +33204,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/close-as-rescheduled/close-as-rescheduled.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/close-as-rescheduled/close-as-rescheduled.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__waiveinterest",
@@ -33275,8 +33275,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/waive-interest/waive-interest.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/waive-interest/waive-interest.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__undowriteoff",
@@ -33346,8 +33346,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-write-off/undo-write-off.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/undo-write-off/undo-write-off.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__charge-off",
@@ -33410,8 +33410,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/charge-off/charge-off.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/charge-off/charge-off.component.ts"
     },
     {
       "key": "post_handleCommandsLoanTransaction__recoverypayment",
@@ -33503,8 +33503,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsLoanTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/recovery-repayment/recovery-repayment.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/recovery-repayment/recovery-repayment.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__approve",
@@ -33570,8 +33570,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/approve-savings-account/approve-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/approve-savings-account/approve-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__reject",
@@ -33637,8 +33637,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/reject-savings-account/reject-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/reject-savings-account/reject-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__withdrawnByApplicant",
@@ -33704,8 +33704,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/withdraw-by-client-savings-account/withdraw-by-client-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/withdraw-by-client-savings-account/withdraw-by-client-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__approve",
@@ -33771,8 +33771,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/approve-fixed-deposits-account/approve-fixed-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/approve-fixed-deposits-account/approve-fixed-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__reject",
@@ -33838,8 +33838,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/reject-fixed-deposits-account/reject-fixed-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/reject-fixed-deposits-account/reject-fixed-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__withdrawnByApplicant",
@@ -33905,8 +33905,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/withdraw-by-client-fixed-deposits-account/withdraw-by-client-fixed-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/withdraw-by-client-fixed-deposits-account/withdraw-by-client-fixed-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsRecurringDepositAccount__approve",
@@ -33972,8 +33972,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/approve-recurring-deposits-account/approve-recurring-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/approve-recurring-deposits-account/approve-recurring-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsRecurringDepositAccount__reject",
@@ -34039,8 +34039,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/reject-recurring-deposits-account/reject-recurring-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/reject-recurring-deposits-account/reject-recurring-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsRecurringDepositAccount__withdrawnByApplicant",
@@ -34106,8 +34106,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/withdraw-by-client-recurring-deposits-account/withdraw-by-client-recurring-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/withdraw-by-client-recurring-deposits-account/withdraw-by-client-recurring-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__activate",
@@ -34170,8 +34170,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/activate-savings-account/activate-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/activate-savings-account/activate-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__undoapproval",
@@ -34219,8 +34219,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/undo-approval-savings-account/undo-approval-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/undo-approval-savings-account/undo-approval-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__assignSavingsOfficer",
@@ -34288,8 +34288,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-assign-staff/savings-account-assign-staff.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-assign-staff/savings-account-assign-staff.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__unassignSavingsOfficer",
@@ -34352,8 +34352,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-unassign-staff/savings-account-unassign-staff.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-unassign-staff/savings-account-unassign-staff.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__close",
@@ -34425,8 +34425,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/close-savings-account/close-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/close-savings-account/close-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__block",
@@ -34476,8 +34476,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__blockCredit",
@@ -34527,8 +34527,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccount__blockDebit",
@@ -34578,8 +34578,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts"
     },
     {
       "key": "post_createSavingsAccountTransaction__deposit",
@@ -34667,8 +34667,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "createSavingsAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-transactions/savings-account-transactions.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-transactions/savings-account-transactions.component.ts"
     },
     {
       "key": "post_createSavingsAccountTransaction__withdrawal",
@@ -34756,8 +34756,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "createSavingsAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-transactions/savings-account-transactions.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/savings-account-transactions/savings-account-transactions.component.ts"
     },
     {
       "key": "post_createSavingsAccountTransaction__holdAmount",
@@ -34826,8 +34826,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "createSavingsAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/manage-savings-account/manage-savings-account.component.ts"
     },
     {
       "key": "post_createSavingsAccountTransaction__postInterestAsOn",
@@ -34889,8 +34889,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "createSavingsAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/post-interest-as-on-savings-account/post-interest-as-on-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/post-interest-as-on-savings-account/post-interest-as-on-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__close",
@@ -34968,8 +34968,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/close-fixed-deposits-account/close-fixed-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/close-fixed-deposits-account/close-fixed-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__prematureClose",
@@ -35046,8 +35046,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/premature-close-fixed-deposits-account/premature-close-fixed-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/premature-close-fixed-deposits-account/premature-close-fixed-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsRecurringDepositAccount__close",
@@ -35126,8 +35126,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/close-recurring-deposits-account/close-recurring-deposits-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/close-recurring-deposits-account/close-recurring-deposits-account.component.ts"
     },
     {
       "key": "post_handleCommandsRecurringDepositAccount__prematureClose",
@@ -35190,8 +35190,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/premature-close-recurring-deposit-account/premature-close-recurring-deposit-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/premature-close-recurring-deposit-account/premature-close-recurring-deposit-account.component.ts"
     },
     {
       "key": "post_handleCommandsGroup__activate",
@@ -35263,8 +35263,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsGroup",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/activate-group/activate-group.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/activate-group/activate-group.component.ts"
     },
     {
       "key": "post_handleCommandsGroup__close",
@@ -35341,8 +35341,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsGroup",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/close-group/close-group.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/close-group/close-group.component.ts"
     },
     {
       "key": "post_handleCommandsCenter__activate",
@@ -35405,8 +35405,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsCenter",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/activate-center/activate-center.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/activate-center/activate-center.component.ts"
     },
     {
       "key": "post_handleCommandsCenter__close",
@@ -35474,8 +35474,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsCenter",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/close-center/close-center.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/close-center/close-center.component.ts"
     },
     {
       "key": "post_handleCommandsGroup__assignStaff",
@@ -35535,8 +35535,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsGroup",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-assign-staff/group-assign-staff.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-assign-staff/group-assign-staff.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__activate",
@@ -35612,8 +35612,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/activate-shares-account/activate-shares-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/activate-shares-account/activate-shares-account.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__approve",
@@ -35692,8 +35692,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/approve-shares-account/approve-shares-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/approve-shares-account/approve-shares-account.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__reject",
@@ -35772,8 +35772,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/reject-shares-account/reject-shares-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/reject-shares-account/reject-shares-account.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__close",
@@ -35852,8 +35852,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/close-shares-account/close-shares-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/close-shares-account/close-shares-account.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__applyadditionalshares",
@@ -35937,8 +35937,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/apply-shares/apply-shares.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/apply-shares/apply-shares.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__redeemshares",
@@ -36022,8 +36022,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/redeem-shares/redeem-shares.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/redeem-shares/redeem-shares.component.ts"
     },
     {
       "key": "post_handleCommandsShareAccount__undoapproval",
@@ -36080,8 +36080,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsShareAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/undo-approval-shares-account/undo-approval-shares-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares-account-actions/undo-approval-shares-account/undo-approval-shares-account.component.ts"
     },
     {
       "key": "post_handleCommandsRole__enable",
@@ -36125,8 +36125,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "handleCommandsRole",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136"
     },
     {
       "key": "post_handleCommandsRole__disable",
@@ -36170,8 +36170,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "handleCommandsRole",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L136"
     },
     {
       "key": "post_activateOrDeactivateSurvey__activate",
@@ -36210,8 +36210,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "activateOrDeactivateSurvey",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255"
     },
     {
       "key": "post_activateOrDeactivateSurvey__deactivate",
@@ -36250,8 +36250,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "activateOrDeactivateSurvey",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L255"
     },
     {
       "key": "post_executeJob__executeJob",
@@ -36295,8 +36295,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "executeJob",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L347",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L347"
     },
     {
       "key": "post_createRescheduleLoan__reschedule",
@@ -36387,8 +36387,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "createRescheduleLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/loan-reschedule/loan-reschedule.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/loan-account-actions/loan-reschedule/loan-reschedule.component.ts",
       "context_resource": "loans",
       "context_fields": {
         "loanId": "body"
@@ -36454,8 +36454,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "updateRescheduleLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts"
     },
     {
       "key": "post_updateRescheduleLoan__reject",
@@ -36517,8 +36517,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "updateRescheduleLoan",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans-view/reschedule-loan-tab/reschedule-loan-tab.component.ts"
     },
     {
       "key": "get_retrieveAllRescheduleLoans__pending",
@@ -36556,8 +36556,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "retrieveAllRescheduleLoans",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/tasks/tasks.service.ts#L100",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/tasks/tasks.service.ts#L100"
     },
     {
       "key": "post_modifyProvisioningEntry__createjournalentry",
@@ -36601,8 +36601,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "modifyProvisioningEntry",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386"
     },
     {
       "key": "post_modifyProvisioningEntry__recreateprovisioningentry",
@@ -36646,8 +36646,8 @@
       "blocked": "",
       "admin_only": true,
       "source_operation": "modifyProvisioningEntry",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L386"
     },
     {
       "key": "post_payOrWaiveClientCharge__paycharge",
@@ -36726,8 +36726,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "payOrWaiveClientCharge",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/charges/client-pay-charges/client-pay-charges.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients-view/charges/client-pay-charges/client-pay-charges.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccountCharge__pay",
@@ -36806,8 +36806,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccountCharge",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccountCharge__paycharge",
@@ -36886,8 +36886,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccountCharge",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/apply-annual-fees-savings-account/apply-annual-fees-savings-account.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/saving-account-actions/apply-annual-fees-savings-account/apply-annual-fees-savings-account.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccountCharge__waive",
@@ -36941,8 +36941,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccountCharge",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts"
     },
     {
       "key": "post_handleCommandsSavingsAccountCharge__inactivate",
@@ -36996,8 +36996,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsSavingsAccountCharge",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts",
-      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3"
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/view-charge/view-charge.component.ts"
     },
     {
       "key": "post_handleCommandsFixedDepositAccount__activate",
@@ -37061,8 +37061,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/activate-fixed-deposits-account/activate-fixed-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/activate-fixed-deposits-account/activate-fixed-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
     },
     {
@@ -37112,8 +37112,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/undo-approval-fixed-deposits-account/undo-approval-fixed-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/undo-approval-fixed-deposits-account/undo-approval-fixed-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
     },
     {
@@ -37202,8 +37202,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "transaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37292,8 +37292,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "transaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37392,8 +37392,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits-account-actions/fixed-deposits-cash-transaction/fixed-deposits-cash-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37474,8 +37474,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsFixedDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposit-account-view/view-transaction/view-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposit-account-view/view-transaction/view-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37517,8 +37517,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "accountClosureTemplate",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/FixedDepositAccountsApiResource.java"
     },
     {
@@ -37583,8 +37583,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/activate-recurring-deposits-account/activate-recurring-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/activate-recurring-deposits-account/activate-recurring-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
     },
     {
@@ -37634,8 +37634,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/undo-approval-recurring-deposits-account/undo-approval-recurring-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/undo-approval-recurring-deposits-account/undo-approval-recurring-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
     },
     {
@@ -37726,8 +37726,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "transactionRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37818,8 +37818,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "transactionRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-actions/deposit-recurring-deposits-account/deposit-recurring-deposits-account.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     },
     {
@@ -37920,8 +37920,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/edit-transaction/edit-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/edit-transaction/edit-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     },
     {
@@ -38004,8 +38004,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "handleCommandsRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/view-transaction/view-transaction.component.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits-account-view/transactions-tab/view-transaction/view-transaction.component.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     },
     {
@@ -38047,8 +38047,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "accountClosureTemplateRecurringDepositAccount",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountsApiResource.java"
     },
     {
@@ -38090,8 +38090,8 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "retrieveTemplateRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
     },
     {
@@ -38133,9 +38133,1223 @@
       "blocked": "",
       "admin_only": false,
       "source_operation": "retrieveTemplateRecurringDepositAccountTransaction",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/RecurringDepositAccountTransactionsApiResource.java"
+    },
+    {
+      "key": "post_handleCommandsGroup__associateClients",
+      "name": "Group membership: associateClients",
+      "category": "Groups",
+      "method": "POST",
+      "path": "/v1/groups/{groupId}",
+      "api_version": "v1",
+      "description": "Source-reviewed associateClients command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "groupId",
+          "in": "path",
+          "name": "groupId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "description": "roleId",
+          "in": "query",
+          "name": "roleId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "associateClients"
+            ],
+            "default": "associateClients"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "clientMembers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "required": [
+          "clientMembers"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsGroup",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/manage-group-members/manage-group-members.component.ts"
+    },
+    {
+      "key": "post_handleCommandsGroup__disassociateClients",
+      "name": "Group membership: disassociateClients",
+      "category": "Groups",
+      "method": "POST",
+      "path": "/v1/groups/{groupId}",
+      "api_version": "v1",
+      "description": "Source-reviewed disassociateClients command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "groupId",
+          "in": "path",
+          "name": "groupId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "description": "roleId",
+          "in": "query",
+          "name": "roleId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "disassociateClients"
+            ],
+            "default": "disassociateClients"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "clientMembers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "required": [
+          "clientMembers"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsGroup",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/manage-group-members/manage-group-members.component.ts"
+    },
+    {
+      "key": "post_handleCommandsCenter__associateGroups",
+      "name": "Center membership: associateGroups",
+      "category": "Centers",
+      "method": "POST",
+      "path": "/v1/centers/{centerId}",
+      "api_version": "v1",
+      "description": "Source-reviewed associateGroups command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "centerId",
+          "in": "path",
+          "name": "centerId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "associateGroups"
+            ],
+            "default": "associateGroups"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "groupMembers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "required": [
+          "groupMembers"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsCenter",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/manage-groups/manage-groups.component.ts"
+    },
+    {
+      "key": "post_handleCommandsCenter__disassociateGroups",
+      "name": "Center membership: disassociateGroups",
+      "category": "Centers",
+      "method": "POST",
+      "path": "/v1/centers/{centerId}",
+      "api_version": "v1",
+      "description": "Source-reviewed disassociateGroups command. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "centerId",
+          "in": "path",
+          "name": "centerId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "disassociateGroups"
+            ],
+            "default": "disassociateGroups"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "groupMembers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "required": [
+          "groupMembers"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsCenter",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/manage-groups/manage-groups.component.ts"
+    },
+    {
+      "key": "post_handleCommandsGroup__transferClients",
+      "name": "Group membership: transferClients",
+      "category": "Groups",
+      "method": "POST",
+      "path": "/v1/groups/{groupId}",
+      "api_version": "v1",
+      "description": "Source-reviewed transferClients command. Fineract validates eligibility, amounts and state transitions. Fineract controls active-loan transfers under its defaults. Review the affected accounts and destination before approval.",
+      "parameters": [
+        {
+          "description": "groupId",
+          "in": "path",
+          "name": "groupId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "description": "roleId",
+          "in": "query",
+          "name": "roleId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "transferClients"
+            ],
+            "default": "transferClients"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "destinationGroupId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "inheritDestinationGroupLoanOfficer": {
+            "type": "boolean"
+          },
+          "clients": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "destinationGroupId",
+          "clients",
+          "inheritDestinationGroupLoanOfficer"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "handleCommandsGroup",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-transfer-clients/group-transfer-clients.component.ts",
+      "source_template": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/group-transfer-clients/group-transfer-clients.component.html",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/group/api/GroupsApiResource.java"
+    },
+    {
+      "key": "post_createCalendar__createGroupsMeeting",
+      "name": "Groups: create repeating meeting",
+      "category": "Calendar",
+      "method": "POST",
+      "path": "/v1/{entityType}/{entityId}/calendars",
+      "api_version": "v1",
+      "description": "Source-reviewed createGroupsMeeting workflow. Fineract validates eligibility, amounts and state transitions. Repeating collection meetings only. Supply the meeting title explicitly; weekly recurrence requires a weekday.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "frequency": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "repeatsOnDay": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typeId": {
+            "type": "integer",
+            "enum": [
+              1
+            ],
+            "minimum": 1
+          },
+          "repeating": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "startDate",
+          "frequency",
+          "interval",
+          "title",
+          "typeId",
+          "repeating"
+        ],
+        "x-mfierp-required-when": [
+          {
+            "field": "frequency",
+            "equals": 2,
+            "required": [
+              "repeatsOnDay"
+            ]
+          }
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "createCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/attach-group-meeting/attach-group-meeting.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "put_updateCalendar__editGroupsMeeting",
+      "name": "Groups: edit repeating meeting",
+      "category": "Calendar",
+      "method": "PUT",
+      "path": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "api_version": "v1",
+      "description": "Source-reviewed editGroupsMeeting workflow. Fineract validates eligibility, amounts and state transitions. Repeating collection meetings only. Supply the meeting title explicitly; weekly recurrence requires a weekday.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "calendarId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "frequency": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "repeatsOnDay": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typeId": {
+            "type": "integer",
+            "enum": [
+              1
+            ],
+            "minimum": 1
+          },
+          "repeating": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "startDate",
+          "frequency",
+          "interval",
+          "title",
+          "typeId",
+          "repeating"
+        ],
+        "x-mfierp-required-when": [
+          {
+            "field": "frequency",
+            "equals": 2,
+            "required": [
+              "repeatsOnDay"
+            ]
+          }
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/edit-group-meeting/edit-group-meeting.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "put_updateCalendar__rescheduleGroupsMeeting",
+      "name": "Groups: reschedule meeting date",
+      "category": "Calendar",
+      "method": "PUT",
+      "path": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "api_version": "v1",
+      "description": "Source-reviewed rescheduleGroupsMeeting workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "calendarId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "presentMeetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "newMeetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reschedulebasedOnMeetingDates": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "presentMeetingDate",
+          "newMeetingDate",
+          "reschedulebasedOnMeetingDates"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups-view/group-actions/edit-group-meeting-schedule/edit-group-meeting-schedule.component.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "get_retrieveCalendarsByEntityId__listGroupsCalendars",
+      "name": "Groups: list meeting calendars",
+      "category": "Calendar",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/calendars",
+      "api_version": "v1",
+      "description": "Source-reviewed listGroupsCalendars workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "groups"
+            ],
+            "default": "groups"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "query",
+          "name": "calendarType",
+          "schema": {
+            "type": "string",
+            "default": "all"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveCalendarsByEntityId",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts",
+      "context_resource": "groups",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/calendar/api/CalendarsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateGroup__defaultTemplate",
+      "name": "Groups: reference template",
+      "category": "Groups",
+      "method": "GET",
+      "path": "/v1/groups/template",
+      "api_version": "v1",
+      "description": "Source-reviewed defaultTemplate workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "officeId",
+          "in": "query",
+          "name": "officeId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "center",
+          "in": "query",
+          "name": "center",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "description": "centerId",
+          "in": "query",
+          "name": "centerId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "staffInSelectedOfficeOnly",
+          "in": "query",
+          "name": "staffInSelectedOfficeOnly",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateGroup",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts"
+    },
+    {
+      "key": "post_createCalendar__createCentersMeeting",
+      "name": "Centers: create repeating meeting",
+      "category": "Calendar",
+      "method": "POST",
+      "path": "/v1/{entityType}/{entityId}/calendars",
+      "api_version": "v1",
+      "description": "Source-reviewed createCentersMeeting workflow. Fineract validates eligibility, amounts and state transitions. Repeating collection meetings only. Supply the meeting title explicitly; weekly recurrence requires a weekday.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "frequency": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "repeatsOnDay": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typeId": {
+            "type": "integer",
+            "enum": [
+              1
+            ],
+            "minimum": 1
+          },
+          "repeating": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "startDate",
+          "frequency",
+          "interval",
+          "title",
+          "typeId",
+          "repeating"
+        ],
+        "x-mfierp-required-when": [
+          {
+            "field": "frequency",
+            "equals": 2,
+            "required": [
+              "repeatsOnDay"
+            ]
+          }
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "createCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/attach-center-meeting/attach-center-meeting.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "put_updateCalendar__editCentersMeeting",
+      "name": "Centers: edit repeating meeting",
+      "category": "Calendar",
+      "method": "PUT",
+      "path": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "api_version": "v1",
+      "description": "Source-reviewed editCentersMeeting workflow. Fineract validates eligibility, amounts and state transitions. Repeating collection meetings only. Supply the meeting title explicitly; weekly recurrence requires a weekday.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "calendarId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "frequency": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "repeatsOnDay": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typeId": {
+            "type": "integer",
+            "enum": [
+              1
+            ],
+            "minimum": 1
+          },
+          "repeating": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "startDate",
+          "frequency",
+          "interval",
+          "title",
+          "typeId",
+          "repeating"
+        ],
+        "x-mfierp-required-when": [
+          {
+            "field": "frequency",
+            "equals": 2,
+            "required": [
+              "repeatsOnDay"
+            ]
+          }
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/edit-center-meeting/edit-center-meeting.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "put_updateCalendar__rescheduleCentersMeeting",
+      "name": "Centers: reschedule meeting date",
+      "category": "Calendar",
+      "method": "PUT",
+      "path": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "api_version": "v1",
+      "description": "Source-reviewed rescheduleCentersMeeting workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "calendarId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "presentMeetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "newMeetingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reschedulebasedOnMeetingDates": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "presentMeetingDate",
+          "newMeetingDate",
+          "reschedulebasedOnMeetingDates"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateCalendar",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers-view/center-actions/edit-center-meeting-schedule/edit-center-meeting-schedule.component.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      }
+    },
+    {
+      "key": "get_retrieveCalendarsByEntityId__listCentersCalendars",
+      "name": "Centers: list meeting calendars",
+      "category": "Calendar",
+      "method": "GET",
+      "path": "/v1/{entityType}/{entityId}/calendars",
+      "api_version": "v1",
+      "description": "Source-reviewed listCentersCalendars workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "entityType",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "centers"
+            ],
+            "default": "centers"
+          }
+        },
+        {
+          "in": "path",
+          "name": "entityId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "in": "query",
+          "name": "calendarType",
+          "schema": {
+            "type": "string",
+            "default": "all"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveCalendarsByEntityId",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts",
+      "context_resource": "centers",
+      "context_fields": {
+        "entityId": "path"
+      },
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/calendar/api/CalendarsApiResource.java"
+    },
+    {
+      "key": "get_retrieveTemplateCenter__defaultTemplate",
+      "name": "Centers: reference template",
+      "category": "Centers",
+      "method": "GET",
+      "path": "/v1/centers/template",
+      "api_version": "v1",
+      "description": "Source-reviewed defaultTemplate workflow. Fineract validates eligibility, amounts and state transitions.",
+      "parameters": [
+        {
+          "description": "officeId",
+          "in": "query",
+          "name": "officeId",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "description": "staffInSelectedOfficeOnly",
+          "in": "query",
+          "name": "staffInSelectedOfficeOnly",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "retrieveTemplateCenter",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts"
     }
   ],
   "schemas": {

@@ -14,7 +14,42 @@ spec.loader.exec_module(workspace)
 class WorkspaceContracts(unittest.TestCase):
     def variant(self, path, command, method="POST"):
         return next(c for c in workspace.capabilities().values() if c["path"] == path and c["method"] == method
-            and c.get("source_form") and c["key"].endswith("__" + command))
+            and (c.get("source_form") or c.get("source_service")) and c["key"].endswith("__" + command))
+
+    def test_membership_and_transfer_use_distinct_typed_collections(self):
+        membership = self.variant("/v1/groups/{groupId}", "associateClients")["key"]
+        transfer = self.variant("/v1/groups/{groupId}", "transferClients")["key"]
+        workspace.build_request(membership, self.request(membership, {"groupId": 8}, {"command": "associateClients"}, {"clientMembers": [7, 9]}))
+        for members in [[], [7, 7], [{"id": 7}], [0], [True]]:
+            with self.assertRaises(ValueError):
+                workspace.build_request(membership, self.request(membership, {"groupId": 8}, {"command": "associateClients"}, {"clientMembers": members}))
+        body = {"destinationGroupId": 10, "clients": [{"id": 7}], "inheritDestinationGroupLoanOfficer": False}
+        workspace.build_request(transfer, self.request(transfer, {"groupId": 8}, {"command": "transferClients"}, body))
+        for clients in [[7], [{"id": 7}, {"id": 7}], [{"id": 7, "unknown": True}]]:
+            with self.assertRaises(ValueError):
+                workspace.build_request(transfer, self.request(transfer, {"groupId": 8}, {"command": "transferClients"}, {**body, "clients": clients}))
+
+    def test_weekly_meetings_require_weekday_and_bind_entity_type(self):
+        entry = self.variant("/v1/{entityType}/{entityId}/calendars/{calendarId}", "editGroupsMeeting", "PUT")
+        key = entry["key"]
+        path = {"entityType": "groups", "entityId": 8, "calendarId": 3}
+        body = {"startDate": "2026-11-19", "frequency": 2, "interval": 1, "title": "Collection meeting", "repeating": True, "typeId": 1}
+        with self.assertRaises(ValueError):
+            workspace.build_request(key, self.request(key, path, body=body))
+        body["repeatsOnDay"] = 4
+        result = workspace.build_request(key, self.request(key, path, body=body))
+        self.assertEqual(result[:2], ("PUT", "groups/8/calendars/3"))
+        with self.assertRaises(ValueError):
+            workspace.build_request(key, self.request(key, {**path, "entityType": "centers"}, body=body))
+
+    def test_rescheduling_calendar_date_does_not_accept_recurrence_changes(self):
+        key = self.variant("/v1/{entityType}/{entityId}/calendars/{calendarId}", "rescheduleCentersMeeting", "PUT")["key"]
+        path = {"entityType": "centers", "entityId": 4, "calendarId": 3}
+        body = {"presentMeetingDate": "2026-11-19", "newMeetingDate": "2026-11-20", "reschedulebasedOnMeetingDates": True}
+        self.assertEqual(workspace.build_request(key, self.request(key, path, body=body))[0], "PUT")
+        for changed in [{**body, "frequency": 2}, {**body, "reschedulebasedOnMeetingDates": False}]:
+            with self.assertRaises(ValueError):
+                workspace.build_request(key, self.request(key, path, body=changed))
 
     def test_deposit_cash_routes_cannot_turn_into_adjustments(self):
         for deposit in ["fixed", "recurring"]:

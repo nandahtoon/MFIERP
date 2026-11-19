@@ -97,6 +97,9 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
             raise ValueError(f"{label}: undeclared fields are prohibited.")
         if set(schema.get("required", [])) - value.keys():
             raise ValueError(f"{label}: required fields are missing.")
+        for rule in schema.get("x-mfierp-required-when", []):
+            if rule["field"] in value and value[rule["field"]] == rule["equals"] and set(rule["required"]) - value.keys():
+                raise ValueError(f"{label}: conditional fields are missing: {', '.join(rule['required'])}.")
         for key, child in value.items():
             if props[key].get("readOnly"):
                 raise ValueError(f"{label}: response-only field is prohibited.")
@@ -106,6 +109,8 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
             raise ValueError(f"{label}: expected a list of at most 100 items.")
         if len(value) < schema.get("minItems", 0):
             raise ValueError(f"{label}: more list items are required.")
+        if schema.get("uniqueItems") and any(item in value[:index] for index, item in enumerate(value)):
+            raise ValueError(f"{label}: duplicate list items are prohibited.")
         for item in value:
             validate(item, schema.get("items", {}), label, depth + 1, allow_staged)
     elif kind in {"number", "integer"}:

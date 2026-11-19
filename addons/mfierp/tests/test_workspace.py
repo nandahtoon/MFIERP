@@ -14,6 +14,83 @@ from ..services.fineract import FineractError
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_calendar_context_rejects_an_unrelated_entity_kind(self):
+        capability = self.variant("/v1/{entityType}/{entityId}/calendars/{calendarId}", "editGroupsMeeting")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": self.loan.id})
+        with self.assertRaises(UserError):
+            request.action_load()
+        self.assertFalse(request.initialized)
+
+    def test_group_membership_rows_validate_before_approval_and_dispatch(self):
+        group = self.env["mfierp.record"]._upsert(self.backend, "group", {"id": 8, "name": "Synthetic group"})
+        capability = self.variant("/v1/groups/{groupId}", "associateClients")
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": group.id})
+        request.action_load()
+        self.assertEqual(request.input_ids.filtered(lambda row: row.key == "groupId").integer_value, 8)
+        members = request.input_ids.filtered(lambda row: row.key == "clientMembers")
+        members.action_add_item()
+        members.action_add_item()
+        members.child_ids.write({"integer_value": 7})
+        with self.assertRaises(UserError):
+            request.action_execute()
+        self.assertFalse(request.command_id)
+        members.child_ids[-1].write({"integer_value": 9})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        self.assertEqual(command.payload["body"], {"clientMembers": [7, 9]})
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 8}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "groups/8"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "associateClients"})
+        self.assertEqual(command.state, "done")
+
+    def test_calendar_context_keeps_parent_and_calendar_ids_separate(self):
+        group = self.env["mfierp.record"]._upsert(self.backend, "group", {"id": 8, "name": "Synthetic group"})
+        capability = self.variant("/v1/{entityType}/{entityId}/calendars/{calendarId}", "editGroupsMeeting")
+        self.assertIn(capability, self.env["mfierp.capability"].search(group.action_workspace()["domain"]))
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": group.id})
+        request.action_load()
+        self.assertEqual(request.input_ids.filtered(lambda row: row.key == "entityId").integer_value, 8)
+        self.assertEqual(request.input_ids.filtered(lambda row: row.key == "calendarId").integer_value, 0)
+        with self.assertRaises(AccessError):
+            request.input_ids.filtered(lambda row: row.key == "entityType").write({"text_value": "clients"})
+        request.input_ids.filtered(lambda row: row.key == "calendarId").write({"integer_value": 3})
+        request.input_ids.filtered(lambda row: row.key == "startDate").write({"date_value": "2026-11-19"})
+        request.input_ids.filtered(lambda row: row.key == "frequency").write({"integer_value": 2})
+        request.input_ids.filtered(lambda row: row.key == "interval").write({"integer_value": 1})
+        request.input_ids.filtered(lambda row: row.key == "title").write({"text_value": "Synthetic weekly meeting"})
+        with self.assertRaises(UserError):
+            request.action_execute()
+        request.input_ids.filtered(lambda row: row.key == "repeatsOnDay").write({"included": True, "integer_value": 4})
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        self.assertNotIn("command", command.payload["query"])
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 3}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "groups/8/calendars/3"))
+        self.assertEqual(command.state, "done")
+
+    def test_center_calendar_list_is_contextual_reader_access(self):
+        center = self.env["mfierp.record"]._upsert(self.backend, "center", {"id": 9, "name": "Synthetic center"})
+        capability = self.variant("/v1/{entityType}/{entityId}/calendars", "listCentersCalendars")
+        request = self.env["mfierp.request"].with_user(self.reader).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": center.id})
+        request.action_load()
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            client.return_value.request.return_value = [{"id": 3, "title": "Synthetic meeting"}]
+            request.action_execute()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("GET", "centers/9/calendars"))
+        self.assertFalse(request.command_id)
+
     def test_form_contract_is_pinned_when_loaded_and_cannot_be_rebound(self):
         request = self.form(self.reader, "GET", "/v1/clients")
         self.assertTrue(request.contract_digest)
@@ -72,7 +149,7 @@ class TestWorkspace(TestMfierpWorkflows):
     def variant(self, path, command):
         from ..services import workspace
         spec = next(c for c in workspace.capabilities().values() if c["path"] == path
-            and c.get("source_form") and c["key"].endswith("__" + command))
+            and (c.get("source_form") or c.get("source_service")) and c["key"].endswith("__" + command))
         return self.env["mfierp.capability"].search([("key", "=", spec["key"])], limit=1)
 
     def test_reschedule_from_loan_context_queues_one_independent_command(self):

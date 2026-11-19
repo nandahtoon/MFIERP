@@ -10,6 +10,7 @@ from odoo.exceptions import AccessError, UserError
 
 from ..services import workspace
 from ..services.fineract import FineractError
+from ..services.operations import RESOURCES
 from ..models.mfierp_upload import upload_bytes
 
 
@@ -69,6 +70,8 @@ class MfierpRequest(models.TransientModel):
             self.target_id.check_access("read")
             if self.target_id.backend_id != self.backend_id:
                 raise UserError(_("The workflow target belongs to another connection."))
+            if spec.get("context_resource") and spec["context_resource"] != RESOURCES[self.target_id.kind][0]:
+                raise UserError(_("The target record does not match this workflow's entity type."))
         return spec
 
     def _node(self, key, schema, location, parent=None, required=False, array_item=False, depth=0):
@@ -93,7 +96,6 @@ class MfierpRequest(models.TransientModel):
         if location == "query" and key in {"limit", "offset"}:
             vals.update(included=True, integer_value=200 if key == "limit" else 0)
         if location == "path" and self.target_id:
-            from ..services.operations import RESOURCES
             parts = workspace.specification(self.capability_id.key)["path"].strip("/").split("/")[1:]
             if self.capability_id.resource == RESOURCES[self.target_id.kind][0] and len(parts) > 1 and parts[1] == "{" + key + "}":
                 if kind == "integer":
@@ -101,7 +103,6 @@ class MfierpRequest(models.TransientModel):
                 elif kind == "string":
                     vals["text_value"] = str(self.target_id.remote_id)
         if self.target_id:
-            from ..services.operations import RESOURCES
             spec = workspace.specification(self.capability_id.key)
             if spec.get("context_resource") == RESOURCES[self.target_id.kind][0] and spec.get("context_fields", {}).get(key) == location:
                 if kind == "integer":

@@ -5,8 +5,8 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 649,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 43,
+    "TYPED_CONTRACT_CANDIDATE": 654,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 38,
     "NOT_IN_DEPLOYED_OPENAPI": 3,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
@@ -975,11 +975,12 @@
       "source": "src/app/centers/centers.service.ts",
       "line": 63,
       "area": "centers",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L63",
       "capabilities": [
-        "get_retrieveTemplateCenter"
+        "get_retrieveTemplateCenter",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -999,7 +1000,8 @@
       "capabilities": [
         "get_getBulkTemplateCenter",
         "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter"
+        "get_retrieveOneCenter",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1216,7 +1218,9 @@
         "post_postBulkTemplateCenter",
         "post_handleCommandsCenter",
         "post_handleCommandsCenter__activate",
-        "post_handleCommandsCenter__close"
+        "post_handleCommandsCenter__close",
+        "post_handleCommandsCenter__associateGroups",
+        "post_handleCommandsCenter__disassociateGroups"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1238,7 +1242,10 @@
         "post_handleCommandsGroup",
         "post_handleCommandsGroup__activate",
         "post_handleCommandsGroup__close",
-        "post_handleCommandsGroup__assignStaff"
+        "post_handleCommandsGroup__assignStaff",
+        "post_handleCommandsGroup__associateClients",
+        "post_handleCommandsGroup__disassociateClients",
+        "post_handleCommandsGroup__transferClients"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1258,7 +1265,8 @@
       "capabilities": [
         "get_getBulkTemplateGroup",
         "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup"
+        "get_retrieveOneGroup",
+        "get_retrieveTemplateGroup__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1294,7 +1302,8 @@
       "capabilities": [
         "get_getBulkTemplateCenter",
         "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter"
+        "get_retrieveOneCenter",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1360,7 +1369,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L238",
       "capabilities": [
-        "post_createCalendar"
+        "post_createCalendar",
+        "post_createCalendar__createCentersMeeting"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1389,11 +1399,13 @@
       "source": "src/app/centers/centers.service.ts",
       "line": 247,
       "area": "centers",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L247",
       "capabilities": [
-        "put_updateCalendar"
+        "put_updateCalendar",
+        "put_updateCalendar__editCentersMeeting",
+        "put_updateCalendar__rescheduleCentersMeeting"
       ],
       "remaining_contract_issues": [
         "Opaque JSON request body needs a source-reviewed field schema."
@@ -1429,7 +1441,8 @@
       "capabilities": [
         "get_getBulkTemplateCenter",
         "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter"
+        "get_retrieveOneCenter",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -2757,7 +2770,9 @@
         "post_postBulkTemplateCenter",
         "post_handleCommandsCenter",
         "post_handleCommandsCenter__activate",
-        "post_handleCommandsCenter__close"
+        "post_handleCommandsCenter__close",
+        "post_handleCommandsCenter__associateGroups",
+        "post_handleCommandsCenter__disassociateGroups"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3458,7 +3473,8 @@
       "capabilities": [
         "get_getBulkTemplateGroup",
         "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup"
+        "get_retrieveOneGroup",
+        "get_retrieveTemplateGroup__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3668,11 +3684,12 @@
       "source": "src/app/groups/groups.service.ts",
       "line": 201,
       "area": "groups",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L201",
       "capabilities": [
-        "get_retrieveTemplateGroup"
+        "get_retrieveTemplateGroup",
+        "get_retrieveTemplateGroup__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3694,7 +3711,10 @@
         "post_handleCommandsGroup",
         "post_handleCommandsGroup__activate",
         "post_handleCommandsGroup__close",
-        "post_handleCommandsGroup__assignStaff"
+        "post_handleCommandsGroup__assignStaff",
+        "post_handleCommandsGroup__associateClients",
+        "post_handleCommandsGroup__disassociateClients",
+        "post_handleCommandsGroup__transferClients"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3716,7 +3736,10 @@
         "post_handleCommandsGroup",
         "post_handleCommandsGroup__activate",
         "post_handleCommandsGroup__close",
-        "post_handleCommandsGroup__assignStaff"
+        "post_handleCommandsGroup__assignStaff",
+        "post_handleCommandsGroup__associateClients",
+        "post_handleCommandsGroup__disassociateClients",
+        "post_handleCommandsGroup__transferClients"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3815,7 +3838,8 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L274",
       "capabilities": [
-        "post_createCalendar"
+        "post_createCalendar",
+        "post_createCalendar__createGroupsMeeting"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3827,11 +3851,13 @@
       "source": "src/app/groups/groups.service.ts",
       "line": 284,
       "area": "groups",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L284",
       "capabilities": [
-        "put_updateCalendar"
+        "put_updateCalendar",
+        "put_updateCalendar__editGroupsMeeting",
+        "put_updateCalendar__rescheduleGroupsMeeting"
       ],
       "remaining_contract_issues": [
         "Opaque JSON request body needs a source-reviewed field schema."
@@ -3877,11 +3903,12 @@
       "source": "src/app/groups/groups.service.ts",
       "line": 314,
       "area": "groups",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L314",
       "capabilities": [
-        "get_retrieveTemplateGroup"
+        "get_retrieveTemplateGroup",
+        "get_retrieveTemplateGroup__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -6381,7 +6408,8 @@
       "capabilities": [
         "get_getBulkTemplateCenter",
         "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter"
+        "get_retrieveOneCenter",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -6433,7 +6461,8 @@
       "capabilities": [
         "get_getBulkTemplateGroup",
         "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup"
+        "get_retrieveOneGroup",
+        "get_retrieveTemplateGroup__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -8506,7 +8535,9 @@
         "get_retrieveTemplateUser",
         "get_retrieveTemplateWorkingCapitalLoanProduct",
         "get_retrieveWorkingCapitalLoanTemplate",
-        "get_retrieveTemplateWorkingDays"
+        "get_retrieveTemplateWorkingDays",
+        "get_retrieveTemplateGroup__defaultTemplate",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -8679,7 +8710,9 @@
         "get_retrieveAllCentersV2",
         "get_retrieveAllFixedDepositAccountsV2",
         "get_retrieveAllGroupsV2",
-        "get_retrieveAllRecurringDepositAccountsV2"
+        "get_retrieveAllRecurringDepositAccountsV2",
+        "get_retrieveTemplateGroup__defaultTemplate",
+        "get_retrieveTemplateCenter__defaultTemplate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",

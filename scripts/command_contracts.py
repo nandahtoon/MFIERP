@@ -12,19 +12,24 @@ SOURCE_ROOT = f"https://github.com/nandahtoon/Mifosx-web-app/blob/{SOURCE_REVISI
 def command_variants(capabilities):
     variants = []
 
-    def add(path, command, area, component, fields, required=(), dates=True, fixed_path=None, method="POST"):
+    def add(path, command, area, component, fields, required=(), dates=True, fixed_path=None, method="POST", suffix=None):
         base = next(c for c in capabilities if c["method"] == method and c["path"] == path)
         entry = deepcopy(base)
-        entry.update(key=base["key"] + "__" + command, name=f"{area}: {command}", blocked="",
-            description=f"Source-reviewed {command} command. Fineract validates eligibility, amounts and state transitions.",
-            source_form=SOURCE_ROOT + component, source_revision=SOURCE_REVISION, body_required=True)
+        slug = command if command is not None else suffix
+        if not slug:
+            raise ValueError("A reviewed operation needs a stable command or suffix.")
+        entry.update(key=base["key"] + "__" + slug, name=f"{area}: {slug}", blocked="",
+            description=f"Source-reviewed {slug} {'command' if command is not None else 'workflow'}. Fineract validates eligibility, amounts and state transitions.",
+            source_revision=SOURCE_REVISION, body_required=True)
+        entry["source_form" if command is not None else "source_service"] = SOURCE_ROOT + component
         params = [p for p in entry["parameters"] if p["name"] != "command"]
         for param in params:
             if param["in"] == "path" and param["name"] in (fixed_path or {}):
                 value = fixed_path[param["name"]]
                 param["schema"] = {"type": "string", "enum": [value], "default": value}
-        params.append({"name": "command", "in": "query", "required": True,
-            "schema": {"type": "string", "enum": [command], "default": command}})
+        if command is not None:
+            params.append({"name": "command", "in": "query", "required": True,
+                "schema": {"type": "string", "enum": [command], "default": command}})
         entry["parameters"] = params
         properties = {}
         for name, kind in fields.items():
@@ -241,6 +246,67 @@ def command_variants(capabilities):
                 entry.update(body=None, body_required=False, source_backend=backend_source)
                 deposit_entries.append(entry)
     for entry in deposit_entries:
+        for param in entry["parameters"]:
+            if param["in"] == "path" and param["schema"].get("type") == "integer":
+                param["schema"]["minimum"] = 1
+    organization_start = len(variants)
+    member_ids = {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": True,
+        "items": {"type": "integer", "minimum": 1}}
+    for command in ["associateClients", "disassociateClients"]:
+        add("/v1/groups/{groupId}", command, "Group membership",
+            "groups/groups-view/group-actions/manage-group-members/manage-group-members.component.ts",
+            {"clientMembers": member_ids}, ["clientMembers"], dates=False)
+    for command in ["associateGroups", "disassociateGroups"]:
+        add("/v1/centers/{centerId}", command, "Center membership",
+            "centers/centers-view/center-actions/manage-groups/manage-groups.component.ts",
+            {"groupMembers": member_ids}, ["groupMembers"], dates=False)
+    entry = add("/v1/groups/{groupId}", "transferClients", "Group membership",
+        "groups/groups-view/group-actions/group-transfer-clients/group-transfer-clients.component.ts",
+        {"destinationGroupId": "integer", "inheritDestinationGroupLoanOfficer": "boolean",
+            "clients": {"type": "array", "minItems": 1, "maxItems": 100, "uniqueItems": True,
+                "items": {"type": "object", "required": ["id"], "properties": {"id": {"type": "integer", "minimum": 1}}}},
+            "locale": {"type": "string", "enum": ["en"]}},
+        ["destinationGroupId", "clients", "inheritDestinationGroupLoanOfficer"], dates=False)
+    entry["description"] += " Fineract controls active-loan transfers under its defaults. Review the affected accounts and destination before approval."
+    entry["source_template"] = SOURCE_ROOT + "groups/groups-view/group-actions/group-transfer-clients/group-transfer-clients.component.html"
+    entry["source_backend"] = "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/group/api/GroupsApiResource.java"
+    calendar_path = "/v1/{entityType}/{entityId}/calendars"
+    for resource in ["groups", "centers"]:
+        singular = "group" if resource == "groups" else "center"
+        prefix = f"{resource}/{resource}-view/{singular}-actions/"
+        meeting_fields = {"startDate": "string", "frequency": {"type": "integer", "enum": [1, 2, 3, 4]},
+            "interval": {"type": "integer", "minimum": 1}, "repeatsOnDay": {"type": "integer", "minimum": 1, "maximum": 7},
+            "title": {"type": "string", "minLength": 1}, "typeId": {"type": "integer", "enum": [1]},
+            "repeating": {"type": "boolean", "enum": [True]}}
+        for method, path, operation, component in [
+            ("POST", calendar_path, "create", f"attach-{singular}-meeting"),
+            ("PUT", calendar_path + "/{calendarId}", "edit", f"edit-{singular}-meeting"),
+        ]:
+            entry = add(path, None, resource.capitalize() + " meetings", f"{prefix}{component}/{component}.component.ts",
+                meeting_fields, ["startDate", "frequency", "interval", "title", "typeId", "repeating"],
+                fixed_path={"entityType": resource}, method=method, suffix=operation + resource.capitalize() + "Meeting")
+            entry.update(context_resource=resource, context_fields={"entityId": "path"})
+            entry["name"] = resource.capitalize() + ": " + operation + " repeating meeting"
+            entry["body"]["x-mfierp-required-when"] = [{"field": "frequency", "equals": 2, "required": ["repeatsOnDay"]}]
+            entry["description"] += " Repeating collection meetings only. Supply the meeting title explicitly; weekly recurrence requires a weekday."
+        component = f"edit-{singular}-meeting-schedule"
+        entry = add(calendar_path + "/{calendarId}", None, resource.capitalize() + " meetings",
+            f"{prefix}{component}/{component}.component.ts",
+            {"presentMeetingDate": "string", "newMeetingDate": "string", "reschedulebasedOnMeetingDates": {"type": "boolean", "enum": [True]}},
+            ["presentMeetingDate", "newMeetingDate", "reschedulebasedOnMeetingDates"],
+            fixed_path={"entityType": resource}, method="PUT", suffix="reschedule" + resource.capitalize() + "Meeting")
+        entry.update(context_resource=resource, context_fields={"entityId": "path"})
+        entry["name"] = resource.capitalize() + ": reschedule meeting date"
+        entry = add(calendar_path, None, resource.capitalize() + " meetings", f"{resource}/{resource}.service.ts",
+            {}, dates=False, fixed_path={"entityType": resource}, method="GET", suffix="list" + resource.capitalize() + "Calendars")
+        entry.update(body=None, body_required=False, context_resource=resource, context_fields={"entityId": "path"},
+            source_backend="https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/calendar/api/CalendarsApiResource.java")
+        entry["name"] = resource.capitalize() + ": list meeting calendars"
+        entry = add(f"/v1/{resource}/template", None, resource.capitalize(), f"{resource}/{resource}.service.ts",
+            {}, dates=False, method="GET", suffix="defaultTemplate")
+        entry.update(body=None, body_required=False)
+        entry["name"] = resource.capitalize() + ": reference template"
+    for entry in variants[organization_start:]:
         for param in entry["parameters"]:
             if param["in"] == "path" and param["schema"].get("type") == "integer":
                 param["schema"]["minimum"] = 1
