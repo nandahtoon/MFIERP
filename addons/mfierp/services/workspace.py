@@ -69,7 +69,7 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
     if schema.get("x-mfierp-secret"):
         if not isinstance(value, dict) or set(value) != {"environment", "binding", "context"}:
             raise ValueError("Credentials must use a bound deployment secret reference.")
-        if not re.fullmatch(r"MFIERP_[A-Z0-9_]{1,100}", value["environment"]) or value["environment"] == "MFIERP_SECRET_BINDING_KEY":
+        if not re.fullmatch(r"MFIERP_WORKFLOW_SECRET_[A-Z0-9_]{1,80}", value["environment"]) or value["environment"] == "MFIERP_SECRET_BINDING_KEY":
             raise ValueError("Invalid deployment secret reference.")
         if not re.fullmatch(r"[a-f0-9]{64}", value["binding"]) or not isinstance(value["context"], str) or len(value["context"]) > 256:
             raise ValueError("Invalid protected secret binding.")
@@ -192,8 +192,8 @@ def map_uploads(value, schema, callback):
 
 
 def bind_secret(reference, context):
-    if not re.fullmatch(r"MFIERP_[A-Z0-9_]{1,100}", reference or "") or reference == "MFIERP_SECRET_BINDING_KEY":
-        raise ValueError("Use a dedicated MFIERP_ deployment secret reference.")
+    if not re.fullmatch(r"MFIERP_WORKFLOW_SECRET_[A-Z0-9_]{1,80}", reference or "") or reference == "MFIERP_SECRET_BINDING_KEY":
+        raise ValueError("Use a dedicated MFIERP_WORKFLOW_SECRET_ deployment secret reference.")
     signing_key = os.environ.get("MFIERP_SECRET_BINDING_KEY", "")
     value = os.environ.get(reference)
     if len(signing_key) < 32 or not value or len(value) > 10000:

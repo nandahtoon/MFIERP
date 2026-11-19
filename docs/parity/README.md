@@ -6,7 +6,7 @@ The public API snapshot identifies Fineract 1.16.0-SNAPSHOT. Its canonicalized S
 
 ## Source comparison
 
-The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP calls from 99 Mifos service/routing source files against the catalog. Source revision: `nandahtoon/Mifosx-web-app@34c7f278861ef25052f2e00d106d8527f5d270d3`. Each call has a source link and line number. Another 180 action components were read to inspect command names and submitted payload transformations.
+The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP calls from 99 Mifos service/routing source files against the catalog. Source revision: `nandahtoon/Mifosx-web-app@34c7f278861ef25052f2e00d106d8527f5d270d3`. Each call has a source link and line number. Another 180 action components were collected; selected submit handlers were inspected to verify command names and payload transformations.
 
 | Inventory status | Calls | Meaning |
 | --- | ---: | --- |

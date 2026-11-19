@@ -106,14 +106,15 @@ class WorkspaceContracts(unittest.TestCase):
 
     def test_secrets_are_bound_without_appearing_in_reviewed_data(self):
         with patch.dict(os.environ, {"MFIERP_SECRET_BINDING_KEY": "synthetic-signing-key-at-least-32-characters",
-                "MFIERP_TEST_USER_PASSWORD": "synthetic-password-one"}):
-            marker = workspace.bind_secret("MFIERP_TEST_USER_PASSWORD", "connection:workflow:request")
+                "MFIERP_WORKFLOW_SECRET_TEST_USER_PASSWORD": "synthetic-password-one"}):
+            marker = workspace.bind_secret("MFIERP_WORKFLOW_SECRET_TEST_USER_PASSWORD", "connection:workflow:request")
             self.assertNotIn("synthetic-password-one", str(marker))
             self.assertEqual(workspace.reveal_secret(marker), "synthetic-password-one")
-            os.environ["MFIERP_TEST_USER_PASSWORD"] = "synthetic-password-two"
+            os.environ["MFIERP_WORKFLOW_SECRET_TEST_USER_PASSWORD"] = "synthetic-password-two"
             with self.assertRaises(ValueError):
                 workspace.reveal_secret(marker)
 
     def test_signing_key_is_not_an_accepted_password_reference(self):
-        with self.assertRaises(ValueError):
-            workspace.bind_secret("MFIERP_SECRET_BINDING_KEY", "context")
+        for reference in ["MFIERP_SECRET_BINDING_KEY", "MFIERP_DB_PASSWORD", "MFIERP_DEFAULT_PASSWORD"]:
+            with self.assertRaises(ValueError):
+                workspace.bind_secret(reference, "context")

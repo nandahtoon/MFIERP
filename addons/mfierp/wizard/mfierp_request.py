@@ -197,7 +197,7 @@ class MfierpInput(models.TransientModel):
     date_value = fields.Date(string="Date")
     binary_value = fields.Binary(string="File", attachment=False)
     binary_name = fields.Char(string="File Name")
-    secret_reference = fields.Char(string="Deployment Secret Reference", help="Name of a dedicated MFIERP_ environment secret. Never enter its value here.")
+    secret_reference = fields.Char(string="Deployment Secret Reference", help="Name of a dedicated MFIERP_WORKFLOW_SECRET_ variable. Never enter its value here. Infrastructure and connection credentials cannot be selected.")
 
     @api.depends("text_value", "integer_value", "number_value", "boolean_value", "date_value", "child_ids", "included")
     def _compute_value_summary(self):

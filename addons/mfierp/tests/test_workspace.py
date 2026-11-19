@@ -2,7 +2,9 @@
 from unittest.mock import patch
 from odoo.tools import BinaryBytes
 import os
+import hashlib
 
+from odoo import fields
 from odoo.exceptions import AccessError
 from odoo.tests import tagged
 
@@ -11,6 +13,24 @@ from .test_workflows import TestMfierpWorkflows
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_retention_preserves_unknown_outcomes_and_audit_hashes(self):
+        raw = b"synthetic retention evidence"
+        command = self._command()
+        upload = self.env["mfierp.upload"].sudo().create({"backend_id": self.backend.id,
+            "command_id": command.id, "name": "synthetic.txt", "data": BinaryBytes(raw),
+            "sha256": hashlib.sha256(raw).hexdigest()})
+        old = fields.Datetime.subtract(fields.Datetime.now(), days=8)
+        for state in ["pending", "approved", "dispatching", "uncertain", "remote_pending"]:
+            command.write({"state": state, "completed_at": old})
+            self.env["mfierp.upload"]._cron_purge()
+            self.assertFalse(upload.purged_at)
+            self.assertEqual(upload.data.content, raw)
+        command.write({"state": "done", "completed_at": old})
+        self.env["mfierp.upload"]._cron_purge()
+        self.assertTrue(upload.purged_at)
+        self.assertFalse(upload.data)
+        self.assertEqual(upload.sha256, hashlib.sha256(raw).hexdigest())
+
     def test_source_reviewed_command_is_fixed_in_the_native_form(self):
         capability = self.env["mfierp.capability"].search([("key", "like", "__reactivate"), ("resource", "=", "clients")], limit=1)
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
@@ -133,9 +153,9 @@ class TestWorkspace(TestMfierpWorkflows):
         details = request.input_ids.filtered(lambda row: row.key == "details")
         password_fields = details.child_ids.filtered(lambda row: row.kind == "secret")
         self.assertEqual(set(password_fields.mapped("key")), {"password", "repeatPassword"})
-        password_fields.write({"included": True, "secret_reference": "MFIERP_TEST_PASSWORD"})
+        password_fields.write({"included": True, "secret_reference": "MFIERP_WORKFLOW_SECRET_TEST_PASSWORD"})
         with patch.dict(os.environ, {"MFIERP_SECRET_BINDING_KEY": "synthetic-review-signing-key-at-least-32-characters",
-                "MFIERP_TEST_PASSWORD": "synthetic-user-password"}):
+                "MFIERP_WORKFLOW_SECRET_TEST_PASSWORD": "synthetic-user-password"}):
             result = request.action_execute()
             command = self.env["mfierp.command"].browse(result["res_id"])
             self.assertNotIn("synthetic-user-password", command.payload_preview)
