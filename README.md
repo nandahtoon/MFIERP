@@ -12,6 +12,7 @@ Native Odoo 20 Community screens for Mifos X operations, backed by Apache Finera
 - Odoo 20 `ir.access` security, multi-company isolation, bounded synchronization, service tests and Odoo workflow/security tests.
 - Extended native workspace compiled from 966 deployed Fineract API operations, with 102 separately reviewed Mifos command variants: 935 typed contracts and 152 explicitly blocked contracts.
 - Nested typed forms and repeated rows, protected document uploads/downloads, administrator-only configuration and deployment-secret references. All writes enter independent approval and the existing dispatch audit.
+- Registered Fineract datatable discovery and typed entry reads, creation, updates and deletion, with pinned metadata and independent approval for writes.
 
 ## Get started
 

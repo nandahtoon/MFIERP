@@ -11,7 +11,7 @@ from odoo.tools import BinaryBytes
 
 from ..services.fineract import FineractError
 from ..services.operations import OPERATIONS, build_request
-from ..services import workspace
+from ..services import datatables, workspace
 from ..services.collection_sheet import project_preview
 from .mfierp_upload import upload_bytes
 
@@ -27,6 +27,8 @@ class MfierpCommand(models.Model):
     company_id = fields.Many2one(related="backend_id.company_id", store=True, index=True)
     operation = fields.Selection([(key, item[0]) for key, item in OPERATIONS.items()] + [("workspace", "Extended Fineract Workflow")], readonly=True, required=True)
     capability_id = fields.Many2one("mfierp.capability", readonly=True, ondelete="restrict")
+    datatable_id = fields.Many2one("mfierp.datatable", readonly=True, ondelete="restrict", check_company=True)
+    datatable_action = fields.Selection([("create", "Create Entry"), ("update", "Update Entry"), ("delete", "Delete Entry")], readonly=True)
     upload_ids = fields.One2many("mfierp.upload", "command_id", readonly=True)
     target_id = fields.Many2one("mfierp.record", readonly=True, ondelete="restrict", check_company=True)
     remote_target_id = fields.Integer(readonly=True)
@@ -181,8 +183,38 @@ class MfierpCommand(models.Model):
         uploads.sudo().write({"command_id": command.id})
         return command
 
+    @api.model
+    def _enqueue_datatable(self, backend, table, action, envelope):
+        spec = table._assert_role(action)
+        if spec["method"] == "GET" or backend != table.backend_id:
+            raise UserError(_("Choose a write action and the data table's own connection."))
+        try:
+            table._build_request(action, envelope)
+        except (TypeError, ValueError) as exc:
+            raise UserError(str(exc)) from exc
+        canonical = json.dumps(envelope, sort_keys=True, separators=(",", ":"))
+        return self.sudo().create({"name": _("%s: %s", table.name, action), "backend_id": backend.id,
+            "datatable_id": table.id, "datatable_action": action, "operation": "workspace", "payload": json.loads(canonical),
+            "payload_digest": hashlib.sha256(canonical.encode()).hexdigest(),
+            "idempotency_key": str(uuid.uuid4()), "maker_id": self.env.uid})
+
+    def _workspace_specification(self):
+        if bool(self.capability_id) == bool(self.datatable_id):
+            raise ValueError("Exactly one workflow contract is required.")
+        if self.datatable_id:
+            if self.datatable_id.backend_id != self.backend_id:
+                raise ValueError("Data table connection does not match the command.")
+            return self.datatable_id._specification(self.datatable_action)
+        return workspace.specification(self.capability_id.key)
+
+    def _workspace_request(self):
+        self._workspace_specification()
+        if self.datatable_id:
+            return self.datatable_id._build_request(self.datatable_action, self.payload)
+        return workspace.build_request(self.capability_id.key, self.payload)
+
     def _workspace_body(self, body):
-        spec = workspace.specification(self.capability_id.key)
+        spec = self._workspace_specification()
         multipart = spec.get("media_type") == "multipart/form-data"
 
         def restore(marker, schema):
@@ -213,7 +245,7 @@ class MfierpCommand(models.Model):
         self._lock()
         if not self.env.user.has_group("mfierp.group_checker"):
             raise AccessError(_("An MFIERP checker role is required."))
-        if self.capability_id and self.capability_id.admin_only and not self.env.user.has_group("mfierp.group_manager"):
+        if self._requires_administrator() and not self.env.user.has_group("mfierp.group_manager"):
             raise AccessError(_("An independent MFIERP administrator must review this administration workflow."))
         if self.maker_id == self.env.user:
             raise UserError(_("A different person must approve this command."))
@@ -226,13 +258,24 @@ class MfierpCommand(models.Model):
         self._lock()
         if not self.env.user.has_group("mfierp.group_checker") or self.maker_id == self.env.user:
             raise AccessError(_("A different checker must reject the command."))
+        if self._requires_administrator() and not self.env.user.has_group("mfierp.group_manager"):
+            raise AccessError(_("An independent MFIERP administrator must review this administration workflow."))
         if self.state != "pending":
             raise UserError(_("Only pending commands can be rejected."))
         self.sudo().write({"state": "rejected", "checker_id": self.env.uid, "completed_at": fields.Datetime.now()})
         return True
 
+    def _requires_administrator(self):
+        self.ensure_one()
+        return self.capability_id.admin_only or self.datatable_id.application_table in datatables.ADMIN_APPLICATIONS
+
     def _dispatch(self):
         self.ensure_one()
+        # The reservation was committed before entering this transaction. Hold the
+        # row lock throughout network IO and result persistence so reconciliation
+        # cannot declare a request unapplied while a worker is still sending it.
+        # Recheck after locking: reconciliation may have won the post-commit race.
+        self._lock()
         if self.state != "dispatching":
             raise UserError(_("Command was not reserved for dispatch."))
         digest = hashlib.sha256(json.dumps(self.payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -241,15 +284,13 @@ class MfierpCommand(models.Model):
             return
         request_sent = False
         try:
-            maker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_operator"
-            checker_group = "mfierp.group_manager" if self.capability_id.admin_only else "mfierp.group_checker"
+            maker_group = "mfierp.group_manager" if self._requires_administrator() else "mfierp.group_operator"
+            checker_group = "mfierp.group_manager" if self._requires_administrator() else "mfierp.group_checker"
             for user, group in [(self.maker_id, maker_group), (self.checker_id, checker_group)]:
                 if not user.active or self.company_id not in user.company_ids or not user.has_group(group):
                     raise AccessError(_("Command participants no longer have the required role or company access."))
             if self.operation == "workspace":
-                if not self.capability_id:
-                    raise ValueError("Workflow contract is missing.")
-                method, path, params, body = workspace.build_request(self.capability_id.key, self.payload)
+                method, path, params, body = self._workspace_request()
                 if method == "GET":
                     raise ValueError("A command cannot dispatch a read workflow.")
             else:
@@ -261,16 +302,18 @@ class MfierpCommand(models.Model):
                 raise UserError(_("Financial dispatch is disabled for this connection."))
             client = backend._client()
             backend._verify_runtime(client)
+            if self.datatable_id:
+                self.datatable_id._verify_metadata(client)
             files = None
             if self.operation == "workspace":
                 body, files = self._workspace_body(body)
             request_sent = True
             result = client.request(method, path, params=params,
                 payload=body, idempotency_key=self.idempotency_key,
-                **({"allow_empty": True, "api_version": workspace.specification(self.capability_id.key).get("api_version", "v1"),
+                **({"allow_empty": True, "api_version": self._workspace_specification().get("api_version", "v1"),
                     **({"files": files} if files is not None else {})} if self.operation == "workspace" else {}))
             if self.operation == "workspace":
-                spec = workspace.specification(self.capability_id.key)
+                spec = self._workspace_specification()
                 if spec.get("response_mode") == "collection_preview":
                     preview = project_preview(result)
                     self.write({"preview_data": preview, "preview_digest": hashlib.sha256(json.dumps(preview, sort_keys=True).encode()).hexdigest(),

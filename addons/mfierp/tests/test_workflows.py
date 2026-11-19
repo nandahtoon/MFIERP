@@ -110,6 +110,25 @@ class TestMfierpWorkflows(TransactionCase):
                 command._dispatch()
             self.assertEqual(client.return_value.request.call_count, 1)
 
+    def test_dispatch_rechecks_reservation_under_reconciliation_lock(self):
+        command = self._command()
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        command_class = type(command)
+        original_lock = command_class._lock
+
+        def reconciled_before_lock(record):
+            # Model a reconciler winning the gap after the durable reservation.
+            # A cached dispatching state must not authorize a later HTTP write.
+            record.write({"state": "failed", "resolution_note": "Independently confirmed not applied."})
+            original_lock(record)
+
+        with patch.object(command_class, "_lock", side_effect=reconciled_before_lock, autospec=True) as lock, patch(
+                "odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            with self.assertRaises(UserError):
+                command._dispatch()
+            lock.assert_called_once_with(command)
+            client.assert_not_called()
     def test_cron_reserves_before_network_and_does_not_select_uncertain(self):
         command = self._command()
         command.with_user(self.checker).action_approve()

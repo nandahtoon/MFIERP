@@ -162,11 +162,16 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
 
 def build_request(key, envelope, *, allow_staged=False):
     spec = specification(key)
+    return build_spec_request(spec, envelope, contract_digest(key), allow_staged=allow_staged)
+
+
+def build_spec_request(spec, envelope, expected_digest, *, allow_staged=False):
+    """Validate a server-owned compiled contract; never exposed through ORM RPC."""
     if spec["blocked"]:
         raise ValueError(spec["blocked"])
     if not isinstance(envelope, dict) or set(envelope) != {"contract_digest", "path", "query", "body"}:
         raise ValueError("Malformed workspace request.")
-    if envelope["contract_digest"] != contract_digest(key):
+    if envelope["contract_digest"] != expected_digest:
         raise ValueError("The source contract changed after this request was reviewed.")
     path_values, query = envelope["path"], envelope["query"]
     if not isinstance(path_values, dict) or not isinstance(query, dict):

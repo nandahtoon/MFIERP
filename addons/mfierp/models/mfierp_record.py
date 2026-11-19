@@ -5,6 +5,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 
 from ..services.fineract import FineractError
+from ..services.datatables import APPLICATIONS
 from ..services.operations import RESOURCES
 
 
@@ -182,6 +183,16 @@ class MfierpRecord(models.Model):
             "domain": ["|", ("resource", "=", RESOURCES[self.kind][0]), ("context_resource", "=", RESOURCES[self.kind][0])],
             "context": {"default_backend_id": self.backend_id.id, "default_target_id": self.id,
                 "default_company_id": self.company_id.id}}
+
+    def action_datatables(self):
+        self.ensure_one()
+        self.check_access("read")
+        applications = [name for name, (resource, _key) in APPLICATIONS.items() if resource == RESOURCES[self.kind][0]]
+        if not applications:
+            raise UserError(_("This record type has no reviewed data table adapter."))
+        return {"type": "ir.actions.act_window", "name": _("Related Data Tables"), "res_model": "mfierp.datatable",
+            "view_mode": "list,form", "domain": [("backend_id", "=", self.backend_id.id), ("application_table", "in", applications)],
+            "context": {"default_target_id": self.id}}
 
 
 class MfierpLine(models.Model):

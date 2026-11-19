@@ -23,6 +23,8 @@ Odoo is authoritative for integration configuration, maker/checker identity, imm
 
 Odoo cannot atomically commit its database and an HTTP transaction in Fineract. The durable sending barrier intentionally chooses manual reconciliation over duplicate financial requests. The only explicit transaction completion API used is `ir.cron._commit_progress`, inside a cron callback. A database rollback after remote success leaves the earlier dispatch reservation intact.
 
+After the durable reservation, dispatch locks the command again and rechecks its state before network access. The lock remains held through response persistence, serializing dispatch with reconciliation. A reconciliation that wins the reservation-to-dispatch gap prevents the later worker from sending.
+
 A replacement command must only be submitted after a confirmed failure or reconciliation. Different submissions have different keys: business duplicates are not automatically detected. Fineract's own maker checker and permissions remain in force and require a remote operating procedure.
 
 ## Security boundaries

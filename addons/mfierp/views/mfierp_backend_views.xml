@@ -17,6 +17,7 @@
                 <header>
                     <button name="action_test_connection" type="object" string="Test Connection" groups="mfierp.group_manager"/>
                     <button name="action_sync" type="object" string="Synchronize Portfolio" class="oe_highlight" groups="mfierp.group_manager"/>
+                    <button name="action_refresh_datatables" type="object" string="Refresh Data Table Contracts" groups="mfierp.group_manager"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>

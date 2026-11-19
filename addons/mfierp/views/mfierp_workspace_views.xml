@@ -44,8 +44,10 @@
                 <group><field name="company_id" invisible="True"/><field name="target_id" invisible="True"/>
                     <field name="initialized" invisible="True"/><field name="method" invisible="True"/>
                     <field name="backend_id" readonly="initialized" options="{'no_create': True}"/>
-                    <field name="capability_id" readonly="initialized" options="{'no_create': True}"/>
-                    <field name="output_mode" invisible="method != 'GET'"/>
+                    <field name="capability_id" readonly="initialized" required="not datatable_id" invisible="datatable_id" options="{'no_create': True}"/>
+                    <field name="datatable_id" readonly="initialized" invisible="not datatable_id" options="{'no_create': True}"/>
+                    <field name="datatable_action" readonly="initialized" invisible="not datatable_id"/>
+                    <field name="output_mode" invisible="method != 'GET' or datatable_id"/>
                     <field name="command_id" invisible="not command_id"/>
                 </group>
                 <notebook>

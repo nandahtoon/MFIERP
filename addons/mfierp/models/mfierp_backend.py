@@ -53,7 +53,9 @@ class MfierpBackend(models.Model):
     def write(self, vals):
         if {"company_id", "base_url", "tenant", "environment", "expected_version", "expected_commit"} & vals.keys():
             for backend in self:
-                if self.env["mfierp.record"].sudo().search_count([("backend_id", "=", backend.id)]) or self.env["mfierp.command"].sudo().search_count([("backend_id", "=", backend.id)]):
+                if (self.env["mfierp.record"].sudo().search_count([("backend_id", "=", backend.id)])
+                        or self.env["mfierp.command"].sudo().search_count([("backend_id", "=", backend.id)])
+                        or self.env["mfierp.datatable"].sudo().search_count([("backend_id", "=", backend.id)])):
                     raise UserError(_("Create a new connection to change company, URL, tenant, environment or runtime pin after use."))
         return super().write(vals)
 

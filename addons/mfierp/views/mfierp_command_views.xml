@@ -33,7 +33,7 @@
                     <div class="alert alert-warning" role="alert" invisible="state not in ['uncertain', 'dispatching', 'remote_pending']">Verify this request in Fineract before taking further action. Do not submit a replacement until the outcome is independently confirmed.</div>
                     <h1><field name="name"/></h1>
                     <group>
-                        <group><field name="backend_id"/><field name="operation"/><field name="target_id" invisible="not target_id"/><field name="remote_target_id" string="Fineract Target ID" invisible="not remote_target_id"/></group>
+                        <group><field name="backend_id"/><field name="operation"/><field name="datatable_id" invisible="not datatable_id"/><field name="datatable_action" invisible="not datatable_id"/><field name="target_id" invisible="not target_id"/><field name="remote_target_id" string="Fineract Target ID" invisible="not remote_target_id"/></group>
                         <group><field name="maker_id"/><field name="checker_id"/><field name="create_date"/><field name="approved_at"/><field name="dispatched_at"/><field name="completed_at"/></group>
                     </group>
                     <group string="Remote Outcome" invisible="state in ['pending', 'approved', 'rejected']">

@@ -22,3 +22,5 @@ input_company,Typed workflow field company and owner boundary,mfierp.input,,crud
 upload_maker,Review submitted uploads,mfierp.upload,mfierp.group_operator,r,
 upload_checker,Review approved uploads,mfierp.upload,mfierp.group_checker,r,
 upload_company,Upload company boundary,mfierp.upload,,crud,"[('company_id', 'in', company_ids)]"
+datatable_reader,Registered data tables,mfierp.datatable,mfierp.group_reader,r,
+datatable_company,Registered table company boundary,mfierp.datatable,,crud,"[('company_id', 'in', company_ids)]"

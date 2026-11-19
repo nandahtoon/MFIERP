@@ -8,7 +8,7 @@ from markupsafe import Markup, escape
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 
-from ..services import workspace
+from ..services import datatables, workspace
 from ..services.fineract import FineractError
 from ..services.operations import RESOURCES
 from ..models.mfierp_upload import upload_bytes
@@ -25,13 +25,16 @@ class MfierpRequest(models.TransientModel):
     _description = "Native Fineract Workflow Form"
     _check_company_auto = True
 
-    name = fields.Char(related="capability_id.name")
-    capability_id = fields.Many2one("mfierp.capability", required=True)
+    name = fields.Char(compute="_compute_contract_details")
+    capability_id = fields.Many2one("mfierp.capability")
+    datatable_id = fields.Many2one("mfierp.datatable", check_company=True)
+    datatable_action = fields.Selection([("read", "Read Entries"), ("create", "Create Entry"),
+        ("update", "Update Entry"), ("delete", "Delete Entry")], default="read", required=True)
     backend_id = fields.Many2one("mfierp.backend", string="Fineract Connection", required=True, check_company=True)
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
     target_id = fields.Many2one("mfierp.record", check_company=True, readonly=True)
-    method = fields.Char(related="capability_id.method")
-    instructions = fields.Text(related="capability_id.description")
+    method = fields.Char(compute="_compute_contract_details")
+    instructions = fields.Text(compute="_compute_contract_details")
     input_ids = fields.One2many("mfierp.input", "request_id", string="Workflow Fields")
     root_input_ids = fields.One2many("mfierp.input", "request_id", string="Workflow Fields", domain=[("parent_id", "=", False)])
     initialized = fields.Boolean(readonly=True)
@@ -44,6 +47,41 @@ class MfierpRequest(models.TransientModel):
     download_data = fields.Binary(readonly=True, attachment=False)
     download_name = fields.Char(readonly=True)
 
+    @api.depends("capability_id", "datatable_id", "datatable_action")
+    def _compute_contract_details(self):
+        for request in self:
+            if request.datatable_id:
+                request.name = _("%s: %s", request.datatable_id.name, dict(self._fields["datatable_action"].selection)[request.datatable_action])
+                request.method = datatables.ACTIONS.get(request.datatable_action)
+                request.instructions = _("Fields come from this connection's registered table metadata. Enter the parent record ID. Multi-row updates and deletion also require the entry ID. Optional fields can be omitted; clearing a field to NULL is not supported. Fineract owns values and validation. Writes require independent approval.")
+            else:
+                request.name = request.capability_id.name
+                request.method = request.capability_id.method
+                request.instructions = request.capability_id.description
+
+    @api.constrains("capability_id", "datatable_id", "backend_id")
+    def _check_contract(self):
+        for request in self:
+            if bool(request.capability_id) == bool(request.datatable_id):
+                raise UserError(_("Choose exactly one source workflow or registered data table."))
+            if request.datatable_id and request.datatable_id.backend_id != request.backend_id:
+                raise UserError(_("The data table belongs to another connection."))
+
+    def _specification(self):
+        if self.datatable_id:
+            return self.datatable_id._specification(self.datatable_action)
+        return workspace.specification(self.capability_id.key)
+
+    def _contract_digest(self):
+        if self.datatable_id:
+            return self.datatable_id._contract_digest(self.datatable_action)
+        return workspace.contract_digest(self.capability_id.key)
+
+    def _build_request(self, envelope, *, allow_staged=False):
+        if self.datatable_id:
+            return self.datatable_id._build_request(self.datatable_action, envelope)
+        return workspace.build_request(self.capability_id.key, envelope, allow_staged=allow_staged)
+
     @api.model_create_multi
     def create(self, vals_list):
         if not self.env.su:
@@ -55,14 +93,17 @@ class MfierpRequest(models.TransientModel):
     def write(self, vals):
         if not self.env.su and {"initialized", "contract_digest", "result_text", "result_html", "result_status", "command_id", "download_data", "download_name"} & vals.keys():
             raise AccessError(_("Workflow outcomes are maintained by authorized actions."))
-        if not self.env.su and {"capability_id", "backend_id", "company_id", "target_id"} & vals.keys() and any(self.mapped("initialized")):
+        if not self.env.su and {"capability_id", "datatable_id", "datatable_action", "backend_id", "company_id", "target_id"} & vals.keys() and any(self.mapped("initialized")):
             raise UserError(_("Start a new workflow form to change its connection, company or operation."))
         return super().write(vals)
 
     def _assert_access(self):
         self.ensure_one()
         self.check_access("read")
-        spec = self.capability_id._assert_role()
+        self._check_contract()
+        spec = self.datatable_id._assert_role(self.datatable_action) if self.datatable_id else self.capability_id._assert_role()
+        if self.datatable_id and self.output_mode != "json":
+            raise UserError(_("Use the bounded native table preview for registered data table entries."))
         self.backend_id.check_access("read")
         if not self.backend_id.active or self.backend_id.company_id != self.company_id or self.company_id not in self.env.companies:
             raise AccessError(_("Select an active connection in an allowed company."))
@@ -97,14 +138,14 @@ class MfierpRequest(models.TransientModel):
         if location == "query" and key in {"limit", "offset"}:
             vals.update(included=True, integer_value=200 if key == "limit" else 0)
         if location == "path" and self.target_id:
-            parts = workspace.specification(self.capability_id.key)["path"].strip("/").split("/")[1:]
-            if self.capability_id.resource == RESOURCES[self.target_id.kind][0] and len(parts) > 1 and parts[1] == "{" + key + "}":
+            parts = self._specification()["path"].strip("/").split("/")[1:]
+            if parts[0] == RESOURCES[self.target_id.kind][0] and len(parts) > 1 and parts[1] == "{" + key + "}":
                 if kind == "integer":
                     vals["integer_value"] = self.target_id.remote_id
                 elif kind == "string":
                     vals["text_value"] = str(self.target_id.remote_id)
         if self.target_id:
-            spec = workspace.specification(self.capability_id.key)
+            spec = self._specification()
             if spec.get("context_resource") == RESOURCES[self.target_id.kind][0] and spec.get("context_fields", {}).get(key) == location:
                 if kind == "integer":
                     vals.update(included=True, integer_value=self.target_id.remote_id)
@@ -125,13 +166,13 @@ class MfierpRequest(models.TransientModel):
             self._node(param["name"], param["schema"], param["in"], required=param.get("required", False))
         if spec["body"] is not None:
             self._node("details", spec["body"], "body", required=spec["body_required"])
-        self.sudo().write({"initialized": True, "contract_digest": workspace.contract_digest(self.capability_id.key)})
+        self.sudo().write({"initialized": True, "contract_digest": self._contract_digest()})
         return True
 
     def _envelope(self):
         if not self.initialized:
             raise UserError(_("Load the workflow fields first."))
-        if self.contract_digest != workspace.contract_digest(self.capability_id.key):
+        if self.contract_digest != self._contract_digest():
             raise UserError(_("The source contract changed. Open a new workflow form before submitting or reading."))
         envelope = {"contract_digest": self.contract_digest, "path": {}, "query": {}, "body": None}
         for node in self.input_ids.filtered(lambda line: not line.parent_id):
@@ -141,7 +182,7 @@ class MfierpRequest(models.TransientModel):
                 else:
                     envelope[node.location][node.key] = node._value()
         try:
-            workspace.build_request(self.capability_id.key, envelope, allow_staged=True)
+            self._build_request(envelope, allow_staged=True)
         except (ValueError, TypeError) as exc:
             raise UserError(str(exc)) from exc
         return envelope
@@ -152,15 +193,23 @@ class MfierpRequest(models.TransientModel):
         if spec["method"] != "GET":
             if self.command_id:
                 raise UserError(_("This form has already been submitted. Open its command for review."))
-            command = self.env["mfierp.command"]._enqueue_workspace(self.backend_id, self.capability_id, envelope, request=self)
+            if self.datatable_id:
+                command = self.env["mfierp.command"]._enqueue_datatable(self.backend_id, self.datatable_id, self.datatable_action, envelope)
+            else:
+                command = self.env["mfierp.command"]._enqueue_workspace(self.backend_id, self.capability_id, envelope, request=self)
             self.sudo().write({"command_id": command.id})
             return {"id": self.env.ref("mfierp.mfierp_command_action").id, "type": "ir.actions.act_window",
                 "res_model": "mfierp.command", "res_id": command.id, "view_mode": "form", "target": "current"}
-        method, path, params, body = workspace.build_request(self.capability_id.key, envelope)
+        method, path, params, body = self._build_request(envelope)
         try:
-            result = self.backend_id._client().request(method, path, params=params, payload=body,
+            client = self.backend_id._client()
+            if self.datatable_id:
+                self.datatable_id._verify_metadata(client)
+            result = client.request(method, path, params=params, payload=body,
                 binary=self.output_mode == "file", api_version=spec.get("api_version", "v1"))
-        except (FineractError, UserError) as exc:
+            if self.datatable_id:
+                result = datatables.project_rows(result, self.datatable_id.sudo().metadata_json)
+        except (FineractError, UserError, ValueError) as exc:
             self.sudo().write({"result_status": str(exc), "result_text": False, "result_html": False, "download_data": False})
             return True
         if self.output_mode == "file":

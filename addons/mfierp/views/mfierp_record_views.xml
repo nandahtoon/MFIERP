@@ -37,6 +37,7 @@
                 <header>
                     <button name="action_refresh" type="object" string="Refresh from Fineract"/>
                     <button name="action_workspace" type="object" string="More Workflows"/>
+                    <button name="action_datatables" type="object" string="Data Tables" invisible="kind not in ['client', 'group', 'center', 'loan', 'savings', 'office', 'loan_product', 'savings_product']"/>
                     <button name="action_report" type="object" string="Run Report" class="oe_highlight" invisible="kind != 'report'"/>
                     <button name="action_operation" type="object" string="New Operation" class="oe_highlight" groups="mfierp.group_operator" invisible="kind not in ['client', 'group', 'center', 'loan', 'savings']"/>
                 </header>
