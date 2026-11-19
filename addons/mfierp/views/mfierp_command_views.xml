@@ -1,0 +1,61 @@
+<odoo>
+    <record id="mfierp_command_view_list" model="ir.ui.view">
+        <field name="name">mfierp.command.list</field><field name="model">mfierp.command</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" delete="false" decoration-danger="state in ['uncertain', 'dispatching']" decoration-success="state == 'done'">
+                <field name="create_date"/><field name="name"/><field name="target_id"/><field name="backend_id"/>
+                <field name="maker_id"/><field name="checker_id"/><field name="state" widget="badge"/>
+                <field name="status_message" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="mfierp_command_view_search" model="ir.ui.view">
+        <field name="name">mfierp.command.search</field><field name="model">mfierp.command</field>
+        <field name="arch" type="xml"><search>
+            <field name="name"/><field name="target_id"/><field name="maker_id"/><field name="backend_id"/>
+            <filter name="pending" string="Awaiting Approval" domain="[('state', '=', 'pending')]"/>
+            <filter name="mine" string="My Submissions" domain="[('maker_id', '=', uid)]"/>
+            <filter name="reconcile" string="Needs Reconciliation" domain="[('state', 'in', ['uncertain', 'dispatching', 'remote_pending'])]"/>
+            <group><filter name="group_state" string="State" context="{'group_by': 'state'}"/><filter name="group_operation" string="Operation" context="{'group_by': 'operation'}"/></group>
+        </search></field>
+    </record>
+    <record id="mfierp_command_view_form" model="ir.ui.view">
+        <field name="name">mfierp.command.form</field><field name="model">mfierp.command</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <header>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" groups="mfierp.group_checker" invisible="state != 'pending'" confirm="Approve this exact payload for dispatch to Fineract?"/>
+                    <button name="action_reject" string="Reject" type="object" groups="mfierp.group_checker" invisible="state != 'pending'"/>
+                    <button name="action_reconcile" string="Record Reconciliation" type="object" groups="mfierp.group_manager" invisible="state not in ['uncertain', 'dispatching', 'remote_pending']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,dispatching,done"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="state not in ['uncertain', 'dispatching', 'remote_pending']">Verify this request in Fineract before taking further action. Do not submit a replacement until the outcome is independently confirmed.</div>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group><field name="backend_id"/><field name="operation"/><field name="target_id" invisible="not target_id"/><field name="remote_target_id" string="Fineract Target ID" invisible="not remote_target_id"/></group>
+                        <group><field name="maker_id"/><field name="checker_id"/><field name="create_date"/><field name="approved_at"/><field name="dispatched_at"/><field name="completed_at"/></group>
+                    </group>
+                    <group string="Remote Outcome" invisible="state in ['pending', 'approved', 'rejected']">
+                        <field name="result_resource_id" string="Fineract Resource ID" invisible="not result_resource_id"/>
+                        <field name="result_command_id" string="Fineract Command ID" invisible="not result_command_id"/>
+                        <field name="status_message"/>
+                        <field name="resolved_by_id" invisible="not resolved_by_id"/>
+                        <field name="resolution_note" invisible="not resolution_note"/>
+                    </group>
+                    <notebook>
+                        <page string="Payload for Review"><field name="payload_preview" class="font-monospace" nolabel="1"/></page>
+                        <page string="Audit References"><group><field name="idempotency_key"/><field name="payload_digest"/></group></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="mfierp_command_action" model="ir.actions.act_window">
+        <field name="name">Command Register</field><field name="res_model">mfierp.command</field><field name="view_mode">list,form</field>
+    </record>
+    <record id="mfierp_approval_action" model="ir.actions.act_window">
+        <field name="name">Approval Inbox</field><field name="res_model">mfierp.command</field><field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'pending')]</field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+id,name,model_id,group_id/id,operation,domain
+backend_reader,Connection read,mfierp.backend,mfierp.group_reader,r,
+backend_manager,Connection administration,mfierp.backend,mfierp.group_manager,cru,
+backend_company,Connection company boundary,mfierp.backend,,crud,"[('company_id', 'in', company_ids)]"
+record_reader,Portfolio read,mfierp.record,mfierp.group_reader,r,
+record_company,Portfolio company boundary,mfierp.record,,crud,"[('company_id', 'in', company_ids)]"
+line_reader,Portfolio detail read,mfierp.line,mfierp.group_reader,r,
+line_company,Portfolio detail company boundary,mfierp.line,,crud,"[('company_id', 'in', company_ids)]"
+command_operator,Maker command read,mfierp.command,mfierp.group_operator,r,
+command_checker,Checker command read,mfierp.command,mfierp.group_checker,r,
+command_company,Command company boundary,mfierp.command,,crud,"[('company_id', 'in', company_ids)]"
+operation_operator,Operation form,mfierp.operation,mfierp.group_operator,crud,
+operation_company,Operation company boundary,mfierp.operation,,crud,"[('company_id', 'in', company_ids)]"
+reconcile_manager,Reconciliation form,mfierp.reconcile,mfierp.group_manager,crud,
+report_reader,Report form,mfierp.report,mfierp.group_reader,crud,
+report_company,Report company boundary,mfierp.report,,crud,"[('company_id', 'in', company_ids)]"

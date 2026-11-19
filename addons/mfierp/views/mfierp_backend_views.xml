@@ -1,0 +1,41 @@
+<odoo>
+    <record id="mfierp_backend_view_list" model="ir.ui.view">
+        <field name="name">mfierp.backend.list</field>
+        <field name="model">mfierp.backend</field>
+        <field name="arch" type="xml">
+            <list delete="false">
+                <field name="name"/><field name="company_id" groups="base.group_multi_company"/>
+                <field name="tenant"/><field name="base_url"/><field name="last_sync"/><field name="sync_status"/>
+            </list>
+        </field>
+    </record>
+    <record id="mfierp_backend_view_form" model="ir.ui.view">
+        <field name="name">mfierp.backend.form</field>
+        <field name="model">mfierp.backend</field>
+        <field name="arch" type="xml">
+            <form delete="false">
+                <header>
+                    <button name="action_test_connection" type="object" string="Test Connection" groups="mfierp.group_manager"/>
+                    <button name="action_sync" type="object" string="Synchronize Portfolio" class="oe_highlight" groups="mfierp.group_manager"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <h1><field name="name" placeholder="Institution / Tenant"/></h1>
+                    <group>
+                        <group><field name="company_id"/><field name="base_url"/><field name="tenant"/><field name="environment"/><field name="active"/></group>
+                        <group><field name="credential_prefix" groups="mfierp.group_manager"/><field name="timeout"/><field name="sync_enabled"/></group>
+                    </group>
+                    <div class="alert alert-info" role="status">Service credentials are read from the deployment environment. Each connection belongs to one company and one Fineract tenant. Configure a dedicated account with the required remote permissions.</div>
+                    <group string="Synchronization"><field name="last_sync"/><field name="sync_status"/></group>
+                    <group string="Runtime Provenance and Dispatch">
+                        <group groups="mfierp.group_manager"><field name="expected_version"/><field name="expected_commit"/><field name="mutation_enabled"/></group>
+                        <group><field name="observed_version"/><field name="observed_commit"/><field name="verified_at"/></group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="mfierp_backend_action" model="ir.actions.act_window">
+        <field name="name">Fineract Connections</field><field name="res_model">mfierp.backend</field><field name="view_mode">list,form</field>
+    </record>
+</odoo>
