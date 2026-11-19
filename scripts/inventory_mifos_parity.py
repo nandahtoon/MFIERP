@@ -4,6 +4,7 @@ The result is contract coverage evidence, not a feature-parity or UAT certificat
 """
 import argparse
 import json
+import math
 import re
 from collections import Counter
 from pathlib import Path
@@ -18,14 +19,50 @@ def pattern(path):
     return path
 
 
+def compatible(source_pattern, entry, schemas):
+    left = source_pattern.split("/")
+    right = entry["path"].removeprefix("/v1/").strip("/").split("/")
+    if len(left) != len(right):
+        return False
+    parameters = {p["name"]: p.get("schema", {}) for p in entry["parameters"] if p["in"] == "path"}
+    for source, target in zip(left, right, strict=True):
+        if source == "{}" or source == target:
+            continue
+        if not (target.startswith("{") and target.endswith("}")):
+            return False
+        schema = parameters.get(target[1:-1], {})
+        seen = set()
+        while "$ref" in schema:
+            name = schema["$ref"].rsplit("/", 1)[-1]
+            if name in seen or name not in schemas:
+                return False
+            seen.add(name)
+            schema = schemas[name]
+        kind = schema.get("type")
+        if kind == "integer" and not re.fullmatch(r"-?\d+", source):
+            return False
+        if kind in {"number", "integer"}:
+            try:
+                value = float(source)
+            except ValueError:
+                return False
+            if not math.isfinite(value) or value < schema.get("minimum", float("-inf")) or value > schema.get("maximum", float("inf")):
+                return False
+        if kind == "boolean" and source not in {"true", "false"}:
+            return False
+        if "enum" in schema and source not in {str(value) for value in schema["enum"]}:
+            return False
+        if kind == "string" and schema.get("pattern") and not re.search(schema["pattern"], source):
+            return False
+    return True
+
+
 def inventory(calls, catalog, repo, revision):
     rows = []
     for call in calls:
         source_pattern = pattern(call["path"])
-        def compatible(api_path, source_pattern=source_pattern):
-            left, right = source_pattern.split("/"), pattern(api_path.removeprefix("/v1/")).split("/")
-            return len(left) == len(right) and all(a == b or a == "{}" or b == "{}" for a, b in zip(left, right, strict=True))
-        matches = [entry for entry in catalog["capabilities"] if entry["method"] == call["method"] and compatible(entry["path"])]
+        matches = [entry for entry in catalog["capabilities"] if entry["method"] == call["method"]
+            and compatible(source_pattern, entry, catalog.get("schemas", {}))]
         ready = [entry for entry in matches if not entry["blocked"]]
         dynamic = source_pattern.split("/")[0] == "{}"
         state = "DYNAMIC_RESOURCE_REQUIRES_REVIEW" if dynamic else "TYPED_CONTRACT_CANDIDATE" if ready else "CONTRACT_REQUIRES_SOURCE_WORK" if matches else "NOT_IN_DEPLOYED_OPENAPI"

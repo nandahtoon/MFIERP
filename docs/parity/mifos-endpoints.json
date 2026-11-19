@@ -5,9 +5,9 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 650,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 43,
-    "NOT_IN_DEPLOYED_OPENAPI": 2,
+    "TYPED_CONTRACT_CANDIDATE": 643,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 49,
+    "NOT_IN_DEPLOYED_OPENAPI": 3,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
   "calls": [
@@ -73,8 +73,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/account-transfers/account-transfers.service.ts#L64",
       "capabilities": [
-        "get_retrieveTemplateStandingInstruction",
-        "get_retrieveOneStandingInstruction"
+        "get_retrieveTemplateStandingInstruction"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -106,8 +105,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/account-transfers/account-transfers.service.ts#L80",
       "capabilities": [
-        "get_retrieveTemplateAccountTransfer",
-        "get_retrieveOneAccountTransfer"
+        "get_retrieveTemplateAccountTransfer"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -389,8 +387,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L134",
       "capabilities": [
-        "get_retrieveTemplate",
-        "get_retreive"
+        "get_retrieveTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -471,8 +468,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L178",
       "capabilities": [
-        "get_retrieveOpeningBalance",
-        "get_retrieveJournalEntryById"
+        "get_retrieveOpeningBalance"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -523,8 +519,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L201",
       "capabilities": [
-        "get_retrieveNewAccountDetails",
-        "get_retreiveAccount"
+        "get_retrieveNewAccountDetails"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -686,8 +681,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L283",
       "capabilities": [
-        "get_retrieveTemplateAccountingRule",
-        "get_retrieveOneAccountingRule"
+        "get_retrieveTemplateAccountingRule"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -865,8 +859,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L370",
       "capabilities": [
-        "get_retrieveProvisioningEntriesLoanProducts",
-        "get_retrieveOneProvisioningEntry"
+        "get_retrieveProvisioningEntriesLoanProducts"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -882,8 +875,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/accounting/accounting.service.ts#L379",
       "capabilities": [
-        "get_retrieveJournalEntries",
-        "get_retrieveJournalEntryById"
+        "get_retrieveJournalEntries"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -983,12 +975,11 @@
       "source": "src/app/centers/centers.service.ts",
       "line": 63,
       "area": "centers",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L63",
       "capabilities": [
-        "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter"
+        "get_retrieveTemplateCenter"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -1321,8 +1312,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L225",
       "capabilities": [
-        "get_retrieveTemplateMeeting",
-        "get_retrieveOneMeeting"
+        "get_retrieveTemplateMeeting"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1354,8 +1344,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/centers/centers.service.ts#L234",
       "capabilities": [
-        "get_retrieveTemplateCalendar",
-        "get_retrieveCalendar"
+        "get_retrieveTemplateCalendar"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1506,8 +1495,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L60",
       "capabilities": [
-        "get_retrieveTemplateClient",
-        "get_retrieveOneClient"
+        "get_retrieveTemplateClient"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1523,8 +1511,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L64",
       "capabilities": [
-        "get_retrieveTemplateClient",
-        "get_retrieveOneClient"
+        "get_retrieveTemplateClient"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -1963,7 +1950,6 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L231",
       "capabilities": [
-        "get_retrieveClientTransactionByClientExternalId",
         "get_downloadFile"
       ],
       "remaining_contract_issues": [],
@@ -2086,8 +2072,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L259",
       "capabilities": [
-        "get_retrieveTemplateClientIdentifier",
-        "get_retrieveOneClientIdentifier"
+        "get_retrieveTemplateClientIdentifier"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -2203,7 +2188,6 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L289",
       "capabilities": [
-        "get_retrieveClientTransactionByClientExternalId",
         "get_downloadFile"
       ],
       "remaining_contract_issues": [],
@@ -2434,8 +2418,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L343",
       "capabilities": [
-        "get_retrieveTemplateClient",
-        "get_retrieveOneClient"
+        "get_retrieveTemplateClient"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -2468,8 +2451,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L351",
       "capabilities": [
-        "get_retrieveTemplateClientCharge",
-        "get_retrieveOneClientCharge"
+        "get_retrieveTemplateClientCharge"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -2602,13 +2584,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L401",
       "capabilities": [
-        "post_createScorecard",
-        "post_createLookupTable",
-        "post_createCalendar",
-        "post_createDocument",
-        "post_createImage_1",
-        "post_createMeeting",
-        "post_addNewNote"
+        "post_createScorecard"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -2659,8 +2635,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/clients/clients.service.ts#L423",
       "capabilities": [
-        "get_getClientCollateralTemplate",
-        "get_getClientCollateralData"
+        "get_getClientCollateralTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3066,8 +3041,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts#L95",
       "capabilities": [
-        "get_retrieveTemplateFixedDepositAccountTransaction",
-        "get_retrieveOneFixedDepositAccountTransaction"
+        "get_retrieveTemplateFixedDepositAccountTransaction"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3083,8 +3057,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/fixed-deposits/fixed-deposits.service.ts#L105",
       "capabilities": [
-        "get_retrieveTemplateFixedDepositAccount",
-        "get_retrieveOneFixedDepositAccount"
+        "get_retrieveTemplateFixedDepositAccount"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3201,8 +3174,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L67",
       "capabilities": [
-        "get_retrieveTemplateRecurringDepositAccount",
-        "get_retrieveOneRecurringDepositAccount"
+        "get_retrieveTemplateRecurringDepositAccount"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3340,12 +3312,11 @@
       "source": "src/app/deposits/recurring-deposits/recurring-deposits.service.ts",
       "line": 135,
       "area": "deposits",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/deposits/recurring-deposits/recurring-deposits.service.ts#L135",
       "capabilities": [
-        "get_retrieveTemplateRecurringDepositAccountTransaction",
-        "get_retrieveOneRecurringDepositAccountTransaction"
+        "get_retrieveTemplateRecurringDepositAccountTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3679,12 +3650,11 @@
       "source": "src/app/groups/groups.service.ts",
       "line": 201,
       "area": "groups",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L201",
       "capabilities": [
-        "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup"
+        "get_retrieveTemplateGroup"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -3794,8 +3764,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L255",
       "capabilities": [
-        "get_retrieveTemplateCalendar",
-        "get_retrieveCalendar"
+        "get_retrieveTemplateCalendar"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3862,8 +3831,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L294",
       "capabilities": [
-        "get_retrieveTemplateMeeting",
-        "get_retrieveOneMeeting"
+        "get_retrieveTemplateMeeting"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -3891,12 +3859,11 @@
       "source": "src/app/groups/groups.service.ts",
       "line": 314,
       "area": "groups",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/groups/groups.service.ts#L314",
       "capabilities": [
-        "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup"
+        "get_retrieveTemplateGroup"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -4075,18 +4042,10 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L45",
       "capabilities": [
         "get_retrieveTemplateClientCharge",
-        "get_retrieveOneClientCharge",
-        "get_getDatatableManyEntry",
-        "get_getEntityToEntityMappings",
-        "get_getAccountByIdentifier",
         "get_retrieveApprovalTemplateByExternalId",
         "get_retrieveTemplateLoanCharge",
-        "get_retrieveOneLoanCharge",
         "get_retrieveTemplateSavingsAccountCharge",
-        "get_retrieveOneSavingsAccountCharge",
-        "get_getSurveyEntry",
-        "get_retrieveTemplateWorkingCapitalLoanCharge",
-        "get_retrieveWorkingCapitalLoanCharge"
+        "get_retrieveTemplateWorkingCapitalLoanCharge"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -4103,8 +4062,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L55",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_retrieveTemplateLoanTransaction",
-        "get_retrieveOneLoanTransaction"
+        "get_retrieveTemplateLoanTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -4123,8 +4081,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L60",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_retrieveTemplateLoanTransaction",
-        "get_retrieveOneLoanTransaction"
+        "get_retrieveTemplateLoanTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -4143,8 +4100,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L72",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_retrieveTemplateLoanTransaction",
-        "get_retrieveOneLoanTransaction"
+        "get_retrieveTemplateLoanTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -4163,8 +4119,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L84",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_retrieveTemplateLoanTransaction",
-        "get_retrieveOneLoanTransaction"
+        "get_retrieveTemplateLoanTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -4203,9 +4158,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L93",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveGuarantorDetails"
       ],
       "remaining_contract_issues": [],
@@ -4223,8 +4176,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L97",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_newGuarantorTemplate",
-        "get_retrieveGuarantorDetails_1"
+        "get_newGuarantorTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -4241,7 +4193,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L101",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createGuarantor"
       ],
       "remaining_contract_issues": [
@@ -4310,9 +4261,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L117",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveDelinquencyTagHistoryLoan"
       ],
       "remaining_contract_issues": [],
@@ -4371,39 +4320,21 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L136",
       "capabilities": [
-        "get_getConfiguration",
-        "get_fetchMappingByLoanProductId",
-        "get_retrieveOneShareAccount",
         "get_retrieveOneClientByExternalId",
         "get_retrieveOneCodeByName",
         "get_retrieveOneByName",
-        "get_getSavedCreditReport",
-        "get_getDatatableEntries",
-        "get_getBucket",
-        "get_getRange",
-        "get_retrieveOneEmailCampaign",
         "get_getAccountDetails",
         "get_retrieveByShortName",
-        "get_retrieve_1",
         "get_retrieveByExternalId",
         "get_retrieveLoanProductDetailsByExternalId",
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveDelinquencyActionsLoan",
         "get_retrieveOneOfficeByExternalId",
-        "get_retrieveAll_7",
-        "get_retrieveOneShareProduct",
         "get_retrieveAllAvailableExports",
         "get_retrieveSavingsAccountByExternalId",
-        "get_getClientSurveyOverview",
-        "get_findBySurvey",
-        "get_retrieveOneTaxComponent",
-        "get_retrieveOneTaxGroup",
         "get_retrieveOneWorkingCapitalLoanProductByExternalId",
         "get_retrieveWorkingCapitalLoanByExternalId",
-        "get_retrieveDelinquencyActions",
-        "get_retrieveWorkingCapitalNearBreach"
+        "get_retrieveDelinquencyActions"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -4419,37 +4350,17 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L140",
       "capabilities": [
-        "post_createCreditBureauConfiguration",
-        "post_createCreditBureauLoanProductMapping",
-        "post_addOrganisationCreditBureau",
-        "post_handleCommandsShareAccount",
         "post_handleCommandClientByExternalId",
         "post_deregisterDatatable",
-        "post_createDatatableEntry",
-        "post_handleCommandsEmailCampaign",
-        "post_transferRequestWithId",
         "post_executeJobByShortName",
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createDelinquencyActionLoan",
-        "post_handleCommandsShareProduct",
         "post_handleCommandsSavingsAccountByExternalId",
-        "post_handleGSIMCommands",
-        "post_createSurveyEntry",
-        "post_createScorecard",
         "post_stateTransitionWorkingCapitalLoanByExternalId",
-        "post_createDelinquencyAction",
-        "post_handleCommandsShareAccount__activate",
-        "post_handleCommandsShareAccount__approve",
-        "post_handleCommandsShareAccount__reject",
-        "post_handleCommandsShareAccount__close",
-        "post_handleCommandsShareAccount__applyadditionalshares",
-        "post_handleCommandsShareAccount__redeemshares",
-        "post_handleCommandsShareAccount__undoapproval"
+        "post_createDelinquencyAction"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
-        "Opaque JSON request body needs a source-reviewed field schema."
+        "Command variants need source-reviewed schemas before execution."
       ],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -4464,9 +4375,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L144",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_fetchLoanCapitalizedIncomeData"
       ],
       "remaining_contract_issues": [],
@@ -4483,9 +4392,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L148",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveLoanBuyDownFeeAmortizationDetails"
       ],
       "remaining_contract_issues": [],
@@ -4644,39 +4551,19 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L196",
       "capabilities": [
-        "post_createCreditBureauConfiguration",
-        "post_createCreditBureauLoanProductMapping",
-        "post_addOrganisationCreditBureau",
-        "post_handleCommandsShareAccount",
         "post_handleCommandClientByExternalId",
         "post_createClientCharge",
         "post_deregisterDatatable",
-        "post_createDatatableEntry",
-        "post_handleCommandsEmailCampaign",
-        "post_transferRequestWithId",
         "post_executeJobByShortName",
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createOrPayLoanCharge",
-        "post_handleCommandsShareProduct",
         "post_handleCommandsSavingsAccountByExternalId",
-        "post_handleGSIMCommands",
         "post_createSavingsAccountCharge",
-        "post_createSurveyEntry",
-        "post_createScorecard",
         "post_stateTransitionWorkingCapitalLoanByExternalId",
-        "post_createLoanCharge",
-        "post_handleCommandsShareAccount__activate",
-        "post_handleCommandsShareAccount__approve",
-        "post_handleCommandsShareAccount__reject",
-        "post_handleCommandsShareAccount__close",
-        "post_handleCommandsShareAccount__applyadditionalshares",
-        "post_handleCommandsShareAccount__redeemshares",
-        "post_handleCommandsShareAccount__undoapproval"
+        "post_createLoanCharge"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
-        "Opaque JSON request body needs a source-reviewed field schema."
+        "Command variants need source-reviewed schemas before execution."
       ],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -4713,8 +4600,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L213",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_newCollateralTemplate",
-        "get_retrieveCollateralDetails_1"
+        "get_newCollateralTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -4730,9 +4616,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L222",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveCollateralDetails"
       ],
       "remaining_contract_issues": [],
@@ -4750,7 +4634,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L232",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createCollateral"
       ],
       "remaining_contract_issues": [
@@ -4847,9 +4730,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L262",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveNotesByResource"
       ],
       "remaining_contract_issues": [],
@@ -4867,7 +4748,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L272",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_addNewNote"
       ],
       "remaining_contract_issues": [
@@ -4921,7 +4801,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L303",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_handleCommandsLoanTransaction",
         "post_handleCommandsLoanTransaction__close",
         "post_handleCommandsLoanTransaction__close-rescheduled",
@@ -4946,8 +4825,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L321",
       "capabilities": [
-        "get_previewReAgeLoanSchedule",
-        "get_retrieveOneLoanTransaction"
+        "get_previewReAgeLoanSchedule"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -4963,8 +4841,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L339",
       "capabilities": [
-        "get_previewReAmortizeLoanSchedule",
-        "get_retrieveOneLoanTransaction"
+        "get_previewReAmortizeLoanSchedule"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5188,7 +5065,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L425",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createLoanInterestPause"
       ],
       "remaining_contract_issues": [
@@ -5207,9 +5083,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L429",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveAllLoanInterestPauses"
       ],
       "remaining_contract_issues": [],
@@ -5261,8 +5135,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L450",
       "capabilities": [
         "get_retrieveApprovalTemplateByExternalId",
-        "get_retrieveTemplateLoanTransaction",
-        "get_retrieveOneLoanTransaction"
+        "get_retrieveTemplateLoanTransaction"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -5281,7 +5154,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L459",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_handleCommandsLoanTransaction",
         "post_handleCommandsLoanTransaction__close",
         "post_handleCommandsLoanTransaction__close-rescheduled",
@@ -5306,8 +5178,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L467",
       "capabilities": [
-        "put_addAndDeleteDisbursementDetail",
-        "put_updateDisbursementDate"
+        "put_addAndDeleteDisbursementDetail"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5323,12 +5194,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L474",
       "capabilities": [
-        "get_retrieveAllRescheduleLoanReasons",
-        "get_retrieveOneRescheduleLoan"
+        "get_retrieveAllRescheduleLoanReasons"
       ],
-      "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -5399,8 +5267,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L513",
       "capabilities": [
-        "get_retrieveTemplateLoan",
-        "get_retrieveOneLoan"
+        "get_retrieveTemplateLoan"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5416,8 +5283,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L519",
       "capabilities": [
-        "get_retrieveWorkingCapitalLoanTemplate",
-        "get_retrieveWorkingCapitalLoanById"
+        "get_retrieveWorkingCapitalLoanTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5454,8 +5320,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L539",
       "capabilities": [
-        "get_retrieveTemplateLoan",
-        "get_retrieveOneLoan"
+        "get_retrieveTemplateLoan"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -5554,9 +5419,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L551",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveAllDocuments"
       ],
       "remaining_contract_issues": [],
@@ -5573,10 +5436,6 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L555",
       "capabilities": [
-        "get_getBuyDownFeesAllocationDataByLoanExternalId",
-        "get_getCapitalizedIncomeAllocationDataByLoanExternalId",
-        "get_retrieveOneLoanChargeByLoanExternalId",
-        "get_retrieveOneLoanTransactionByLoanExternalId",
         "get_downloadFile"
       ],
       "remaining_contract_issues": [],
@@ -5610,7 +5469,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L563",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_createDocument"
       ],
       "remaining_contract_issues": [
@@ -5737,9 +5595,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L609",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_loanReassignmentTemplate",
         "get_retrieveApprovalTemplate"
       ],
@@ -5790,9 +5646,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L627",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveAllLoanCharges"
       ],
       "remaining_contract_issues": [],
@@ -5816,17 +5670,9 @@
         "get_retrieveTemplateClientCharge",
         "get_retrieveOneClientCharge",
         "get_retrieveAllCodeValuesByCodeName",
-        "get_getDatatableManyEntry",
-        "get_getEntityToEntityMappings",
-        "get_retrieveAllExternalAssetOwnerLoanProductAttributes",
-        "get_getJournalEntriesOfTransfer",
-        "get_getInternalClientAuditFields",
-        "get_getAdvancedPaymentAllocationRulesOfLoan",
-        "get_getLoanAuditFields",
         "get_getAccountIdentifiers",
         "get_getClientKyc",
         "get_getAccountTransactions",
-        "get_getAccountByIdentifier",
         "get_retrieveHistoryByShortName",
         "get_retrieveApprovedAmountHistoryLoanByExternalId",
         "get_retrieveLoanBuyDownFeeAmortizationDetailsByExternalId",
@@ -5843,7 +5689,6 @@
         "get_retrieveOneLoanCharge",
         "get_retrieveTemplateSavingsAccountCharge",
         "get_retrieveOneSavingsAccountCharge",
-        "get_getSurveyEntry",
         "get_getDelinquencyRangeScheduleTagHistoryByExternalId",
         "get_retrieveBreachActionsByExternalId",
         "get_retrieveAllWorkingCapitalLoanChargesByLoanExternalId",
@@ -5872,11 +5717,6 @@
         "post_payOrWaiveClientCharge",
         "post_createCodeValueByCodeName",
         "post_registerDatatable",
-        "post_createExternalAssetOwnerLoanProductAttribute",
-        "post_activateLoan",
-        "post_generateAmortizationSchedule",
-        "post_generateNextDelinquencyPeriod",
-        "post_registerAccountIdentifier",
         "post_disburseLoan",
         "post_loanRepayment",
         "post_executeLoanChargeByLoanExternalId",
@@ -5915,7 +5755,6 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L669",
       "capabilities": [
-        "put_updateDatatableEntryOneToMany",
         "put_updateApprovedAmountLoanByExternalId",
         "put_updateAvailableDisbursementAmountLoanByExternalId",
         "put_updateLoanCharge",
@@ -5942,15 +5781,10 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L678",
       "capabilities": [
         "delete_deleteClientCharge",
-        "delete_deleteDatatableEntry",
-        "delete_deleteAccountIdentifier",
         "delete_deleteLoanCharge",
-        "delete_deleteSavingsAccountCharge",
-        "delete_deleteDatatableEntries_1"
+        "delete_deleteSavingsAccountCharge"
       ],
-      "remaining_contract_issues": [
-        "This request uses a non-JSON upload/body contract."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -5965,7 +5799,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L687",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_handleCommandsLoanSchedule"
       ],
       "remaining_contract_issues": [
@@ -5990,19 +5823,11 @@
         "get_retrieveClientTransferTemplateByExternalId",
         "get_retrieveClientTransaction",
         "get_retrieveAllCodeValuesByCodeName",
-        "get_getDatatableManyEntry",
-        "get_getEntityToEntityMappings",
-        "get_retrieveAllExternalAssetOwnerLoanProductAttributes",
-        "get_getJournalEntriesOfTransfer",
         "get_retrieveTemplateFixedDepositAccountTransaction",
         "get_retrieveOneFixedDepositAccountTransaction",
-        "get_getInternalClientAuditFields",
-        "get_getAdvancedPaymentAllocationRulesOfLoan",
-        "get_getLoanAuditFields",
         "get_getAccountIdentifiers",
         "get_getClientKyc",
         "get_getAccountTransactions",
-        "get_getAccountByIdentifier",
         "get_retrieveHistoryByShortName",
         "get_retrieveApprovedAmountHistoryLoanByExternalId",
         "get_retrieveLoanBuyDownFeeAmortizationDetailsByExternalId",
@@ -6024,7 +5849,6 @@
         "get_searchSavingsAccountTransactions",
         "get_retrieveTemplateSavingsAccountTransaction",
         "get_retrieveOneSavingsAccountTransaction",
-        "get_getSurveyEntry",
         "get_getDelinquencyRangeScheduleTagHistoryByExternalId",
         "get_retrieveBreachActionsByExternalId",
         "get_retrieveAllWorkingCapitalLoanChargesByLoanExternalId",
@@ -6107,7 +5931,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L731",
       "capabilities": [
         "post_handleCommandsLoanByExternalId",
-        "post_handleCommandsGlimLoan",
         "post_handleCommandsLoanTransaction",
         "post_handleCommandsLoanTransaction__close",
         "post_handleCommandsLoanTransaction__close-rescheduled",
@@ -6132,26 +5955,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L739",
       "capabilities": [
-        "get_getGlimRepaymentTemplate",
-        "get_retrieveApprovedAmountHistoryLoan",
-        "get_retrieveLoanBuyDownFeeAmortizationDetails",
-        "get_fetchCapitalizedIncomeDetails",
-        "get_retrieveAllLoanCharges",
-        "get_retrieveCollateralDetails",
-        "get_fetchLoanCapitalizedIncomeData",
-        "get_retrieveDelinquencyActionsLoan",
-        "get_retrieveDelinquencyTagHistoryLoan",
-        "get_retrieveGuarantorDetails",
-        "get_retrieveAllLoanInterestPauses",
-        "get_retrieveOriginatorsByLoanId",
-        "get_getPostDatedChecks",
-        "get_retrieveApprovalTemplate",
-        "get_retrieveAllLoanTransactions",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_getGlimRepaymentTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -6167,8 +5971,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L749",
       "capabilities": [
-        "get_retrieveTemplateLoan",
-        "get_retrieveOneLoan"
+        "get_retrieveTemplateLoan"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -6257,9 +6060,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/loans.service.ts#L888",
       "capabilities": [
-        "get_retrieveLoanPointInTime",
         "get_retrieveOneLoanByExternalId",
-        "get_getGlimRepaymentTemplate",
         "get_retrieveOriginatorsByLoanId"
       ],
       "remaining_contract_issues": [],
@@ -6403,63 +6204,13 @@
       "capabilities": [
         "post_postShareAccountTemplate",
         "post_handleCommandsShareAccount",
-        "post_createClientAddress",
-        "post_createClientCharge",
-        "post_addClientCollateral",
-        "post_createClientFamilyMember",
-        "post_createClientIdentifier",
-        "post_createCodeValue",
         "post_advancedQuery",
         "post_createDatatableEntry",
         "post_transferRequestWithId",
-        "post_transaction",
-        "post_createInterestRateChartSlab",
         "post_executeInlineJob",
-        "post_createProductMix",
-        "post_createOrPayLoanCharge",
-        "post_createCollateral",
-        "post_createDelinquencyActionLoan",
-        "post_createGuarantor",
-        "post_createLoanInterestPause",
-        "post_handleCommandsLoanSchedule",
-        "post_handleCommandsLoanTransaction",
         "post_handleCommandsShareProduct",
-        "post_transactionRecurringDepositAccountTransaction",
-        "post_createSavingsAccountCharge",
-        "post_createSavingsAccountTransaction",
-        "post_createShareDividend",
         "post_createSurveyEntry",
-        "post_createLookupTable",
-        "post_createCashierForTeller",
-        "post_create",
-        "post_changePasswordUser",
-        "post_createBreachAction",
-        "post_createLoanCharge",
-        "post_createDelinquencyAction",
-        "post_createWorkingCapitalLoanNearBreachActionById",
-        "post_executeWorkingCapitalLoanTransactionById",
-        "post_createCalendar",
-        "post_createDocument",
-        "post_createImage_1",
-        "post_createMeeting",
-        "post_addNewNote",
-        "post_handleCommandsLoanTransaction__close",
-        "post_handleCommandsLoanTransaction__close-rescheduled",
-        "post_handleCommandsLoanTransaction__waiveinterest",
-        "post_handleCommandsLoanTransaction__undowriteoff",
-        "post_handleCommandsLoanTransaction__charge-off",
-        "post_handleCommandsLoanTransaction__recoverypayment",
-        "post_createSavingsAccountTransaction__deposit",
-        "post_createSavingsAccountTransaction__withdrawal",
-        "post_createSavingsAccountTransaction__holdAmount",
-        "post_createSavingsAccountTransaction__postInterestAsOn",
-        "post_handleCommandsShareAccount__activate",
-        "post_handleCommandsShareAccount__approve",
-        "post_handleCommandsShareAccount__reject",
-        "post_handleCommandsShareAccount__close",
-        "post_handleCommandsShareAccount__applyadditionalshares",
-        "post_handleCommandsShareAccount__redeemshares",
-        "post_handleCommandsShareAccount__undoapproval"
+        "post_create"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -6479,73 +6230,19 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/services/external-asset-owner.service.ts#L49",
       "capabilities": [
         "get_getExternalGrammar",
-        "get_retrieveOneAccountingRule",
-        "get_retrieveOneAccountNumberFormat",
         "get_retrieveAllShareAccounts",
-        "get_retrieveOneAccountTransfer",
-        "get_retrieveAdHocQuery",
-        "get_retrieveAuditEntry",
         "get_getBusinessDate",
-        "get_retrieveOneCenter",
-        "get_retrieveOneCharge",
-        "get_retrieveOneClient",
-        "get_retrieveOneCode",
-        "get_getCollateral",
-        "get_retrieveOneGlobalConfiguration",
         "get_getDatatable",
-        "get_retrieveOneEmail",
-        "get_retrieveOne",
         "get_getTransfers",
         "get_retrieveExternalServicesConfiguration",
         "get_getAddresses",
-        "get_retreive",
-        "get_retrieveOneFixedDepositAccount",
-        "get_retrieveOneFixedDepositProduct",
-        "get_retrieveOneFloatingRate",
-        "get_retrieveFund",
-        "get_retreiveAccount",
-        "get_retrieveOneGLClosure",
-        "get_retrieveOneGroup",
-        "get_retrieveOneHoliday",
-        "get_retrieveOneHook",
-        "get_retrieveOneInterestRateChart",
-        "get_retrieveOneSchedulerJob",
-        "get_retrieveJournalEntryById",
         "get_retrieveAll_5",
-        "get_getLoanCollateral",
-        "get_retrieveOneLoanOriginator",
-        "get_retrieveOneLoanProduct",
-        "get_retrieveOneLoan",
-        "get_retrieveOneOffice",
-        "get_retrieveOnePaymentType",
         "get_retrieveAll_6",
         "get_retrieveAllShareProducts",
-        "get_retrieveOneProvisioningCriteria",
-        "get_retrieveOneProvisioningEntry",
-        "get_retrieveOneRate",
-        "get_retrieveOneRecurringDepositAccount",
-        "get_retrieveOneRecurringDepositProduct",
-        "get_retrieveOneReportMailingJob",
-        "get_retrieveOneReport",
-        "get_retrieveOneRescheduleLoan",
-        "get_retrieveOneRole",
         "get_runReport",
-        "get_retrieveSavingsAccount",
-        "get_retrieveOneSavingsProduct",
-        "get_retrieveOneSms",
-        "get_retrieveOneSmsCampaign",
-        "get_retrieveOneStaff",
-        "get_retrieveOneStandingInstruction",
-        "get_retrieveOneSurvey",
-        "get_findSurvey",
-        "get_retrieveOneTeller",
-        "get_retrieveOneTemplate",
-        "get_retrieveOneUser",
-        "get_retrieveOneWorkingCapitalLoanProduct",
-        "get_retrieveWorkingCapitalLoanById"
+        "get_retrieveOneSurvey"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
         "This contract is outside the supported Fineract v1/v2 APIs."
       ],
       "operator_workflow_verified": false,
@@ -6561,13 +6258,7 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/services/external-asset-owner.service.ts#L58",
       "capabilities": [
-        "get_retrieveOneShareAccount",
-        "get_getDatatableEntries",
-        "get_getActiveTransfer",
-        "get_retrieve_1",
-        "get_retrieveAll_7",
-        "get_retrieveOneShareProduct",
-        "get_getClientSurveyOverview"
+        "get_getActiveTransfer"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -6583,38 +6274,7 @@
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/services/external-asset-owner.service.ts#L66",
       "capabilities": [
-        "get_retrieveOneClientCharge",
-        "get_getClientCollateralData",
-        "get_retrieveOneClientFamilyMember",
-        "get_retrieveOneClientIdentifier",
-        "get_retrieveClientTransaction",
-        "get_retrieveCodeValue",
-        "get_getDatatableManyEntry",
-        "get_getEntityToEntityMappings",
-        "get_getJournalEntriesOfTransfer",
-        "get_retrieveOneFixedDepositAccountTransaction",
-        "get_retrieveOneInterestRateChartSlab",
-        "get_retrieveBuyDownFeesAllocationData",
-        "get_retrieveCapitalizedIncomeAllocationData",
-        "get_retrieveOneLoanCharge",
-        "get_retrieveCollateralDetails_1",
-        "get_retriveDetail",
-        "get_retrieveGuarantorDetails_1",
-        "get_getPostDatedCheck",
-        "get_retrieveOneLoanTransaction",
-        "get_retrieveOneRecurringDepositAccountTransaction",
-        "get_retrieveOneSavingsAccountCharge",
-        "get_retrieveOneSavingsAccountTransaction",
-        "get_retrieveOneShareDividend",
-        "get_getSurveyEntry",
-        "get_findLookupTable",
-        "get_retrieveOneCashierForTeller",
-        "get_retrieveWorkingCapitalLoanCharge",
-        "get_retrieveWorkingCapitalLoanTransactionById",
-        "get_retrieveCalendar",
-        "get_getDocument",
-        "get_retrieveOneMeeting",
-        "get_retrieveNote"
+        "get_getJournalEntriesOfTransfer"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -6631,88 +6291,12 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/loans/services/external-asset-owner.service.ts#L74",
       "capabilities": [
         "post_createShareAccount",
-        "post_accountTransferOperation",
-        "post_handleCommandsCenter",
-        "post_handleCommandClient",
-        "post_createMap",
         "post_searchInvestorData",
-        "post_handleCommandsFixedDepositAccount",
-        "post_handleCommandsGroup",
-        "post_handleCommandsHoliday",
-        "post_executeJob",
         "post_createReversalJournalEntry",
-        "post_handleCommandsLoan",
-        "post_approveMakerCheckerEntry",
-        "post_createShareProduct",
-        "post_modifyProvisioningEntry",
-        "post_handleCommandsRecurringDepositAccount",
-        "post_updateRescheduleLoan",
-        "post_handleCommandsRole",
-        "post_handleCommandsSavingsAccount",
-        "post_handleCommandsSmsCampaign",
-        "post_activateOrDeactivateSurvey",
-        "post_mergeTemplate",
-        "post_stateTransitionWorkingCapitalLoanById",
-        "post_handleCommandClient__activate",
-        "post_handleCommandClient__reactivate",
-        "post_handleCommandClient__close",
-        "post_handleCommandClient__reject",
-        "post_handleCommandClient__withdraw",
-        "post_handleCommandClient__undoRejection",
-        "post_handleCommandClient__assignStaff",
-        "post_handleCommandClient__updateSavingsAccount",
-        "post_handleCommandClient__proposeTransfer",
-        "post_handleCommandClient__acceptTransfer",
-        "post_handleCommandClient__rejectTransfer",
-        "post_handleCommandClient__withdrawTransfer",
-        "post_handleCommandsLoan__approve",
-        "post_handleCommandsLoan__reject",
-        "post_handleCommandsLoan__withdrawnByApplicant",
-        "post_handleCommandsLoan__disbursetosavings",
-        "post_handleCommandsLoan__assignLoanOfficer",
-        "post_handleCommandsLoan__undoapproval",
-        "post_handleCommandsLoan__undodisbursal",
-        "post_handleCommandsLoan__undolastdisbursal",
-        "post_handleCommandsSavingsAccount__approve",
-        "post_handleCommandsSavingsAccount__reject",
-        "post_handleCommandsSavingsAccount__withdrawnByApplicant",
-        "post_handleCommandsFixedDepositAccount__approve",
-        "post_handleCommandsFixedDepositAccount__reject",
-        "post_handleCommandsFixedDepositAccount__withdrawnByApplicant",
-        "post_handleCommandsRecurringDepositAccount__approve",
-        "post_handleCommandsRecurringDepositAccount__reject",
-        "post_handleCommandsRecurringDepositAccount__withdrawnByApplicant",
-        "post_handleCommandsSavingsAccount__activate",
-        "post_handleCommandsSavingsAccount__undoapproval",
-        "post_handleCommandsSavingsAccount__assignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__unassignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__close",
-        "post_handleCommandsSavingsAccount__block",
-        "post_handleCommandsSavingsAccount__blockCredit",
-        "post_handleCommandsSavingsAccount__blockDebit",
-        "post_handleCommandsFixedDepositAccount__close",
-        "post_handleCommandsFixedDepositAccount__prematureClose",
-        "post_handleCommandsRecurringDepositAccount__close",
-        "post_handleCommandsRecurringDepositAccount__prematureClose",
-        "post_handleCommandsGroup__activate",
-        "post_handleCommandsGroup__close",
-        "post_handleCommandsCenter__activate",
-        "post_handleCommandsCenter__close",
-        "post_handleCommandsGroup__assignStaff",
-        "post_handleCommandsRole__enable",
-        "post_handleCommandsRole__disable",
-        "post_activateOrDeactivateSurvey__activate",
-        "post_activateOrDeactivateSurvey__deactivate",
-        "post_executeJob__executeJob",
-        "post_updateRescheduleLoan__approve",
-        "post_updateRescheduleLoan__reject",
-        "post_modifyProvisioningEntry__createjournalentry",
-        "post_modifyProvisioningEntry__recreateprovisioningentry"
+        "post_createShareProduct"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
-        "Opaque JSON request body needs a source-reviewed field schema.",
-        "Request object has no declared fields; a reviewed schema is required."
+        "Command variants need source-reviewed schemas before execution."
       ],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -7008,12 +6592,7 @@
       "capabilities": [
         "get_getShareAccountTemplate",
         "get_retrieveTemplateShareAccount",
-        "get_retrieveOneShareAccount",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneShareAccount"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7045,8 +6624,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L40",
       "capabilities": [
-        "get_retrieveTemplate_1",
-        "get_retrieveOneProvisioningCriteria"
+        "get_retrieveTemplate_1"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7147,8 +6725,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L91",
       "capabilities": [
-        "get_loanReassignmentTemplate",
-        "get_retrieveApprovalTemplate"
+        "get_loanReassignmentTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7164,8 +6741,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L103",
       "capabilities": [
-        "get_loanReassignmentTemplate",
-        "get_retrieveApprovalTemplate"
+        "get_loanReassignmentTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7177,23 +6753,13 @@
       "source": "src/app/organization/organization.service.ts",
       "line": 112,
       "area": "organization",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L112",
       "capabilities": [
-        "post_loanReassignment",
-        "post_handleCommandsLoan",
-        "post_handleCommandsLoan__approve",
-        "post_handleCommandsLoan__reject",
-        "post_handleCommandsLoan__withdrawnByApplicant",
-        "post_handleCommandsLoan__disbursetosavings",
-        "post_handleCommandsLoan__assignLoanOfficer",
-        "post_handleCommandsLoan__undoapproval",
-        "post_handleCommandsLoan__undodisbursal",
-        "post_handleCommandsLoan__undolastdisbursal"
+        "post_loanReassignment"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
         "Opaque JSON request body needs a source-reviewed field schema."
       ],
       "operator_workflow_verified": false,
@@ -7521,8 +7087,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L276",
       "capabilities": [
-        "get_retrieveTemplateSmsCampaign",
-        "get_retrieveOneSmsCampaign"
+        "get_retrieveTemplateSmsCampaign"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7606,8 +7171,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L323",
       "capabilities": [
-        "get_template",
-        "get_retrieveAdHocQuery"
+        "get_template"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -7849,8 +7413,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L458",
       "capabilities": [
-        "get_retrieveCashierTemplateForTeller",
-        "get_retrieveOneCashierForTeller"
+        "get_retrieveCashierTemplateForTeller"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -8171,8 +7734,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L620",
       "capabilities": [
-        "get_retrieveRepaymentScheduleUpdationTyeOptions",
-        "get_retrieveOneHoliday"
+        "get_retrieveRepaymentScheduleUpdationTyeOptions"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -8462,8 +8024,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L763",
       "capabilities": [
-        "get_retrieveTemplateStandingInstruction",
-        "get_retrieveOneStandingInstruction"
+        "get_retrieveTemplateStandingInstruction"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -8496,84 +8057,30 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L801",
       "capabilities": [
         "get_getExternalGrammar",
-        "get_retrieveOneAccountingRule",
-        "get_retrieveOneAccountNumberFormat",
         "get_retrieveAllShareAccounts",
-        "get_retrieveOneAccountTransfer",
-        "get_retrieveAdHocQuery",
-        "get_retrieveAuditEntry",
         "get_getBusinessDate",
         "get_getBulkTemplateCenter",
-        "get_retrieveOneCenter",
-        "get_retrieveOneCharge",
         "get_getClientTemplate",
-        "get_retrieveOneClient",
-        "get_retrieveOneCode",
-        "get_getCollateral",
-        "get_retrieveOneGlobalConfiguration",
         "get_getDatatable",
-        "get_retrieveOneEmail",
-        "get_retrieveOne",
         "get_retrieveExternalServicesConfiguration",
         "get_getAddresses",
-        "get_retreive",
         "get_getFixedDepositTemplate",
-        "get_retrieveOneFixedDepositAccount",
-        "get_retrieveOneFixedDepositProduct",
-        "get_retrieveOneFloatingRate",
-        "get_retrieveFund",
         "get_getGlAccountsTemplate",
-        "get_retreiveAccount",
-        "get_retrieveOneGLClosure",
         "get_getBulkTemplateGroup",
-        "get_retrieveOneGroup",
-        "get_retrieveOneHoliday",
-        "get_retrieveOneHook",
-        "get_retrieveOneInterestRateChart",
-        "get_retrieveOneSchedulerJob",
         "get_getJournalEntriesTemplate",
-        "get_retrieveJournalEntryById",
         "get_retrieveAll_5",
-        "get_getLoanCollateral",
-        "get_retrieveOneLoanOriginator",
-        "get_retrieveOneLoanProduct",
         "get_getLoansTemplate",
-        "get_retrieveOneLoan",
         "get_getOfficeTemplate",
-        "get_retrieveOneOffice",
-        "get_retrieveOnePaymentType",
         "get_retrieveAll_6",
         "get_retrieveAllShareProducts",
-        "get_retrieveOneProvisioningCriteria",
-        "get_retrieveOneProvisioningEntry",
-        "get_retrieveOneRate",
         "get_getRecurringDepositTemplate",
-        "get_retrieveOneRecurringDepositAccount",
-        "get_retrieveOneRecurringDepositProduct",
-        "get_retrieveOneReportMailingJob",
-        "get_retrieveOneReport",
-        "get_retrieveOneRescheduleLoan",
-        "get_retrieveOneRole",
         "get_runReport",
         "get_getSavingsTemplate",
-        "get_retrieveSavingsAccount",
-        "get_retrieveOneSavingsProduct",
-        "get_retrieveOneSms",
-        "get_retrieveOneSmsCampaign",
         "get_getBulkTemplateStaff",
-        "get_retrieveOneStaff",
-        "get_retrieveOneStandingInstruction",
         "get_retrieveOneSurvey",
-        "get_findSurvey",
-        "get_retrieveOneTeller",
-        "get_retrieveOneTemplate",
-        "get_getBulkTemplateUser",
-        "get_retrieveOneUser",
-        "get_retrieveOneWorkingCapitalLoanProduct",
-        "get_retrieveWorkingCapitalLoanById"
+        "get_getBulkTemplateUser"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
         "This contract is outside the supported Fineract v1/v2 APIs."
       ],
       "operator_workflow_verified": false,
@@ -8606,99 +8113,23 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L836",
       "capabilities": [
         "post_createShareAccount",
-        "post_accountTransferOperation",
         "post_postBulkTemplateCenter",
-        "post_handleCommandsCenter",
         "post_postClientTemplate",
-        "post_handleCommandClient",
-        "post_createMap",
         "post_postFixedDepositTemplate",
-        "post_handleCommandsFixedDepositAccount",
         "post_postGlAccountsTemplate",
         "post_postBulkTemplateGroup",
-        "post_handleCommandsGroup",
-        "post_handleCommandsHoliday",
-        "post_executeJob",
         "post_postJournalEntriesTemplate",
         "post_createReversalJournalEntry",
         "post_postLoanTemplate",
-        "post_handleCommandsLoan",
-        "post_approveMakerCheckerEntry",
         "post_postOfficeTemplate",
         "post_createShareProduct",
-        "post_modifyProvisioningEntry",
         "post_postRecurringDepositTemplate",
-        "post_handleCommandsRecurringDepositAccount",
-        "post_updateRescheduleLoan",
-        "post_handleCommandsRole",
         "post_postSavingsTemplate",
-        "post_handleCommandsSavingsAccount",
-        "post_handleCommandsSmsCampaign",
         "post_postTemplate",
-        "post_activateOrDeactivateSurvey",
-        "post_mergeTemplate",
-        "post_postBulkTemplateUser",
-        "post_stateTransitionWorkingCapitalLoanById",
-        "post_handleCommandClient__activate",
-        "post_handleCommandClient__reactivate",
-        "post_handleCommandClient__close",
-        "post_handleCommandClient__reject",
-        "post_handleCommandClient__withdraw",
-        "post_handleCommandClient__undoRejection",
-        "post_handleCommandClient__assignStaff",
-        "post_handleCommandClient__updateSavingsAccount",
-        "post_handleCommandClient__proposeTransfer",
-        "post_handleCommandClient__acceptTransfer",
-        "post_handleCommandClient__rejectTransfer",
-        "post_handleCommandClient__withdrawTransfer",
-        "post_handleCommandsLoan__approve",
-        "post_handleCommandsLoan__reject",
-        "post_handleCommandsLoan__withdrawnByApplicant",
-        "post_handleCommandsLoan__disbursetosavings",
-        "post_handleCommandsLoan__assignLoanOfficer",
-        "post_handleCommandsLoan__undoapproval",
-        "post_handleCommandsLoan__undodisbursal",
-        "post_handleCommandsLoan__undolastdisbursal",
-        "post_handleCommandsSavingsAccount__approve",
-        "post_handleCommandsSavingsAccount__reject",
-        "post_handleCommandsSavingsAccount__withdrawnByApplicant",
-        "post_handleCommandsFixedDepositAccount__approve",
-        "post_handleCommandsFixedDepositAccount__reject",
-        "post_handleCommandsFixedDepositAccount__withdrawnByApplicant",
-        "post_handleCommandsRecurringDepositAccount__approve",
-        "post_handleCommandsRecurringDepositAccount__reject",
-        "post_handleCommandsRecurringDepositAccount__withdrawnByApplicant",
-        "post_handleCommandsSavingsAccount__activate",
-        "post_handleCommandsSavingsAccount__undoapproval",
-        "post_handleCommandsSavingsAccount__assignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__unassignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__close",
-        "post_handleCommandsSavingsAccount__block",
-        "post_handleCommandsSavingsAccount__blockCredit",
-        "post_handleCommandsSavingsAccount__blockDebit",
-        "post_handleCommandsFixedDepositAccount__close",
-        "post_handleCommandsFixedDepositAccount__prematureClose",
-        "post_handleCommandsRecurringDepositAccount__close",
-        "post_handleCommandsRecurringDepositAccount__prematureClose",
-        "post_handleCommandsGroup__activate",
-        "post_handleCommandsGroup__close",
-        "post_handleCommandsCenter__activate",
-        "post_handleCommandsCenter__close",
-        "post_handleCommandsGroup__assignStaff",
-        "post_handleCommandsRole__enable",
-        "post_handleCommandsRole__disable",
-        "post_activateOrDeactivateSurvey__activate",
-        "post_activateOrDeactivateSurvey__deactivate",
-        "post_executeJob__executeJob",
-        "post_updateRescheduleLoan__approve",
-        "post_updateRescheduleLoan__reject",
-        "post_modifyProvisioningEntry__createjournalentry",
-        "post_modifyProvisioningEntry__recreateprovisioningentry"
+        "post_postBulkTemplateUser"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
-        "Opaque JSON request body needs a source-reviewed field schema.",
-        "Request object has no declared fields; a reviewed schema is required."
+        "Command variants need source-reviewed schemas before execution."
       ],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -8729,8 +8160,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L850",
       "capabilities": [
-        "get_retrieveLoanOriginatorTemplate",
-        "get_retrieveOneLoanOriginator"
+        "get_retrieveLoanOriginatorTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -8908,8 +8338,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L40",
       "capabilities": [
-        "get_retrieveAllLoanProductsDetails",
-        "get_retrieveOneLoanProduct"
+        "get_retrieveAllLoanProductsDetails"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9010,106 +8439,53 @@
       "capabilities": [
         "get_getExternalGrammar",
         "get_retrieveTemplateAccountingRule",
-        "get_retrieveOneAccountingRule",
         "get_retrieveTemplateAccountNumberFormat",
-        "get_retrieveOneAccountNumberFormat",
         "get_retrieveAllShareAccounts",
         "get_retrieveTemplateAccountTransfer",
-        "get_retrieveOneAccountTransfer",
         "get_template",
-        "get_retrieveAdHocQuery",
-        "get_retrieveAuditEntry",
         "get_getBusinessDate",
         "get_retrieveTemplateCenter",
-        "get_retrieveOneCenter",
         "get_retrieveTemplateCharge",
-        "get_retrieveOneCharge",
         "get_retrieveTemplateClient",
-        "get_retrieveOneClient",
-        "get_retrieveOneCode",
         "get_getCollateralTemplate",
-        "get_getCollateral",
-        "get_retrieveOneGlobalConfiguration",
         "get_getDatatable",
-        "get_retrieveOneEmail",
         "get_retrieveTemplateEntityDatatableChecks",
-        "get_retrieveOne",
         "get_retrieveExternalServicesConfiguration",
         "get_getAddresses",
         "get_retrieveTemplate",
-        "get_retreive",
         "get_retrieveTemplateFixedDepositAccount",
-        "get_retrieveOneFixedDepositAccount",
         "get_retrieveTemplateFixedDepositProduct",
-        "get_retrieveOneFixedDepositProduct",
-        "get_retrieveOneFloatingRate",
-        "get_retrieveFund",
         "get_retrieveNewAccountDetails",
-        "get_retreiveAccount",
-        "get_retrieveOneGLClosure",
         "get_retrieveTemplateGroup",
-        "get_retrieveOneGroup",
         "get_retrieveRepaymentScheduleUpdationTyeOptions",
-        "get_retrieveOneHoliday",
         "get_retrieveTemplateHook",
-        "get_retrieveOneHook",
         "get_retrieveTemplateInterestRateChart",
-        "get_retrieveOneInterestRateChart",
-        "get_retrieveOneSchedulerJob",
-        "get_retrieveJournalEntryById",
         "get_retrieveAll_5",
-        "get_getLoanCollateral",
         "get_retrieveLoanOriginatorTemplate",
-        "get_retrieveOneLoanOriginator",
         "get_retrieveTemplateLoanProduct",
-        "get_retrieveOneLoanProduct",
         "get_retrieveTemplateLoan",
-        "get_retrieveOneLoan",
         "get_retrieveTemplateOffice",
-        "get_retrieveOneOffice",
         "get_newOfficeTransactionDetails",
         "get_retrieveTemplatePasswordPreferences",
-        "get_retrieveOnePaymentType",
         "get_retrieveAll_6",
         "get_retrieveAllShareProducts",
         "get_retrieveTemplate_1",
-        "get_retrieveOneProvisioningCriteria",
-        "get_retrieveOneProvisioningEntry",
-        "get_retrieveOneRate",
         "get_retrieveTemplateRecurringDepositAccount",
-        "get_retrieveOneRecurringDepositAccount",
         "get_retrieveTemplateRecurringDepositProduct",
-        "get_retrieveOneRecurringDepositProduct",
         "get_retrieveTemplateReportMailingJob",
-        "get_retrieveOneReportMailingJob",
         "get_retrieveTemplateReport",
-        "get_retrieveOneReport",
         "get_retrieveAllRescheduleLoanReasons",
-        "get_retrieveOneRescheduleLoan",
-        "get_retrieveOneRole",
         "get_runReport",
         "get_retrieveSavingsAccountTemplate",
-        "get_retrieveSavingsAccount",
         "get_retrieveTemplateSavingsProduct",
-        "get_retrieveOneSavingsProduct",
         "get_retrieveAdHocSearchQueryTemplate",
-        "get_retrieveOneSms",
         "get_retrieveTemplateSmsCampaign",
-        "get_retrieveOneSmsCampaign",
-        "get_retrieveOneStaff",
         "get_retrieveTemplateStandingInstruction",
-        "get_retrieveOneStandingInstruction",
         "get_retrieveOneSurvey",
-        "get_findSurvey",
-        "get_retrieveOneTeller",
         "get_retrieveTemplateDetails",
-        "get_retrieveOneTemplate",
         "get_retrieveTemplateUser",
-        "get_retrieveOneUser",
         "get_retrieveTemplateWorkingCapitalLoanProduct",
-        "get_retrieveOneWorkingCapitalLoanProduct",
         "get_retrieveWorkingCapitalLoanTemplate",
-        "get_retrieveWorkingCapitalLoanById",
         "get_retrieveTemplateWorkingDays"
       ],
       "remaining_contract_issues": [
@@ -9410,8 +8786,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L72",
       "capabilities": [
-        "get_retrieveTemplateSavingsProduct",
-        "get_retrieveOneSavingsProduct"
+        "get_retrieveTemplateSavingsProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9492,8 +8867,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L96",
       "capabilities": [
-        "get_retrieveTemplateShareProduct",
-        "get_retrieveOneShareProduct"
+        "get_retrieveTemplateShareProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9510,12 +8884,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L101",
       "capabilities": [
         "get_retrieveTemplateShareProduct",
-        "get_retrieveOneShareProduct",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneShareProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9531,12 +8900,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L105",
       "capabilities": [
-        "put_updateShareProduct",
-        "put_updateImage_1"
+        "put_updateShareProduct"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -9651,8 +9017,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L154",
       "capabilities": [
-        "get_retrieveTemplateRecurringDepositProduct",
-        "get_retrieveOneRecurringDepositProduct"
+        "get_retrieveTemplateRecurringDepositProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9684,8 +9049,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L165",
       "capabilities": [
-        "get_retrieveTemplateCharge",
-        "get_retrieveOneCharge"
+        "get_retrieveTemplateCharge"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9798,8 +9162,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L213",
       "capabilities": [
-        "get_retrieveTemplateFixedDepositProduct",
-        "get_retrieveOneFixedDepositProduct"
+        "get_retrieveTemplateFixedDepositProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9882,12 +9245,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L245",
       "capabilities": [
         "get_retrieveTemplateTaxComponent",
-        "get_retrieveOneTaxComponent",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneTaxComponent"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9903,8 +9261,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L252",
       "capabilities": [
-        "get_retrieveTemplateTaxComponent",
-        "get_retrieveOneTaxComponent"
+        "get_retrieveTemplateTaxComponent"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9936,12 +9293,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L268",
       "capabilities": [
-        "put_updateTaxComponent",
-        "put_updateImage_1"
+        "put_updateTaxComponent"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -9972,12 +9326,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L285",
       "capabilities": [
         "get_retrieveTemplateTaxGroup",
-        "get_retrieveOneTaxGroup",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneTaxGroup"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -9993,8 +9342,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L292",
       "capabilities": [
-        "get_retrieveTemplateTaxGroup",
-        "get_retrieveOneTaxGroup"
+        "get_retrieveTemplateTaxGroup"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10026,12 +9374,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L309",
       "capabilities": [
-        "put_updateTaxGroup",
-        "put_updateImage_1"
+        "put_updateTaxGroup"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -10061,12 +9406,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L324",
       "capabilities": [
-        "get_getRange",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_getRange"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10098,12 +9438,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L341",
       "capabilities": [
-        "put_updateRange",
-        "put_updateImage_1"
+        "put_updateRange"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -10117,8 +9454,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L349",
       "capabilities": [
-        "delete_deleteRange",
-        "delete_deleteImage"
+        "delete_deleteRange"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10134,8 +9470,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L356",
       "capabilities": [
-        "get_getBucketTemplate",
-        "get_getBucket"
+        "get_getBucketTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10168,12 +9503,7 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L371",
       "capabilities": [
         "get_getBucketTemplate",
-        "get_getBucket",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_getBucket"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10205,12 +9535,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L388",
       "capabilities": [
-        "put_updateBucket",
-        "put_updateImage_1"
+        "put_updateBucket"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -10224,8 +9551,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L396",
       "capabilities": [
-        "delete_deleteBucket",
-        "delete_deleteImage"
+        "delete_deleteBucket"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10338,8 +9664,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L454",
       "capabilities": [
-        "get_retrieveTemplateLoanProduct",
-        "get_retrieveOneLoanProduct"
+        "get_retrieveTemplateLoanProduct"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10502,8 +9827,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L526",
       "capabilities": [
-        "get_getCollateralTemplate",
-        "get_getCollateral"
+        "get_getCollateralTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10796,12 +10120,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L665",
       "capabilities": [
-        "get_retrieveWorkingCapitalNearBreach",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveWorkingCapitalNearBreach"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10833,12 +10152,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L679",
       "capabilities": [
-        "put_updateWorkingCapitalNearBreach",
-        "put_updateImage_1"
+        "put_updateWorkingCapitalNearBreach"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -10852,8 +10168,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/products/products.service.ts#L686",
       "capabilities": [
-        "delete_deleteWorkingCapitalNearBreach",
-        "delete_deleteImage"
+        "delete_deleteWorkingCapitalNearBreach"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10868,39 +10183,7 @@
       "status": "DYNAMIC_RESOURCE_REQUIRES_REVIEW",
       "dynamic_resource_segment": true,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/remittances/remittances.service.ts#L62",
-      "capabilities": [
-        "get_retrieveOneClientCharge",
-        "get_getClientCollateralData",
-        "get_retrieveOneClientFamilyMember",
-        "get_retrieveOneClientIdentifier",
-        "get_retrieveClientTransaction",
-        "get_retrieveCodeValue",
-        "get_getDatatableManyEntry",
-        "get_getEntityToEntityMappings",
-        "get_retrieveOneFixedDepositAccountTransaction",
-        "get_retrieveOneInterestRateChartSlab",
-        "get_retrieveBuyDownFeesAllocationData",
-        "get_retrieveCapitalizedIncomeAllocationData",
-        "get_retrieveOneLoanCharge",
-        "get_retrieveCollateralDetails_1",
-        "get_retriveDetail",
-        "get_retrieveGuarantorDetails_1",
-        "get_getPostDatedCheck",
-        "get_retrieveOneLoanTransaction",
-        "get_retrieveOneRecurringDepositAccountTransaction",
-        "get_retrieveOneSavingsAccountCharge",
-        "get_retrieveOneSavingsAccountTransaction",
-        "get_retrieveOneShareDividend",
-        "get_getSurveyEntry",
-        "get_findLookupTable",
-        "get_retrieveOneCashierForTeller",
-        "get_retrieveWorkingCapitalLoanCharge",
-        "get_retrieveWorkingCapitalLoanTransactionById",
-        "get_retrieveCalendar",
-        "get_getDocument",
-        "get_retrieveOneMeeting",
-        "get_retrieveNote"
-      ],
+      "capabilities": [],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -10979,8 +10262,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L30",
       "capabilities": [
-        "get_retrieveTemplateSavingsAccountTransaction",
-        "get_retrieveOneSavingsAccountTransaction"
+        "get_retrieveTemplateSavingsAccountTransaction"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -10996,8 +10278,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L38",
       "capabilities": [
-        "get_retrieveTemplateSavingsAccountCharge",
-        "get_retrieveOneSavingsAccountCharge"
+        "get_retrieveTemplateSavingsAccountCharge"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -11233,8 +10514,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L191",
       "capabilities": [
-        "get_retrieveSavingsAccountTemplate",
-        "get_retrieveSavingsAccount"
+        "get_retrieveSavingsAccountTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -11407,7 +10687,6 @@
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L278",
       "capabilities": [
         "post_handleCommandsSavingsAccountByExternalId",
-        "post_handleGSIMCommands",
         "post_createSavingsAccountTransaction",
         "post_createSavingsAccountTransaction__deposit",
         "post_createSavingsAccountTransaction__withdrawal",
@@ -11514,26 +10793,13 @@
       "source": "src/app/savings/savings.service.ts",
       "line": 335,
       "area": "savings",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L335",
       "capabilities": [
-        "post_submitGSIMApplication",
-        "post_handleCommandsSavingsAccount",
-        "post_handleCommandsSavingsAccount__approve",
-        "post_handleCommandsSavingsAccount__reject",
-        "post_handleCommandsSavingsAccount__withdrawnByApplicant",
-        "post_handleCommandsSavingsAccount__activate",
-        "post_handleCommandsSavingsAccount__undoapproval",
-        "post_handleCommandsSavingsAccount__assignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__unassignSavingsOfficer",
-        "post_handleCommandsSavingsAccount__close",
-        "post_handleCommandsSavingsAccount__block",
-        "post_handleCommandsSavingsAccount__blockCredit",
-        "post_handleCommandsSavingsAccount__blockDebit"
+        "post_submitGSIMApplication"
       ],
       "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution.",
         "Opaque JSON request body needs a source-reviewed field schema."
       ],
       "operator_workflow_verified": false,
@@ -11695,12 +10961,7 @@
       "capabilities": [
         "get_getShareAccountTemplate",
         "get_retrieveTemplateShareAccount",
-        "get_retrieveOneShareAccount",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneShareAccount"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -11716,8 +10977,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares.service.ts#L43",
       "capabilities": [
-        "get_retrieveTemplateShareAccount",
-        "get_retrieveOneShareAccount"
+        "get_retrieveTemplateShareAccount"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -11749,12 +11009,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares.service.ts#L60",
       "capabilities": [
-        "put_updateShareAccount",
-        "put_updateImage_1"
+        "put_updateShareAccount"
       ],
-      "remaining_contract_issues": [
-        "Request object has no declared fields; a reviewed schema is required."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -11764,12 +11021,10 @@
       "source": "src/app/shares/shares.service.ts",
       "line": 68,
       "area": "shares",
-      "status": "TYPED_CONTRACT_CANDIDATE",
+      "status": "NOT_IN_DEPLOYED_OPENAPI",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/shares/shares.service.ts#L68",
-      "capabilities": [
-        "delete_deleteImage"
-      ],
+      "capabilities": [],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
@@ -11786,11 +11041,6 @@
       "capabilities": [
         "post_postShareAccountTemplate",
         "post_handleCommandsShareAccount",
-        "post_createCalendar",
-        "post_createDocument",
-        "post_createImage_1",
-        "post_createMeeting",
-        "post_addNewNote",
         "post_handleCommandsShareAccount__activate",
         "post_handleCommandsShareAccount__approve",
         "post_handleCommandsShareAccount__reject",
@@ -11864,8 +11114,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L56",
       "capabilities": [
-        "get_retrieveTemplateHook",
-        "get_retrieveOneHook"
+        "get_retrieveTemplateHook"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -12320,8 +11569,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L279",
       "capabilities": [
-        "get_retrieveAllConfiguredBusinessJobs",
-        "get_retrieveOneSchedulerJob"
+        "get_retrieveAllConfiguredBusinessJobs"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -12689,12 +11937,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L450",
       "capabilities": [
-        "get_retrieveOneByName",
-        "get_retrieveCalendarsByEntityId",
-        "get_retrieveAllDocuments",
-        "get_retrieveImage",
-        "get_retrieveAllMeetings",
-        "get_retrieveNotesByResource"
+        "get_retrieveOneByName"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -12774,8 +12017,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L490",
       "capabilities": [
-        "get_retrieveTemplateAccountNumberFormat",
-        "get_retrieveOneAccountNumberFormat"
+        "get_retrieveTemplateAccountNumberFormat"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -12889,8 +12131,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L548",
       "capabilities": [
-        "get_retrieveTemplateReport",
-        "get_retrieveOneReport"
+        "get_retrieveTemplateReport"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -12991,8 +12232,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L612",
       "capabilities": [
-        "get_retrieveAuditSearchTemplate",
-        "get_retrieveAuditEntry"
+        "get_retrieveAuditSearchTemplate"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -13366,8 +12606,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L759",
       "capabilities": [
-        "get_isCatchUpRunning",
-        "get_retrieveOneLoan"
+        "get_isCatchUpRunning"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -13383,20 +12622,9 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/system.service.ts#L764",
       "capabilities": [
-        "post_executeLoanCOBCatchUp",
-        "post_handleCommandsLoan",
-        "post_handleCommandsLoan__approve",
-        "post_handleCommandsLoan__reject",
-        "post_handleCommandsLoan__withdrawnByApplicant",
-        "post_handleCommandsLoan__disbursetosavings",
-        "post_handleCommandsLoan__assignLoanOfficer",
-        "post_handleCommandsLoan__undoapproval",
-        "post_handleCommandsLoan__undodisbursal",
-        "post_handleCommandsLoan__undolastdisbursal"
+        "post_executeLoanCOBCatchUp"
       ],
-      "remaining_contract_issues": [
-        "Command variants need source-reviewed schemas before execution."
-      ],
+      "remaining_contract_issues": [],
       "operator_workflow_verified": false,
       "live_uat_verified": false
     },
@@ -13522,8 +12750,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/tasks/tasks.service.ts#L94",
       "capabilities": [
-        "get_retrieveLockedAccounts",
-        "get_retrieveOneLoan"
+        "get_retrieveLockedAccounts"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -13659,8 +12886,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/templates/templates.service.ts#L44",
       "capabilities": [
-        "get_retrieveTemplateDetails",
-        "get_retrieveOneTemplate"
+        "get_retrieveTemplateDetails"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -13756,8 +12982,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/users/users.service.ts#L36",
       "capabilities": [
-        "get_retrieveTemplateUser",
-        "get_retrieveOneUser"
+        "get_retrieveTemplateUser"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,
@@ -13885,8 +13110,7 @@
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/zitadel/users/usersZitadel.service.ts#L59",
       "capabilities": [
-        "get_retrieveTemplateUser",
-        "get_retrieveOneUser"
+        "get_retrieveTemplateUser"
       ],
       "remaining_contract_issues": [],
       "operator_workflow_verified": false,

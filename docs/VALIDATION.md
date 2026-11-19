@@ -4,7 +4,7 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace tests | 31 passed |
+| Python service/workspace/inventory tests | 35 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
 | Clean Odoo 20 install and post-install ORM/workflow tests | Passed GitHub standard-image CI, 0 failures/errors |
@@ -35,3 +35,5 @@ No business API writes, remote credential changes, Oracle runtime changes or pro
 Version 20.0.3.0.0 adds regression coverage for contextual loan IDs in reschedule body/query fields, reader access to request lists, one approved dispatch without implicit waivers, separate approval/rejection dates, administrator-only provisioning review, fractional charge payments and exclusive bounds. The initial local upgrade run passed all 30 ORM tests. Remote business calls remain mocked.
 
 Browser verification for 20.0.3.0.0 confirmed the path from the synthetic loan record through More Workflows to reschedule submission, with the connection and loan ID 201 correctly populated. Nested dates, reason and optional restructuring fields rendered in the native Details form. No remote write was submitted.
+
+Four inventory regressions verify that named routes cannot be counted as numeric ID lookups, concrete document routes still match generic entity routes, share-only contracts cannot count as loan contracts, and computed resources remain review items.

@@ -10,12 +10,12 @@ The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP
 
 | Inventory status | Calls | Meaning |
 | --- | ---: | --- |
-| TYPED_CONTRACT_CANDIDATE | 650 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
-| CONTRACT_REQUIRES_SOURCE_WORK | 43 | Matching API metadata exists but no usable typed candidate |
+| TYPED_CONTRACT_CANDIDATE | 643 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
+| CONTRACT_REQUIRES_SOURCE_WORK | 49 | Matching API metadata exists but no usable typed candidate |
 | DYNAMIC_RESOURCE_REQUIRES_REVIEW | 25 | Resource itself is computed by the frontend; matching route templates alone are insufficient |
-| NOT_IN_DEPLOYED_OPENAPI | 2 | No compatible published operation; investigate service ownership and deployment |
+| NOT_IN_DEPLOYED_OPENAPI | 3 | No compatible published operation; investigate service ownership and deployment |
 
-The inventory is intentionally conservative about verification: every `operator_workflow_verified` and `live_uat_verified` flag remains false. Matching ignores query strings and does not prove command or payload equivalence. Multiple frontend calls can share one backend operation, and one computed call can represent many workflows. These counts are not a percentage of product completion.
+The inventory is intentionally conservative about verification: every `operator_workflow_verified` and `live_uat_verified` flag remains false. Matching ignores query strings and does not prove command or payload equivalence. Literal source segments must fit declared path parameter types/enums: a preview name cannot be counted as a numeric transaction lookup. This correction reduces false typed candidates; it does not remove a working addon feature. Multiple frontend calls can share one backend operation, and one computed call can represent many workflows. These counts are not a percentage of product completion.
 
 ## Separately reviewed variants
 
