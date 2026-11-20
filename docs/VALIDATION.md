@@ -7,8 +7,8 @@
 | Python service/workspace/inventory/datatable/administration/audit tests | 64 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
-| Clean Odoo 20 install and post-install ORM/workflow tests | 59 passed locally, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 59 passed locally, 0 failures/errors |
+| Clean Odoo 20 install and post-install ORM/workflow tests | 62 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 62 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -64,3 +64,7 @@ Version 20.0.9.0.0 adds typed bulk officer reassignment, body-less holiday activ
 All 64 pure tests and 59 Odoo tests passed on both clean installation and upgrade. The final upgrade ran sequentially on an isolated test-server port after an earlier parallel test startup reported a bind collision; the final run has no such startup error. The administration implementation at e375305 also passed standard-image service, installation and upgrade CI (run 44596133585). Current exact-head checks are recorded on the draft PR. The deterministic 20.0.9.0.0 addon archive was built locally. Remote business calls remain mocked, and live Oracle financial acceptance remains outstanding.
 
 Audit metadata projection and binary-output rejection cover both v1 audit detail/list and v2 audit pages. A registry regression checks every supported audit/checker read version; service tests now total 64.
+
+## Integrated master-mandate baseline — 2026-11-20
+
+The implementation was rebased onto owner mandate/ADR commit 8d4d22e and safety commit 99499d6, preserving clean-build dispatch attestation and independent fresh scheduler status verification. The scheduler regression now also rejects a fabricated positive resource ID; reconciliation uses a different administrator and an authenticated GET. The integrated working tree passed 64 tracked pure tests and 62 Odoo post-tests on both clean installation (mfierp_test_wp00_baseline_clean) and upgrade (mfierp_test_expanded). These are CE/source-runtime results with mocked business calls, not EE or Oracle UAT. Exact-head CI for the integrated implementation is pending publication and must be checked separately from the earlier 8d4d22e run.

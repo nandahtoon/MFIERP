@@ -148,14 +148,23 @@ class TestWorkspace(TestMfierpWorkflows):
             client.return_value.request.return_value = {"active": True}
             status.action_execute()
             self.assertIn('"active": true', status.result_text)
-        reconciliation = self.env["mfierp.reconcile"].with_user(self.manager).create({"command_id": command.id,
+        reconciliation = self.env["mfierp.reconcile"].with_user(reviewer).create({"command_id": command.id,
             "outcome": "done", "note": "Independently verified scheduler active status and remote audit after start."})
         self.assertFalse(reconciliation.resource_required)
         reconciliation.resource_id = -1
         with self.assertRaises(UserError):
             reconciliation.action_record()
+        reconciliation.resource_id = 1
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            with self.assertRaises(UserError):
+                reconciliation.action_record()
+            client.assert_not_called()
         reconciliation.resource_id = 0
-        reconciliation.action_record()
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"active": True}
+            reconciliation.action_record()
+            client.return_value.request.assert_called_once_with("GET", "scheduler")
         self.assertEqual(command.state, "done")
         self.assertFalse(command.result_resource_id)
 
