@@ -44,7 +44,8 @@
     <record id="mfierp_reconcile_view_form" model="ir.ui.view">
         <field name="name">mfierp.reconcile.form</field><field name="model">mfierp.reconcile</field>
         <field name="arch" type="xml"><form>
-            <group><field name="command_id"/><field name="outcome"/><field name="resource_id"/><field name="note"/></group>
+            <div class="alert alert-info" role="status" invisible="resource_required">This operation has no remote resource ID. Independently verify the scheduler status and record the evidence before confirming it.</div>
+            <group><field name="command_id"/><field name="outcome"/><field name="resource_required" invisible="True"/><field name="resource_id" required="outcome == 'done' and resource_required" invisible="not resource_required"/><field name="note"/></group>
             <footer><button name="action_record" string="Record Verified Outcome" type="object" class="btn-primary"/><button string="Cancel" special="cancel"/></footer>
         </form></field>
     </record>

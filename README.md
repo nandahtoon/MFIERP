@@ -10,10 +10,10 @@ Native Odoo 20 Community screens for Mifos X operations, backed by Apache Finera
 - Account balances, remote repayment schedules, transaction history and charges; native table report execution.
 - Separate makers/checkers, immutable payload hashes, durable dispatch reservation, idempotency keys and manual reconciliation of unknown outcomes.
 - Odoo 20 `ir.access` security, multi-company isolation, bounded synchronization, service tests and Odoo workflow/security tests.
-- Extended native workspace compiled from 966 deployed Fineract API operations, with 106 separately reviewed Mifos command variants: 942 typed contracts and 152 explicitly blocked contracts.
+- Extended native workspace compiled from 966 deployed Fineract API operations, with 108 separately reviewed Mifos command variants: 945 typed contracts and 152 explicitly blocked contracts.
 - Nested typed forms and repeated rows, protected document uploads/downloads, administrator-only configuration and deployment-secret references. All writes enter independent approval and the existing dispatch audit.
 - Registered Fineract datatable discovery and typed entry reads, creation, updates and deletion, with pinned metadata and independent approval for writes.
-- Source-reviewed standing-instruction editing, provisioning criteria, share dividend planning/approval and administrator-reviewed scheduler controls.
+- Source-reviewed standing-instruction editing, provisioning criteria, share dividend planning/approval and administrator-reviewed scheduler controls, explicit bulk officer reassignment, holiday activation and savings tax withholding.
 
 ## Get started
 

@@ -5,9 +5,9 @@
   "api_source_sha256": "a2facc90a00b71379a3c4261fd1529c5c7ccfff2847dc1179b518124c40e4fb5",
   "inventory_scope": "Literal HTTP calls in Mifos service files; computed URLs and component workflows require separate review.",
   "counts": {
-    "TYPED_CONTRACT_CANDIDATE": 662,
+    "TYPED_CONTRACT_CANDIDATE": 666,
     "NOT_IN_DEPLOYED_OPENAPI": 3,
-    "CONTRACT_REQUIRES_SOURCE_WORK": 30,
+    "CONTRACT_REQUIRES_SOURCE_WORK": 26,
     "DYNAMIC_RESOURCE_REQUIRES_REVIEW": 25
   },
   "calls": [
@@ -5038,7 +5038,8 @@
         "post_handleCommandsLoan__assignLoanOfficer",
         "post_handleCommandsLoan__undoapproval",
         "post_handleCommandsLoan__undodisbursal",
-        "post_handleCommandsLoan__undolastdisbursal"
+        "post_handleCommandsLoan__undolastdisbursal",
+        "post_loanReassignment__reassignLoans"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -5618,7 +5619,8 @@
         "put_updateWorkingCapitalLoanProduct",
         "put_modifyWorkingCapitalLoanApplicationById",
         "put_updateStandingInstruction__update",
-        "put_updateProvisioningCriteria__updateCriteria"
+        "put_updateProvisioningCriteria__updateCriteria",
+        "put_updateSavingsAccount__updateWithHoldTax"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -6820,11 +6822,12 @@
       "source": "src/app/organization/organization.service.ts",
       "line": 112,
       "area": "organization",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L112",
       "capabilities": [
-        "post_loanReassignment"
+        "post_loanReassignment",
+        "post_loanReassignment__reassignLoans"
       ],
       "remaining_contract_issues": [
         "Opaque JSON request body needs a source-reviewed field schema."
@@ -7861,11 +7864,12 @@
       "source": "src/app/organization/organization.service.ts",
       "line": 658,
       "area": "organization",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L658",
       "capabilities": [
-        "post_handleCommandsHoliday"
+        "post_handleCommandsHoliday",
+        "post_handleCommandsHoliday__activate"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -8811,7 +8815,8 @@
         "put_updateWorkingCapitalLoanProduct",
         "put_modifyWorkingCapitalLoanApplicationById",
         "put_updateStandingInstruction__update",
-        "put_updateProvisioningCriteria__updateCriteria"
+        "put_updateProvisioningCriteria__updateCriteria",
+        "put_updateSavingsAccount__updateWithHoldTax"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution.",
@@ -10622,11 +10627,12 @@
       "source": "src/app/savings/savings.service.ts",
       "line": 207,
       "area": "savings",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L207",
       "capabilities": [
-        "put_updateSavingsAccount"
+        "put_updateSavingsAccount",
+        "put_updateSavingsAccount__updateWithHoldTax"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."
@@ -10688,11 +10694,12 @@
       "source": "src/app/savings/savings.service.ts",
       "line": 237,
       "area": "savings",
-      "status": "CONTRACT_REQUIRES_SOURCE_WORK",
+      "status": "TYPED_CONTRACT_CANDIDATE",
       "dynamic_resource_segment": false,
       "source_url": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L237",
       "capabilities": [
-        "put_updateSavingsAccount"
+        "put_updateSavingsAccount",
+        "put_updateSavingsAccount__updateWithHoldTax"
       ],
       "remaining_contract_issues": [
         "Command variants need source-reviewed schemas before execution."

@@ -75,4 +75,5 @@ def extend_admin_contracts(add):
         entry = reviewed(add("/v1/scheduler", command, "Scheduler",
             "system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts", {}, dates=False))
         entry["admin_only"] = True
+        entry["reconciliation_without_resource"] = True
         entry["description"] += " Re-read scheduler status after dispatch and reconcile its outcome before confirming it."

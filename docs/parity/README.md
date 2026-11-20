@@ -1,6 +1,6 @@
 # Mifos X parity evidence
 
-The extended workspace contains **1,094 contracts**: 966 HTTP operations from the Oracle-hosted public Fineract OpenAPI definition, plus 106 separately source-reviewed command variants and 22 reviewed forms without a command parameter. **942 have typed forms; 152 remain blocked**. A form's availability is not proof of operator workflow parity, API correctness in every tenant configuration, or live acceptance.
+The extended workspace contains **1,097 contracts**: 966 HTTP operations from the Oracle-hosted public Fineract OpenAPI definition, plus 108 separately source-reviewed command variants and 23 reviewed forms without a command parameter. **945 have typed forms; 152 remain blocked**. A form's availability is not proof of operator workflow parity, API correctness in every tenant configuration, or live acceptance.
 
 The public API snapshot identifies Fineract 1.16.0-SNAPSHOT. Its canonicalized SHA-256 and component schemas are embedded in `addons/mfierp/services/catalog.json`. No host address, service credential or business observations are included. Apache metadata attribution and license accompany the catalog.
 
@@ -10,8 +10,8 @@ The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP
 
 | Inventory status | Calls | Meaning |
 | --- | ---: | --- |
-| TYPED_CONTRACT_CANDIDATE | 662 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
-| CONTRACT_REQUIRES_SOURCE_WORK | 30 | Matching API metadata exists but no usable typed candidate |
+| TYPED_CONTRACT_CANDIDATE | 666 | Compatible method/path and at least one typed candidate; command selection and complete workflow still require verification |
+| CONTRACT_REQUIRES_SOURCE_WORK | 26 | Matching API metadata exists but no usable typed candidate |
 | DYNAMIC_RESOURCE_REQUIRES_REVIEW | 25 | Resource itself is computed by the frontend; matching route templates alone are insufficient |
 | NOT_IN_DEPLOYED_OPENAPI | 3 | No compatible published operation; investigate service ownership and deployment |
 
@@ -19,7 +19,7 @@ The inventory is intentionally conservative about verification: every `operator_
 
 ## Separately reviewed variants
 
-`scripts/command_contracts.py` and `scripts/admin_contracts.py` declare 106 fixed commands, reviewed against pinned frontend handlers and relevant Fineract implementations. The compiled entries include their source links. They cover client activation/reactivation/closure/rejection/withdrawal/staff assignment/savings linkage/transfers; loan approval/rejection/withdrawal/disbursement to savings/officer assignment/reversals/closure/waiver/recovery/charge-off; savings lifecycle/officer changes; fixed and recurring deposit approval/rejection/withdrawal/closure; savings holds/blocking/as-of interest; group and center activation/closure; group staff assignment; shares activation/approval/rejection/closure/purchase/redemption/reversal; manager-only role enable/disable, survey activation/deactivation and job execution without custom parameters; loan reschedule submission/approval/rejection/pending reads; charge payment/waiver/inactivation; provisioning journal generation/recreation; standing-instruction updates; dividend approval; and scheduler start/stop.
+`scripts/command_contracts.py`, `scripts/admin_contracts.py` and `scripts/organization_contracts.py` declare 108 fixed commands, reviewed against pinned frontend handlers and relevant Fineract implementations. The compiled entries include their source links. They cover client activation/reactivation/closure/rejection/withdrawal/staff assignment/savings linkage/transfers; loan approval/rejection/withdrawal/disbursement to savings/officer assignment/reversals/closure/waiver/recovery/charge-off; savings lifecycle/officer changes; fixed and recurring deposit approval/rejection/withdrawal/closure; savings holds/blocking/as-of interest; group and center activation/closure; group staff assignment; shares activation/approval/rejection/closure/purchase/redemption/reversal; manager-only role enable/disable, survey activation/deactivation and job execution without custom parameters; loan reschedule submission/approval/rejection/pending reads; charge payment/waiver/inactivation; provisioning journal generation/recreation; standing-instruction updates; dividend approval; and scheduler start/stop.
 
 Each variant exposes exactly one command value. The unresolved parent operation remains visible as a gap; no generic command textbox can bypass it. Loan-product fee/penalty accounting mappings are narrowed to source-confirmed charge/account IDs, avoiding recursive response projections. Java DateParam and MIME wrapper schemas are normalized to their actual wire types. Six v2 operations use the same configured host and tenant with a fixed version selector. Manual Fineract journal creation uses its typed default POST contract without a free-form command. A separate loan application contract permits declared borrower/product fields and explicitly excludes tenant-defined datatables; its unresolved generic parent remains blocked.
 
@@ -92,3 +92,11 @@ Forms and immutable commands pin the connection, company, action and normalized 
 Seven new reviewed contracts cover standing-instruction updates, provisioning criteria creation/editing, dividend plan creation/approval and scheduler start/stop. Standing instructions retain fixed commands and declared recurrence/date fields. Provisioning uses explicit unique product/category rows and remote ledger account IDs; it does not silently select all products or calculate provisions. Scheduler reads and writes require administrators, and commands require a distinct administrator checker.
 
 Dividend creation retains Fineract's payout subresource ID. Both creation and approval require reconciliation of the remote plan and affected accounts; an approval response does not prove that payouts occurred. The reviewed Fineract approval service does not consume body values, so the native approval contract submits an empty object rather than duplicate editable IDs. The original unresolved command operation remains blocked. All inventory workflow/UAT flags remain unverified.
+
+## Organization operations in 20.0.9.0.0
+
+Three contracts add explicit bounded loan-officer reassignment, holiday activation and boolean savings tax withholding. Source/destination officers must differ; bulk loan IDs are unique and non-empty. Bulk assignment and holiday activation remain pending verification of affected remote resources after their responses. Holiday administration and bulk assignment require two administrators. No office ID, arbitrary loan object or holiday body can be injected into these specialized contracts.
+
+A source-declared exception permits scheduler start/stop confirmation from independent status/audit evidence without a fabricated resource ID. It does not extend to financial or resource-bearing operations. Context flags cannot grant the exception.
+
+Remote maker-checker approve/reject remains blocked pending a separate verified checker identity. At the reviewed Fineract source, same-maker checks can be bypassed by checker-superuser permissions, including ALL_FUNCTIONS. Two local approvals do not establish two distinct remote principals. A future adapter must authenticate the remote checker, bind the selected audit to its original numeric maker ID, enforce inequality independently, recheck pending state before dispatch and retain manual reconciliation afterward. It must not automatically complete a parent local command.

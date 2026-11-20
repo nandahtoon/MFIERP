@@ -9,6 +9,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 
 from ..services import datatables, workspace
+from ..services.audit_metadata import project_metadata
 from ..services.fineract import FineractError
 from ..services.operations import RESOURCES
 from ..models.mfierp_upload import upload_bytes
@@ -104,6 +105,8 @@ class MfierpRequest(models.TransientModel):
         spec = self.datatable_id._assert_role(self.datatable_action) if self.datatable_id else self.capability_id._assert_role()
         if self.datatable_id and self.output_mode != "json":
             raise UserError(_("Use the bounded native table preview for registered data table entries."))
+        if spec.get("response_mode") == "audit_metadata" and self.output_mode != "json":
+            raise UserError(_("Use the native audit metadata preview. Raw submitted command payloads are not copied into Odoo."))
         self.backend_id.check_access("read")
         if not self.backend_id.active or self.backend_id.company_id != self.company_id or self.company_id not in self.env.companies:
             raise AccessError(_("Select an active connection in an allowed company."))
@@ -209,6 +212,8 @@ class MfierpRequest(models.TransientModel):
                 binary=self.output_mode == "file", api_version=spec.get("api_version", "v1"))
             if self.datatable_id:
                 result = datatables.project_rows(result, self.datatable_id.sudo().metadata_json)
+            elif spec.get("response_mode") == "audit_metadata":
+                result = project_metadata(result)
         except (FineractError, UserError, ValueError) as exc:
             self.sudo().write({"result_status": str(exc), "result_text": False, "result_html": False, "download_data": False})
             return True

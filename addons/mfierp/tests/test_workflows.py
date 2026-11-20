@@ -239,6 +239,10 @@ class TestMfierpWorkflows(TransactionCase):
         with self.assertRaises(UserError):
             wizard.action_record()
         wizard.note = "Verified Fineract audit entry 100 and transaction 10 by independent review."
+        wizard.resource_id = 0
+        with self.assertRaises(UserError):
+            wizard.with_context(reconciliation_without_resource=True).action_record()
+        wizard.resource_id = 10
         wizard.action_record()
         self.assertEqual(command.state, "done")
         self.assertEqual(command.resolved_by_id, self.manager)

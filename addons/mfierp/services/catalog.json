@@ -1531,8 +1531,9 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
-      "source_operation": "retrieveAuditEntries"
+      "admin_only": true,
+      "source_operation": "retrieveAuditEntries",
+      "response_mode": "audit_metadata"
     },
     {
       "key": "get_retrieveAuditSearchTemplate",
@@ -1547,7 +1548,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveAuditSearchTemplate"
     },
     {
@@ -1573,8 +1574,9 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
-      "source_operation": "retrieveAuditEntry"
+      "admin_only": true,
+      "source_operation": "retrieveAuditEntry",
+      "response_mode": "audit_metadata"
     },
     {
       "key": "post_authenticate",
@@ -9611,7 +9613,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveAllHolidays"
     },
     {
@@ -9629,7 +9631,7 @@
       "media_type": "application/json",
       "body_required": true,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "createHoliday"
     },
     {
@@ -9645,7 +9647,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveRepaymentScheduleUpdationTyeOptions"
     },
     {
@@ -9672,7 +9674,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "deleteHoliday"
     },
     {
@@ -9699,7 +9701,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveOneHoliday"
     },
     {
@@ -9736,7 +9738,7 @@
       "media_type": "application/json",
       "body_required": true,
       "blocked": "Command variants need source-reviewed schemas before execution.",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "handleCommandsHoliday"
     },
     {
@@ -9765,7 +9767,7 @@
       "media_type": "application/json",
       "body_required": true,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "updateHoliday"
     },
     {
@@ -18406,8 +18408,9 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
-      "source_operation": "retrieveCommands"
+      "admin_only": true,
+      "source_operation": "retrieveCommands",
+      "response_mode": "audit_metadata"
     },
     {
       "key": "get_retrieveAuditSearchTemplate_1",
@@ -18422,7 +18425,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "retrieveAuditSearchTemplate_1"
     },
     {
@@ -18449,7 +18452,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "deleteMakerCheckerEntry"
     },
     {
@@ -18484,7 +18487,7 @@
       "media_type": "",
       "body_required": false,
       "blocked": "Command variants need source-reviewed schemas before execution.",
-      "admin_only": false,
+      "admin_only": true,
       "source_operation": "approveMakerCheckerEntry"
     },
     {
@@ -31212,8 +31215,9 @@
       "media_type": "",
       "body_required": false,
       "blocked": "",
-      "admin_only": false,
-      "source_operation": "retrieveAllAuditsV2"
+      "admin_only": true,
+      "source_operation": "retrieveAllAuditsV2",
+      "response_mode": "audit_metadata"
     },
     {
       "key": "get_retrieveAllCentersV2",
@@ -40021,7 +40025,8 @@
       "source_operation": "generateCollectionSheet",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
       "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/collections/individual-collection-sheet/individual-collection-sheet.component.ts",
-      "require_reconciliation": true
+      "require_reconciliation": true,
+      "reconciliation_scope": "collection"
     },
     {
       "key": "put_updateStandingInstruction__update",
@@ -40552,7 +40557,8 @@
       "admin_only": true,
       "source_operation": "handleCommandsScheduler",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts"
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts",
+      "reconciliation_without_resource": true
     },
     {
       "key": "post_handleCommandsScheduler__stop",
@@ -40587,7 +40593,179 @@
       "admin_only": true,
       "source_operation": "handleCommandsScheduler",
       "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
-      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts"
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/system/manage-jobs/scheduler-jobs/manage-scheduler-jobs.component.ts",
+      "reconciliation_without_resource": true
+    },
+    {
+      "key": "post_loanReassignment__reassignLoans",
+      "name": "Loan officers: reassignLoans",
+      "category": "Bulk Loans",
+      "method": "POST",
+      "path": "/v1/loans/loanreassignment",
+      "api_version": "v1",
+      "description": "Source-reviewed reassignLoans workflow. Fineract validates eligibility, amounts and state transitions. Select explicit loan IDs from the remote officer template. Fineract validates the officers and assignment date. Reconcile the officer assignment of every selected loan before confirming completion.",
+      "parameters": [],
+      "body": {
+        "type": "object",
+        "properties": {
+          "fromLoanOfficerId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "toLoanOfficerId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "assignmentDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "loans": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "dateFormat": {
+            "type": "string",
+            "enum": [
+              "yyyy-MM-dd"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "fromLoanOfficerId",
+          "toLoanOfficerId",
+          "assignmentDate",
+          "loans"
+        ],
+        "x-mfierp-different-fields": [
+          [
+            "fromLoanOfficerId",
+            "toLoanOfficerId"
+          ]
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "loanReassignment",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/bulk-loan-reassignmnet/bulk-loan-reassignmnet.component.ts#L141-L169",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/loanaccount/api/BulkLoansApiResource.java#L108-L117",
+      "require_reconciliation": true,
+      "reconciliation_scope": "loan_reassignment"
+    },
+    {
+      "key": "post_handleCommandsHoliday__activate",
+      "name": "Holidays: activate",
+      "category": "Holidays",
+      "method": "POST",
+      "path": "/v1/holidays/{holidayId}",
+      "api_version": "v1",
+      "description": "Source-reviewed activate command. Fineract validates eligibility, amounts and state transitions. Fineract activates the existing holiday without a request body. Re-read the holiday and reconcile any affected loan schedules before confirming completion.",
+      "parameters": [
+        {
+          "description": "holidayId",
+          "in": "path",
+          "name": "holidayId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "activate"
+            ],
+            "default": "activate"
+          }
+        }
+      ],
+      "body": null,
+      "media_type": "application/json",
+      "body_required": false,
+      "blocked": "",
+      "admin_only": true,
+      "source_operation": "handleCommandsHoliday",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/holidays/view-holidays/view-holidays.component.ts#L81-L103",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/organisation/holiday/api/HolidaysApiResource.java#L108-L126",
+      "require_reconciliation": true,
+      "reconciliation_scope": "holiday",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/organization/organization.service.ts#L651-L658"
+    },
+    {
+      "key": "put_updateSavingsAccount__updateWithHoldTax",
+      "name": "Savings: updateWithHoldTax",
+      "category": "Savings Account",
+      "method": "PUT",
+      "path": "/v1/savingsaccounts/{accountId}",
+      "api_version": "v1",
+      "description": "Source-reviewed updateWithHoldTax command. Fineract validates eligibility, amounts and state transitions. Enable or disable withholding for the selected savings account. Fineract validates account applicability and the tax group and owns all tax calculations and postings.",
+      "parameters": [
+        {
+          "description": "accountId",
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "command",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "updateWithHoldTax"
+            ],
+            "default": "updateWithHoldTax"
+          }
+        }
+      ],
+      "body": {
+        "type": "object",
+        "properties": {
+          "withHoldTax": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "withHoldTax"
+        ]
+      },
+      "media_type": "application/json",
+      "body_required": true,
+      "blocked": "",
+      "admin_only": false,
+      "source_operation": "updateSavingsAccount",
+      "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
+      "source_form": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings-account-view/savings-account-view.component.ts#L340-L377",
+      "source_backend": "https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/portfolio/savings/api/SavingsAccountsApiResource.java#L495-L507",
+      "source_service": "https://github.com/nandahtoon/Mifosx-web-app/blob/34c7f278861ef25052f2e00d106d8527f5d270d3/src/app/savings/savings.service.ts#L235-L237"
     }
   ],
   "schemas": {

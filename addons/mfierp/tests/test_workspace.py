@@ -14,6 +14,30 @@ from ..services.fineract import FineractError
 
 @tagged("post_install", "-at_install")
 class TestWorkspace(TestMfierpWorkflows):
+    def test_remote_audits_are_manager_only_and_do_not_copy_submitted_payloads(self):
+        audit = {"id": 7, "actionName": "CREATE", "entityName": "USER", "maker": "remote-maker",
+            "commandAsJson": '{"password":"synthetic-must-not-persist"}', "password": "synthetic-must-not-persist", "processingResult": "Processed"}
+        for path in ["/v1/audits/{auditId}", "/v2/audits"]:
+            capability = self.capability("GET", path)
+            with self.assertRaises(AccessError):
+                capability.with_user(self.reader).action_open()
+            request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id, "backend_id": self.backend.id})
+            request.action_load()
+            request.input_ids.filtered(lambda row: row.key == "auditId").write({"integer_value": 7})
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                client.return_value.request.return_value = {"pageItems": [audit]} if path.startswith("/v2/") else audit
+                request.action_execute()
+                self.assertEqual(client.return_value.request.call_args.kwargs["api_version"], path.split("/")[1])
+                self.assertIn("remote-maker", request.result_text)
+                self.assertNotIn("commandAsJson", request.result_text)
+                self.assertNotIn("synthetic-must-not-persist", request.result_text)
+                self.assertNotIn("synthetic-must-not-persist", str(request.result_html))
+            request.output_mode = "file"
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                with self.assertRaises(UserError):
+                    request.action_execute()
+                client.assert_not_called()
+
     def test_standing_instruction_update_is_typed_and_independently_dispatched(self):
         capability = self.variant("/v1/standinginstructions/{standingInstructionId}", "update")
         request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id, "backend_id": self.backend.id})
@@ -117,6 +141,80 @@ class TestWorkspace(TestMfierpWorkflows):
             self.assertEqual(client.return_value.request.call_args.kwargs["payload"], {})
             self.env["mfierp.command"]._cron_dispatch()
             self.assertEqual(client.return_value.request.call_count, 1)
+        status = self.env["mfierp.request"].with_user(self.manager).create({
+            "capability_id": self.capability("GET", "/v1/scheduler").id, "backend_id": self.backend.id})
+        status.action_load()
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            client.return_value.request.return_value = {"active": True}
+            status.action_execute()
+            self.assertIn('"active": true', status.result_text)
+        reconciliation = self.env["mfierp.reconcile"].with_user(self.manager).create({"command_id": command.id,
+            "outcome": "done", "note": "Independently verified scheduler active status and remote audit after start."})
+        self.assertFalse(reconciliation.resource_required)
+        reconciliation.resource_id = -1
+        with self.assertRaises(UserError):
+            reconciliation.action_record()
+        reconciliation.resource_id = 0
+        reconciliation.action_record()
+        self.assertEqual(command.state, "done")
+        self.assertFalse(command.result_resource_id)
+
+    def test_bulk_reassignment_and_holiday_require_reconciliation_after_dispatch(self):
+        reviewer = self._make_user("mfierp_organization_reviewer", "group_manager")
+        for path, suffix in [("/v1/loans/loanreassignment", "reassignLoans"), ("/v1/holidays/{holidayId}", "activate")]:
+            capability = self.variant(path, suffix)
+            with self.assertRaises(AccessError):
+                capability.with_user(self.maker).action_open()
+            request = self.env["mfierp.request"].with_user(self.manager).create({"capability_id": capability.id, "backend_id": self.backend.id})
+            request.action_load()
+            if suffix == "reassignLoans":
+                for key, value in [("fromLoanOfficerId", 1), ("toLoanOfficerId", 2)]:
+                    request.input_ids.filtered(lambda row, name=key: row.key == name).write({"integer_value": value})
+                request.input_ids.filtered(lambda row: row.key == "assignmentDate").write({"date_value": "2026-11-19"})
+                loans = request.input_ids.filtered(lambda row: row.key == "loans")
+                loans.action_add_item()
+                loans.child_ids.write({"integer_value": 7})
+            else:
+                request.input_ids.filtered(lambda row: row.key == "holidayId").write({"integer_value": 9})
+            command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+            command.with_user(reviewer).action_approve()
+            command.write({"state": "dispatching"})
+            with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                self._mock_provenance(client)
+                client.return_value.request.return_value = {"commandId": 99}
+                command._dispatch()
+                self.assertEqual(command.state, "remote_pending")
+                self.assertNotIn("Collection", command.status_message)
+                if suffix == "activate":
+                    self.assertIsNone(client.return_value.request.call_args.kwargs["payload"])
+                else:
+                    self.assertEqual(command.payload["body"]["loans"], [7])
+                    self.assertNotIn("officeId", command.payload["body"])
+            reconciliation = self.env["mfierp.reconcile"].with_user(self.manager).create({"command_id": command.id,
+                "outcome": "done", "note": "Remote audit and all affected resources have been independently verified."})
+            self.assertTrue(reconciliation.resource_required)
+            with self.assertRaises(UserError):
+                reconciliation.action_record()
+
+    def test_savings_withholding_false_is_sent_without_tax_calculations(self):
+        capability = self.variant("/v1/savingsaccounts/{accountId}", "updateWithHoldTax")
+        savings = self.env["mfierp.record"]._upsert(self.backend, "savings", {"id": 41, "accountNo": "S-41"})
+        request = self.env["mfierp.request"].with_user(self.maker).create({"capability_id": capability.id,
+            "backend_id": self.backend.id, "target_id": savings.id})
+        request.action_load()
+        self.assertEqual(request.input_ids.filtered(lambda row: row.key == "accountId").integer_value, 41)
+        self.assertFalse(request.input_ids.filtered(lambda row: row.key == "withHoldTax").boolean_value)
+        command = self.env["mfierp.command"].browse(request.action_execute()["res_id"])
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "dispatching"})
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self._mock_provenance(client)
+            client.return_value.request.return_value = {"resourceId": 41}
+            command._dispatch()
+            self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "savingsaccounts/41"))
+            self.assertEqual(client.return_value.request.call_args.kwargs["payload"], {"withHoldTax": False})
+            self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "updateWithHoldTax"})
+        self.assertEqual(command.state, "done")
 
     def test_scheduler_resource_less_reconciliation_reads_remote_state(self):
         capability = self.variant("/v1/scheduler", "start")

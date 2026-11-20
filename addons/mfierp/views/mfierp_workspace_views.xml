@@ -118,9 +118,19 @@
         <field name="name">Scheduler Workflows</field><field name="res_model">mfierp.capability</field>
         <field name="view_mode">list,form</field><field name="domain">[('resource', 'in', ['scheduler', 'jobs']), ('executable', '=', True)]</field>
     </record>
+    <record id="mfierp_reassignment_action" model="ir.actions.act_window">
+        <field name="name">Loan Officer Reassignment</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('key', '=', 'post_loanReassignment__reassignLoans'), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_holiday_action" model="ir.actions.act_window">
+        <field name="name">Holiday Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', '=', 'holidays'), ('executable', '=', True)]</field>
+    </record>
     <menuitem id="mfierp_menu_standing_instruction" name="Standing Instructions" parent="mfierp_menu_operations" action="mfierp_standing_instruction_action" sequence="35"/>
     <menuitem id="mfierp_menu_dividend" name="Share Dividends" parent="mfierp_menu_products" action="mfierp_dividend_action" sequence="30" groups="mfierp.group_manager"/>
     <menuitem id="mfierp_menu_scheduler" name="Scheduler Workflows" parent="mfierp_menu_configuration" action="mfierp_scheduler_action" sequence="35" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_reassignment" name="Loan Officer Reassignment" parent="mfierp_menu_operations" action="mfierp_reassignment_action" sequence="36" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_holiday" name="Holiday Workflows" parent="mfierp_menu_configuration" action="mfierp_holiday_action" sequence="36" groups="mfierp.group_manager"/>
     <record id="mfierp_group_center_workflow_action" model="ir.actions.act_window">
         <field name="name">Group and Center Workflows</field><field name="res_model">mfierp.capability</field>
         <field name="view_mode">list,form</field>

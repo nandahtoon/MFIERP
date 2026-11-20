@@ -77,6 +77,32 @@ class AdministrativeContracts(unittest.TestCase):
                 self.build(entry, {}, {"customParameters": []}, {"command": command})
         read = workspace.specification("get_retrieveSchedulerStatus")
         self.assertTrue(read["admin_only"])
+        exceptions = [entry for entry in workspace.capabilities().values() if entry.get("reconciliation_without_resource")]
+        self.assertEqual({entry["key"].rsplit("__", 1)[-1] for entry in exceptions}, {"start", "stop"})
+        self.assertTrue(all(entry["path"] == "/v1/scheduler" and entry["admin_only"] for entry in exceptions))
+
+    def test_bulk_reassignment_is_explicit_unique_and_uses_different_officers(self):
+        entry = self.variant("/v1/loans/loanreassignment", "reassignLoans")
+        self.assertTrue(entry["admin_only"] and entry["require_reconciliation"])
+        body = {"fromLoanOfficerId": 1, "toLoanOfficerId": 2, "assignmentDate": "2026-11-19", "loans": [7, 8]}
+        self.assertEqual(self.build(entry, {}, body)[:2], ("POST", "loans/loanreassignment"))
+        for changed in [{**body, "loans": []}, {**body, "loans": [7, 7]}, {**body, "loans": [{"id": 7}]},
+                {**body, "loans": [True]}, {**body, "toLoanOfficerId": 1}, {**body, "officeId": 3}]:
+            with self.assertRaises(ValueError):
+                self.build(entry, {}, changed)
+
+    def test_holiday_activation_has_no_body_and_savings_tax_is_boolean_only(self):
+        holiday = self.variant("/v1/holidays/{holidayId}", "activate")
+        self.assertTrue(holiday["admin_only"] and holiday["require_reconciliation"])
+        self.assertIsNone(self.build(holiday, {"holidayId": 9}, None, {"command": "activate"})[3])
+        with self.assertRaises(ValueError):
+            self.build(holiday, {"holidayId": 9}, {"fromDate": "2026-11-19"}, {"command": "activate"})
+        tax = self.variant("/v1/savingsaccounts/{accountId}", "updateWithHoldTax")
+        for value in [False, True]:
+            self.assertEqual(self.build(tax, {"accountId": 7}, {"withHoldTax": value}, {"command": "updateWithHoldTax"})[3], {"withHoldTax": value})
+        for body in [{}, {"withHoldTax": "false"}, {"withHoldTax": 0}, {"withHoldTax": False, "taxGroupId": 2}]:
+            with self.assertRaises(ValueError):
+                self.build(tax, {"accountId": 7}, body, {"command": "updateWithHoldTax"})
 
     def test_subresource_ids_preserve_payout_identity_without_trusting_malformed_references(self):
         self.assertEqual(workspace.subresource_reference({"resourceId": 3, "subResourceId": 19}), 19)
@@ -84,3 +110,9 @@ class AdministrativeContracts(unittest.TestCase):
         for value in [True, 0, -1, "19", [], {}]:
             with self.assertRaises(ValueError):
                 workspace.subresource_reference({"subResourceId": value})
+
+    def test_all_supported_audit_versions_use_protected_metadata_reads(self):
+        entries = [entry for entry in workspace.capabilities().values() if entry["method"] == "GET"
+            and entry["path"] in {"/v1/audits", "/v1/audits/{auditId}", "/v2/audits", "/v1/makercheckers"}]
+        self.assertEqual(len(entries), 4)
+        self.assertTrue(all(entry["admin_only"] and entry.get("response_mode") == "audit_metadata" for entry in entries))

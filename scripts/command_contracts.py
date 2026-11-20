@@ -5,6 +5,7 @@ paths are pinned by SOURCE_REVISION; adding a command requires reviewing submit(
 """
 from copy import deepcopy
 from admin_contracts import extend_admin_contracts
+from organization_contracts import extend_organization_contracts
 
 SOURCE_REVISION = "34c7f278861ef25052f2e00d106d8527f5d270d3"
 SOURCE_ROOT = f"https://github.com/nandahtoon/Mifosx-web-app/blob/{SOURCE_REVISION}/src/app/"
@@ -355,6 +356,8 @@ def command_variants(capabilities):
         ["transactionDate", "actualDisbursementDate", "bulkDisbursementTransactions"])
     entry["body"]["x-mfierp-equal-fields"] = [["transactionDate", "actualDisbursementDate"]]
     entry["require_reconciliation"] = True
+    entry["reconciliation_scope"] = "collection"
     entry["description"] += " Enter independently reviewed amounts; Odoo does not calculate totals. One row per account. Savings deposit types 100 and 300 only. Reconcile every affected account after posting."
     extend_admin_contracts(add)
+    extend_organization_contracts(add)
     return variants

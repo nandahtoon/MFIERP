@@ -270,6 +270,18 @@ class MfierpCommand(models.Model):
         self.ensure_one()
         return self.capability_id.admin_only or self.datatable_id.application_table in datatables.ADMIN_APPLICATIONS
 
+    def _requires_reconciliation_resource(self):
+        """Only source-declared resource-less operations can confirm without an ID."""
+        self.ensure_one()
+        if self.operation == "workspace" and self.capability_id:
+            try:
+                spec = workspace.specification(self.capability_id.key)
+            except ValueError:
+                return True
+            if spec["admin_only"] and spec.get("reconciliation_without_resource") is True:
+                return False
+        return True
+
     def _dispatch(self):
         self.ensure_one()
         # The reservation was committed before entering this transaction. Hold the
@@ -323,9 +335,12 @@ class MfierpCommand(models.Model):
                 if spec.get("require_reconciliation"):
                     resource_id, command_id = workspace.command_references(result)
                     subresource_id = workspace.subresource_reference(result) if spec.get("capture_subresource") else None
-                    message = (_("Dividend response received. Reconcile the payout plan and affected accounts. Approval does not establish completed payment.")
-                        if spec.get("reconciliation_scope") == "dividend" else
-                        _("Collection response received. Reconcile every affected account and transaction before confirming the posting."))
+                    messages = {
+                        "dividend": _("Dividend response received. Reconcile the payout plan and affected accounts. Approval does not establish completed payment."),
+                        "collection": _("Collection response received. Reconcile every affected account and transaction before confirming the posting."),
+                    }
+                    message = messages.get(spec.get("reconciliation_scope"),
+                        _("Remote response received. Verify every affected resource and account before confirming the outcome."))
                     self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
                         "result_resource_id": resource_id, "result_command_id": command_id,
                         "result_subresource_id": subresource_id, "status_message": message})

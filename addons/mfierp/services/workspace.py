@@ -126,6 +126,9 @@ def validate(value, schema, label="value", depth=0, allow_staged=False):
         for greater, lesser in schema.get("x-mfierp-greater-than", []):
             if greater in value and lesser in value and value[greater] <= value[lesser]:
                 raise ValueError(f"{label}: {greater} must be greater than {lesser}.")
+        for left, right in schema.get("x-mfierp-different-fields", []):
+            if left in value and right in value and value[left] == value[right]:
+                raise ValueError(f"{label}: {left} and {right} must differ.")
     elif kind == "array":
         if not isinstance(value, list) or len(value) > min(schema.get("maxItems", 100), 100):
             raise ValueError(f"{label}: expected a list of at most 100 items.")

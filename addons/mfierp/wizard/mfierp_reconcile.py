@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 
 from ..services.fineract import FineractError
@@ -12,7 +12,13 @@ class MfierpReconcile(models.TransientModel):
     command_id = fields.Many2one("mfierp.command", required=True, readonly=True)
     outcome = fields.Selection([("done", "Confirmed Applied"), ("failed", "Confirmed Not Applied")], required=True)
     resource_id = fields.Integer(string="Verified Fineract Resource ID")
+    resource_required = fields.Boolean(compute="_compute_resource_required")
     note = fields.Text(required=True, help="Record independently verified transaction IDs, remote audit reference and investigation outcome.")
+
+    @api.depends("command_id")
+    def _compute_resource_required(self):
+        for wizard in self:
+            wizard.resource_required = wizard.command_id._requires_reconciliation_resource() if wizard.command_id else True
 
     def action_record(self):
         self.ensure_one()
@@ -25,9 +31,16 @@ class MfierpReconcile(models.TransientModel):
             raise UserError(_("Only unconfirmed commands can be reconciled."))
         if len((self.note or "").strip()) < 20:
             raise UserError(_("Provide at least 20 characters of independent verification evidence."))
-        if self.outcome == "done" and self.resource_id <= 0:
+        if self.resource_id < 0:
+            raise UserError(_("A remote resource ID cannot be negative."))
+        resource_required = command._requires_reconciliation_resource()
+        if self.outcome == "done" and resource_required and self.resource_id <= 0:
+            raise UserError(_("A verified remote resource ID is required for an applied command."))
+        if self.outcome == "done" and not resource_required:
             # Only scheduler start/stop have a verified resource-less completion
             # contract. Never treat missing IDs on financial writes as success.
+            if self.resource_id:
+                raise UserError(_("Scheduler state has no resource ID. Verify its current status instead of supplying an identifier."))
             if command.operation != "workspace" or not command.capability_id:
                 raise UserError(_("A verified remote resource ID is required for an applied command."))
             try:

@@ -123,8 +123,10 @@ def compile_catalog(spec):
                 "media_type": media_type,
                 "body_required": operation.get("requestBody", {}).get("required", False),
                 "blocked": blocked, "admin_only": contains_secret(body) or bool(re.search(
-                    r"/(users|roles|permissions|configuration|passwordpreferences|hooks|jobs|scheduler|datatables|codes|businessdate|cache|accountnumberformats|loanproducts|savingsproducts|fixeddepositproducts|recurringdepositproducts|shareproducts|shareproduct|glaccounts|journalentries|glclosures|provisioningcriteria|reports)(/|$)", path, re.I)),
+                    r"/(users|roles|permissions|configuration|passwordpreferences|hooks|jobs|scheduler|holidays|audits|makercheckers|datatables|codes|businessdate|cache|accountnumberformats|loanproducts|savingsproducts|fixeddepositproducts|recurringdepositproducts|shareproducts|shareproduct|glaccounts|journalentries|glclosures|provisioningcriteria|reports)(/|$)", path, re.I)),
                 "source_operation": operation.get("operationId")})
+            if method.upper() == "GET" and re.fullmatch(r"/v[12]/(audits(?:/\{auditId\})?|makercheckers)", path):
+                capabilities[-1]["response_mode"] = "audit_metadata"
     # Mifos createLoansAccount() posts without a command. Keep this distinct
     # from the unresolved calculation/other command variants at the same URL.
     loan = deepcopy(next(c for c in capabilities if c["method"] == "POST" and c["path"] == "/v1/loans"))

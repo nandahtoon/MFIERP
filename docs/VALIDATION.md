@@ -4,11 +4,11 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory/datatable/administration tests | 56 passed |
+| Python service/workspace/inventory/datatable/administration/audit tests | 64 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
-| Clean Odoo 20 install and post-install ORM/workflow tests | 56 passed locally, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 56 passed locally, 0 failures/errors |
+| Clean Odoo 20 install and post-install ORM/workflow tests | 59 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 59 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -58,3 +58,9 @@ Playwright also verified Configuration → Scheduler Workflows and the separatel
 - Before any dispatch, the pinned Fineract actuator info must explicitly attest `git.dirty=false`; dirty or missing values reject the request before network mutation.
 - Added mocked Odoo regressions for matching/mismatching scheduler state, independent administrator restriction and dirty/missing provenance.
 - No Oracle tenant mutation or shared deployment is authorized. Exact-head CI must be read after this commit; do not count this entry as a test pass.
+
+Version 20.0.9.0.0 adds typed bulk officer reassignment, body-less holiday activation, false/true savings withholding, administrator role boundaries, mandatory bulk/holiday reconciliation, scheduler status verification followed by evidence-based ID-less reconciliation, negative-ID rejection and forged-context refusal for financial commands. Remote audit reads now prove that submitted command JSON and unknown fields are excluded before persistence and cannot be obtained through binary read mode. The projection has separate shape, bounds, null and malformed-reference tests.
+
+All 64 pure tests and 59 Odoo tests passed on both clean installation and upgrade. The final upgrade ran sequentially on an isolated test-server port after an earlier parallel test startup reported a bind collision; the final run has no such startup error. The administration implementation at e375305 also passed standard-image service, installation and upgrade CI (run 44596133585). Current exact-head checks are recorded on the draft PR. The deterministic 20.0.9.0.0 addon archive was built locally. Remote business calls remain mocked, and live Oracle financial acceptance remains outstanding.
+
+Audit metadata projection and binary-output rejection cover both v1 audit detail/list and v2 audit pages. A registry regression checks every supported audit/checker read version; service tests now total 64.
