@@ -1,14 +1,14 @@
-# Validation record — updated 2026-11-20
+# Validation record — updated 2026-11-21
 
 ## Proven locally
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory/datatable/administration/audit tests | 64 passed |
+| Python service/workspace/inventory/datatable/administration/audit tests | 115 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
-| Clean Odoo 20 install and post-install ORM/workflow tests | 62 passed locally, 0 failures/errors |
-| Odoo 20 upgrade and post-install ORM/workflow tests | 62 passed locally, 0 failures/errors |
+| Clean Odoo 20 install and post-install ORM/workflow tests | 65 passed locally, 0 failures/errors |
+| Odoo 20 upgrade and post-install ORM/workflow tests | 65 passed locally, 0 failures/errors |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -71,10 +71,22 @@ The implementation was rebased onto owner mandate/ADR commit 8d4d22e and safety 
 
 ## WP00 inventory evidence — local development increment
 
-The source-cache and matrix helpers add 51 focused tests for canonical commit/tree identity, blob verification, archive/path defenses, atomic cache replacement, conservative source extraction, stable obligation IDs, curated evidence validation, cumulative status gates and offline tracked-artifact consistency. The complete local pure suite passed **115 tests**; Ruff passed. These checks validate inventory integrity, not the underlying operator workflow or financial outcome. The addon code is unchanged by this WP00 increment; the 62-test CE install/upgrade baseline above remains separately identified. Exact-head standard-image CI must be checked after publication.
+The source-cache and matrix helpers add 51 focused tests for canonical commit/tree identity, blob verification, archive/path defenses, atomic cache replacement, conservative source extraction, stable obligation IDs, curated evidence validation, cumulative status gates and offline tracked-artifact consistency. The complete local pure suite passed **115 tests**; Ruff passed. These checks validate inventory integrity, not the underlying operator workflow or financial outcome. The addon code was unchanged by WP00 commit [`71988a10d0b164d10eacc3f0202d7d784fb6f29c`](https://github.com/nandahtoon/MFIERP/commit/71988a10d0b164d10eacc3f0202d7d784fb6f29c); its exact-head [standard-image CI 44843325218](https://github.com/nandahtoon/MFIERP/actions/runs/44843325218) passed services and CE installation/upgrade. The 62-test CE baseline above remains separately identified.
 
 Two canonical full-source regenerations produced identical bytes: CSV SHA-256 `31085840c41410a379c0bc71f795481992a40d6283f0c8495fb8e1c3ef499ce0` and summary SHA-256 `20656f01f8e555668cf8717a1794db4bb17d0e100db13336b9488556d4b2fa75`. The tracked consistency test runs offline in the ordinary CI suite; full source regeneration additionally needs the pinned public source cache. The generator and Git attributes retain generated evidence as LF on Windows and Linux.
 
-The canonical Mifos source tree has 3,096 blobs. The app extractor verifies 2,863 files and 748 component screens; the separate supporting cache verifies 28 additional files, leaving 205 unselected repository blobs. The generated matrix currently records 8,062 evidence obligations: 8,047 `NOT_MAPPED`, 11 `SOURCE_MAPPED` and four `RED_APPROVAL_BLOCKED`. Forty curated rows include D01-D20/ERP requirements and explicit approval gates; no automatic extraction is promoted by API matching. The matrix does not establish an owner-approved workflow denominator or a signed exclusion. Reproduction, the provisional domain gap table and source pins are in the [parity README](parity/README.md#wp00-functional-inventory).
+The canonical Mifos source tree has 3,096 blobs. The app extractor verifies 2,863 files and 748 component screens; the separate supporting cache verifies 28 additional files, leaving 205 unselected repository blobs. The WP00 checkpoint recorded 8,062 obligations: 8,047 `NOT_MAPPED`, 11 `SOURCE_MAPPED` and four `RED_APPROVAL_BLOCKED`. Its 40 curated rows included D01-D20/ERP requirements and explicit approval gates; no automatic extraction was promoted by API matching. The matrix does not establish an owner-approved workflow denominator or a signed exclusion. Reproduction, the current provisional domain gap table and source pins are in the [parity README](parity/README.md#wp00-functional-inventory).
 
 Core `base`/`web` dependencies and successful CE installation are separate from explicit optional-app absence/uninstall tests and licensed EE tests. CRM/Accounting adapters are not implemented, no bridge posting is enabled, and `EE_NOT_TESTED` remains. Oracle financial UAT, approved office segregation, finance ownership/bridge policy and independent acceptance remain outstanding. No new browser or live financial test pass is inferred from the source matrix.
+
+## WP01 response and historical outcome controls — 2026-11-21
+
+Version `20.0.10.0.0` keeps every mutating response pending verification and records receipt separately from completion. Unsupported applied reconciliation is blocked despite IDs, notes or forged context. A different administrator must reconcile either outcome. The exact scheduler fresh-GET exception and non-posting preview remain separate. The versioned migration retains old outcome metadata and clears misleading current completion without requeueing commands; prior request, approval, remote IDs and investigation notes remain intact.
+
+Final local source-runtime clean installation (`mfierp_test_wp01_final_clean`, `.research/wp01-final-clean.log`) and upgrade (`mfierp_test_expanded`, `.research/wp01-final-upgrade.log`) each passed **65 Odoo tests, zero failures/errors**. The earlier 64-test upgrade (`.research/wp01-upgrade.log`) confirms Odoo discovered and executed the versioned migration from 20.0.9.0.0. The ORM regression additionally invokes the real migration script twice against old completed, old pending and preview fixtures, checks retained metadata, and proves no dispatch replay. Independent technical review found that manual reconciliation could overwrite a received resource ID; the fix stores the investigation reference separately, with zero/different-ID regressions preserving all response references and receipt time. The pure suite passed **115 tests** and Ruff passed. Remote business calls are mocked.
+
+The matrix adds one `SOURCE_MAPPED` owner safety requirement, `CURATED-REQ-WP01-OUTCOME`: **8,063 total, 8,047 NOT_MAPPED, 12 SOURCE_MAPPED, four approval gates**. Its CSV SHA-256 is `f90403312512c0326a80680db444a44774d676b4057de95da6d42002d1a4e609`; summary SHA-256 is `8016c988300f939bc5d724d87269c50c7f59ff4c4aa3ec707e75d0239e5305c1`. No workflow, edition or UAT status is promoted. Independent agent technical review covered code/inventory and migration safety; independent qualified financial/domain and Odoo/security acceptance remains pending. Operation-specific account/transaction/ledger verifiers are still unimplemented, so financial applied completion is deliberately unavailable. Exact-head CI is checked separately after publication.
+
+Playwright verified the native command form and reconciliation dialog in the isolated `mfierp_demo` database using an explicitly labelled synthetic fixture on a dispatch-disabled, sync-disabled connection. A positive resource ID plus an independent-evidence note was rejected by the server's unsupported-verifier guard; the record remained pending with no completion timestamp. Audit References displayed the retained historical state, time and message. Screenshots are retained locally as `output/playwright/wp01-applied-blocked.png` and `wp01-historical-audit.png`. The fixture and browser check sent no Fineract requests. This targeted desktop check is not a full role, mobile/accessibility or financial operator acceptance pass.
+
+The local development archive `dist/mfierp-20.0.10.0.0.zip` was built twice with identical SHA-256 `125a3c64a4b0e798900cb6628181acee4494a30f6fb26534c3fcc819dbce958f`. Its 44 addon files include the versioned migration and exclude ignored caches/configuration. This is a local review artifact, not a tagged release or deployment approval.

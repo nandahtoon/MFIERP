@@ -57,7 +57,9 @@ class TestWorkspace(TestMfierpWorkflows):
             command._dispatch()
             self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "standinginstructions/7"))
             self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "update"})
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
+        self.assertTrue(command.response_received_at)
+        self.assertFalse(command.completed_at)
 
     def test_provisioning_criteria_native_rows_require_valid_ranges_and_administrator_review(self):
         capability = self.variant("/v1/provisioningcriteria", "createCriteria")
@@ -89,7 +91,7 @@ class TestWorkspace(TestMfierpWorkflows):
             command._dispatch()
             self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "provisioningcriteria"))
             self.assertEqual(client.return_value.request.call_args.kwargs["payload"]["definitions"][0]["provisioningPercentage"], 2.5)
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
 
     def test_dividend_payout_id_is_preserved_and_approval_never_confirms_payment(self):
         reviewer = self._make_user("mfierp_dividend_reviewer", "group_manager")
@@ -199,7 +201,7 @@ class TestWorkspace(TestMfierpWorkflows):
                 else:
                     self.assertEqual(command.payload["body"]["loans"], [7])
                     self.assertNotIn("officeId", command.payload["body"])
-            reconciliation = self.env["mfierp.reconcile"].with_user(self.manager).create({"command_id": command.id,
+            reconciliation = self.env["mfierp.reconcile"].with_user(reviewer).create({"command_id": command.id,
                 "outcome": "done", "note": "Remote audit and all affected resources have been independently verified."})
             self.assertTrue(reconciliation.resource_required)
             with self.assertRaises(UserError):
@@ -223,7 +225,7 @@ class TestWorkspace(TestMfierpWorkflows):
             self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "savingsaccounts/41"))
             self.assertEqual(client.return_value.request.call_args.kwargs["payload"], {"withHoldTax": False})
             self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "updateWithHoldTax"})
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
 
     def test_scheduler_resource_less_reconciliation_reads_remote_state(self):
         capability = self.variant("/v1/scheduler", "start")
@@ -248,6 +250,7 @@ class TestWorkspace(TestMfierpWorkflows):
         self.assertEqual(command.state, "done")
         self.assertFalse(command.result_resource_id)
         self.assertEqual(command.resolved_by_id, reviewer)
+        self.assertTrue(command.completed_at)
 
     def test_scheduler_maker_cannot_self_reconcile_without_resource_id(self):
         capability = self.variant("/v1/scheduler", "stop")
@@ -277,6 +280,8 @@ class TestWorkspace(TestMfierpWorkflows):
                 {"loanId": 7, "totalDue": 12.5, "chargesDue": 0.75, "password": "not-retained"}]}]}
             command._dispatch()
         self.assertEqual(command.state, "done")
+        self.assertTrue(command.response_received_at)
+        self.assertTrue(command.completed_at)
         self.assertEqual(command.preview_data["rows"][0]["due"], 12.5)
         self.assertEqual(command.preview_data["rows"][0]["charges"], 0.75)
         self.assertNotIn("not-retained", str(command.preview_data))
@@ -308,6 +313,8 @@ class TestWorkspace(TestMfierpWorkflows):
             command._dispatch()
             self.assertEqual(command.state, "remote_pending")
             self.assertEqual(command.result_command_id, 77)
+            self.assertTrue(command.response_received_at)
+            self.assertFalse(command.completed_at)
             with self.assertRaises(UserError):
                 command._dispatch()
             self.assertEqual(client.return_value.request.call_count, 1)
@@ -321,6 +328,7 @@ class TestWorkspace(TestMfierpWorkflows):
             client.return_value.request.return_value = {"resourceId": "invalid-reference"}
             command._dispatch()
             self.assertEqual(command.state, "uncertain")
+            self.assertTrue(command.response_received_at)
             self.assertFalse(command.completed_at)
 
     def test_attendance_uses_scoped_option_objects_and_requires_review(self):
@@ -373,7 +381,7 @@ class TestWorkspace(TestMfierpWorkflows):
             command._dispatch()
             self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "groups/8"))
             self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "associateClients"})
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
 
     def test_calendar_context_keeps_parent_and_calendar_ids_separate(self):
         group = self.env["mfierp.record"]._upsert(self.backend, "group", {"id": 8, "name": "Synthetic group"})
@@ -403,7 +411,7 @@ class TestWorkspace(TestMfierpWorkflows):
             client.return_value.request.return_value = {"resourceId": 3}
             command._dispatch()
             self.assertEqual(client.return_value.request.call_args.args[:2], ("PUT", "groups/8/calendars/3"))
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
 
     def test_center_calendar_list_is_contextual_reader_access(self):
         center = self.env["mfierp.record"]._upsert(self.backend, "center", {"id": 9, "name": "Synthetic center"})
@@ -501,7 +509,7 @@ class TestWorkspace(TestMfierpWorkflows):
             self.assertEqual(client.return_value.request.call_count, 1)
             self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "rescheduleloans"))
             self.assertEqual(client.return_value.request.call_args.kwargs["params"], {"command": "reschedule"})
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "remote_pending")
 
     def test_reschedule_list_uses_loan_context_and_readers_can_view_pending(self):
         capability = self.env["mfierp.capability"].search([("name", "=", "Loan rescheduling: list requests")], limit=1)
@@ -633,7 +641,7 @@ class TestWorkspace(TestMfierpWorkflows):
             self._mock_provenance(client)
             client.return_value.request.return_value = {"resourceId": 10}
             command._dispatch()
-            self.assertEqual(command.state, "done")
+            self.assertEqual(command.state, "remote_pending")
             self.assertEqual(client.return_value.request.call_args.args[:2], ("POST", "clients/7/identifiers"))
 
     def test_readers_can_read_but_cannot_open_write_workflows(self):
@@ -674,7 +682,7 @@ class TestWorkspace(TestMfierpWorkflows):
             self._mock_provenance(client)
             client.return_value.request.return_value = {"resourceId": 101}
             command._dispatch()
-            self.assertEqual(command.state, "done")
+            self.assertEqual(command.state, "remote_pending")
             self.assertEqual(client.return_value.request.call_args.kwargs["files"][0][1][1], b"synthetic document")
         with self.assertRaises(AccessError):
             command.upload_ids.with_user(self.maker).write({"data": BinaryBytes(b"changed")})
@@ -708,6 +716,6 @@ class TestWorkspace(TestMfierpWorkflows):
                 self._mock_provenance(client)
                 client.return_value.request.return_value = {"resourceId": 7}
                 command._dispatch()
-                self.assertEqual(command.state, "done")
+                self.assertEqual(command.state, "remote_pending")
                 self.assertEqual(client.return_value.request.call_args.kwargs["payload"]["password"], "synthetic-user-password")
                 self.assertNotIn("synthetic-user-password", command.payload_preview)

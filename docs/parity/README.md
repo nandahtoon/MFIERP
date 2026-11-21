@@ -23,7 +23,7 @@ The [full functional matrix](FULL_FUNCTIONAL_MATRIX.csv), [generated summary](FU
 
 At the pinned source revision, the extractor verifies 2,863 application files: 1,373 TypeScript, 743 HTML and 747 SCSS files. It finds 748 component screens, 745 templates (including two inline templates), template events/navigation, dialog actions, routes, switch branches, HTTP obligations and explicit review gaps. Forty-one upstream source spec files are hash-verified but excluded from operator action extraction; their existence is not Odoo test evidence. Cross-file aliases, computed targets, rendered Angular control flow, feature flags and business permissions still need semantic review. A directory-derived domain is provisional, and an API candidate never promotes a row to implementation or acceptance.
 
-The 8,062 rows comprise 8,022 automatic extraction obligations and 40 curated rows. Every automatic row remains `NOT_MAPPED`. The curated input adds 25 D01-D20/ERP requirements, 11 source-reviewed workflows and four external approval gates. Total states are **8,047 `NOT_MAPPED`, 11 `SOURCE_MAPPED`, four `RED_APPROVAL_BLOCKED`**. There are no `OPERATOR_ACCEPTED`, `STAGING_UAT_PASS` or approved exclusion rows. The reviewed workflows link existing native building blocks without claiming complete task UX, office segregation or financial UAT.
+The 8,063 rows comprise 8,022 automatic extraction obligations and 41 curated rows. Every automatic row remains `NOT_MAPPED`. The curated input adds 25 broad D01-D20/ERP requirements, one mapped WP01 outcome-verification requirement, 11 source-reviewed workflows and four external approval gates. Total states are **8,047 `NOT_MAPPED`, 12 `SOURCE_MAPPED`, four `RED_APPROVAL_BLOCKED`**. There are no `OPERATOR_ACCEPTED`, `STAGING_UAT_PASS` or approved exclusion rows. The reviewed workflows and safety requirement link existing native building blocks without claiming complete task UX, office segregation or financial UAT.
 
 The following gap table is a triage view of provisional domain assignments. Counts include screens, handlers, route branches and review obligations that can overlap within one workflow; they must not be summed into a feature denominator. All domains still require source semantics, native operator journeys and acceptance evidence.
 
@@ -44,7 +44,7 @@ The following gap table is a triage view of provisional domain assignments. Coun
 | D13 Reports | 146 | 0 | 0 | Filters, export, tenant options and source totals |
 | D14 Documents/datatables/surveys | 207 | 2 | 0 | Schema/inline forms, survey and privacy paths |
 | D15 Bulk/migration | 22 | 0 | 0 | Computed import targets, preview and row outcomes |
-| D16 Audit/permissions | 67 | 1 | 1 | Office policy, remote checker identity and privacy |
+| D16 Audit/permissions | 67 | 2 | 1 | Office policy, remote checker identity and privacy |
 | D17 Tasks/recovery | 114 | 0 | 0 | Exceptions, uncertainty and operator recovery |
 | D18 Integration | 12 | 0 | 1 | Clean runtime, version selectors and source flags |
 | D19 UX/accessibility | 1,378 | 0 | 0 | Shared controls, navigation, language and role UX |
@@ -149,3 +149,7 @@ Three contracts add explicit bounded loan-officer reassignment, holiday activati
 A source-declared exception permits scheduler start/stop confirmation from independent status/audit evidence without a fabricated resource ID. It does not extend to financial or resource-bearing operations. Context flags cannot grant the exception.
 
 Remote maker-checker approve/reject remains blocked pending a separate verified checker identity. At the reviewed Fineract source, same-maker checks can be bypassed by checker-superuser permissions, including ALL_FUNCTIONS. Two local approvals do not establish two distinct remote principals. A future adapter must authenticate the remote checker, bind the selected audit to its original numeric maker ID, enforce inequality independently, recheck pending state before dispatch and retain manual reconciliation afterward. It must not automatically complete a parent local command.
+
+## Outcome controls in 20.0.10.0.0
+
+Every mutating response stays pending verification, including resource-ID responses. Receipt and completion timestamps are separate. Applied reconciliation is blocked for financial/resource workflows until a reviewed authoritative verifier exists; ID/note/context alone cannot confirm completion. Only the exact scheduler status verifier and the non-posting preview have the existing narrow completion paths. A different administrator must investigate either manual outcome; confirmed-not-applied never resends a command. Historical response-based confirmations and pending completion timestamps are preserved separately during upgrade. The new `CURATED-REQ-WP01-OUTCOME` row records this safety work at `SOURCE_MAPPED`, with no financial, browser, edition or UAT acceptance promotion. See [the verification runbook](../OUTCOME_VERIFICATION.md).

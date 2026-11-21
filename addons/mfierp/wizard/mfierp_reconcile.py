@@ -27,6 +27,8 @@ class MfierpReconcile(models.TransientModel):
             raise AccessError(_("An MFIERP administrator role is required."))
         command = self.command_id
         command._lock()
+        if command.maker_id == self.env.user:
+            raise AccessError(_("A different administrator must independently reconcile this command."))
         if command.state not in {"dispatching", "uncertain", "remote_pending"}:
             raise UserError(_("Only unconfirmed commands can be reconciled."))
         if len((self.note or "").strip()) < 20:
@@ -36,6 +38,8 @@ class MfierpReconcile(models.TransientModel):
         resource_required = command._requires_reconciliation_resource()
         if self.outcome == "done" and resource_required and self.resource_id <= 0:
             raise UserError(_("A verified remote resource ID is required for an applied command."))
+        if self.outcome == "done" and resource_required:
+            raise UserError(_("Applied completion is blocked until this operation has a reviewed authoritative readback verifier. A note or resource ID alone cannot confirm account, transaction and ledger effects."))
         if self.outcome == "done" and not resource_required:
             # Only scheduler start/stop have a verified resource-less completion
             # contract. Never treat missing IDs on financial writes as success.
@@ -50,8 +54,6 @@ class MfierpReconcile(models.TransientModel):
             if method != "POST" or path != "scheduler" or params not in (
                     {"command": "start"}, {"command": "stop"}):
                 raise UserError(_("A verified remote resource ID is required for an applied command."))
-            if command.maker_id == self.env.user:
-                raise AccessError(_("A different administrator must independently verify scheduler state."))
             backend = command.backend_id.sudo()
             try:
                 client = backend._client()
@@ -63,7 +65,7 @@ class MfierpReconcile(models.TransientModel):
             if (not isinstance(status, dict) or type(status.get("active")) is not bool
                     or status["active"] != expected_active):
                 raise UserError(_("Fineract scheduler status does not confirm the requested state."))
-        command.sudo().write({"state": self.outcome, "result_resource_id": self.resource_id,
+        command.sudo().write({"state": self.outcome, "reconciled_resource_id": self.resource_id,
             "resolution_note": self.note, "resolved_by_id": self.env.uid, "completed_at": fields.Datetime.now(),
             "status_message": _("Reconciled from independently verified Fineract evidence; no request resent.")})
         return {"type": "ir.actions.act_window_close"}

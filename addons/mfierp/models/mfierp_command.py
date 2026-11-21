@@ -38,17 +38,25 @@ class MfierpCommand(models.Model):
     idempotency_key = fields.Char(readonly=True, required=True, index=True)
     state = fields.Selection([
         ("pending", "Awaiting Approval"), ("approved", "Approved"), ("dispatching", "Dispatching"),
-        ("done", "Confirmed"), ("remote_pending", "Remote Verification Pending"),
-        ("rejected", "Rejected"), ("failed", "Rejected by Fineract"), ("uncertain", "Reconciliation Required"),
+        ("remote_pending", "Remote Verification Pending"), ("done", "Verified"),
+        ("rejected", "Rejected"), ("failed", "Failed / Not Applied"), ("uncertain", "Reconciliation Required"),
     ], default="pending", readonly=True, required=True, index=True)
     maker_id = fields.Many2one("res.users", readonly=True, required=True)
     checker_id = fields.Many2one("res.users", readonly=True)
     approved_at = fields.Datetime(readonly=True)
     dispatched_at = fields.Datetime(readonly=True)
+    response_received_at = fields.Datetime(readonly=True,
+        help="A response was returned for processing. This timestamp does not confirm the requested financial outcome.")
     completed_at = fields.Datetime(readonly=True)
+    legacy_state = fields.Selection([
+        ("done", "Previously Confirmed"), ("remote_pending", "Previously Pending Verification")], readonly=True)
+    legacy_completed_at = fields.Datetime(readonly=True)
+    legacy_status_message = fields.Text(readonly=True)
+    legacy_reclassified_at = fields.Datetime(readonly=True)
     result_resource_id = fields.Integer(readonly=True)
     result_subresource_id = fields.Integer(readonly=True, string="Fineract Subresource ID")
     result_command_id = fields.Integer(readonly=True)
+    reconciled_resource_id = fields.Integer(readonly=True, string="Investigation Resource ID")
     status_message = fields.Char(readonly=True)
     preview_data = fields.Json(readonly=True)
     preview_digest = fields.Char(readonly=True)
@@ -325,6 +333,9 @@ class MfierpCommand(models.Model):
                 payload=body, idempotency_key=self.idempotency_key,
                 **({"allow_empty": True, "api_version": self._workspace_specification().get("api_version", "v1"),
                     **({"files": files} if files is not None else {})} if self.operation == "workspace" else {}))
+            # Receipt proves transport response only. It does not establish a
+            # financial outcome, even when Fineract returns a resource ID.
+            self.write({"response_received_at": fields.Datetime.now()})
             if self.operation == "workspace":
                 spec = self._workspace_specification()
                 if spec.get("response_mode") == "collection_preview":
@@ -341,22 +352,22 @@ class MfierpCommand(models.Model):
                     }
                     message = messages.get(spec.get("reconciliation_scope"),
                         _("Remote response received. Verify every affected resource and account before confirming the outcome."))
-                    self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
+                    self.write({"state": "remote_pending", "completed_at": False,
                         "result_resource_id": resource_id, "result_command_id": command_id,
                         "result_subresource_id": subresource_id, "status_message": message})
                     return
             resource_id, command_id = workspace.command_references(result)
             if self.operation == "workspace" and (not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId"))):
-                self.write({"state": "remote_pending", "completed_at": fields.Datetime.now(),
+                self.write({"state": "remote_pending", "completed_at": False,
                     "status_message": _("Fineract accepted the request. Re-read and reconcile the affected resource or job before confirming its outcome.")})
                 return
             if not isinstance(result, dict) or not (result.get("resourceId") or result.get("commandId")):
                 raise FineractError("Unrecognized command response; reconcile with Fineract.", uncertain=True)
-            # A commandId without resourceId may mean Fineract's own maker checker queue.
-            state = "done" if result.get("resourceId") else "remote_pending"
-            self.write({"state": state, "result_resource_id": resource_id,
-                "result_command_id": command_id, "completed_at": fields.Datetime.now(),
-                "status_message": _("Remote response recorded. Refresh the portfolio to verify current state.")})
+            # A command ID can denote remote maker/checker work; a resource ID
+            # still cannot replace authoritative account/transaction/ledger reads.
+            self.write({"state": "remote_pending", "result_resource_id": resource_id,
+                "result_command_id": command_id, "completed_at": False,
+                "status_message": _("Remote response recorded. Authoritative outcome verification is pending; a response or resource ID does not confirm completion.")})
         except FineractError as exc:
             self.write({"state": "uncertain" if exc.uncertain else "failed", "status_message": str(exc),
                 "completed_at": False if exc.uncertain else fields.Datetime.now()})

@@ -81,7 +81,9 @@ class TestDatatableWorkflows(TestMfierpWorkflows):
                     self._mock_provenance(client)
                     client.return_value.request.side_effect = lambda verb, *args, data=metadata, **kwargs: data if verb == "GET" else {"resourceId": 19}
                     command._dispatch()
-                    self.assertEqual(command.state, "done")
+                    self.assertEqual(command.state, "remote_pending")
+                    self.assertTrue(command.response_received_at)
+                    self.assertFalse(command.completed_at)
                     calls = client.return_value.request.call_args_list
                     self.assertEqual([call.args[0] for call in calls], ["GET", method])
                     expected = "datatables/Client%20extra/7" + ("/19" if multi and action != "create" else "")
@@ -90,6 +92,14 @@ class TestDatatableWorkflows(TestMfierpWorkflows):
                         self.assertFalse(calls[-1].kwargs["payload"]["Consent"])
                     else:
                         self.assertIsNone(calls[-1].kwargs["payload"])
+                reconciliation = self.env["mfierp.reconcile"].with_user(self.manager).create({
+                    "command_id": command.id, "outcome": "done", "resource_id": 19,
+                    "note": "Synthetic record ID and independent audit note are insufficient evidence."})
+                with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+                    with self.assertRaisesRegex(UserError, "authoritative readback verifier"):
+                        reconciliation.action_record()
+                    client.assert_not_called()
+                self.assertEqual(command.state, "remote_pending")
 
     def test_reader_preview_is_escaped_and_does_not_persist_arbitrary_columns(self):
         table = self._discover()

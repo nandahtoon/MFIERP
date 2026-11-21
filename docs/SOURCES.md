@@ -58,3 +58,11 @@ The extractor records pinned source URL/line/column, expression and extraction e
 | Supporting source files and a verified full Git tree exceed the app extractor's scope. | Record repository identity and selected/excluded files honestly. Do not call app-only extraction a complete approved operator denominator; semantic triage and owner scope review remain open. |
 
 These are repository interpretation records, not finance-policy signatures, scope waivers, Oracle mutation approval or release authorization. The [work package plan](parity/WORK_PACKAGE_PLAN.md) preserves exact baseline and current CI evidence separately.
+
+## WP01 outcome verification review — 2026-11-21
+
+Master section 7 requires account/transaction/ledger readback before financial completion. Version `20.0.10.0.0` therefore keeps mutation responses pending regardless of returned IDs and blocks unsupported applied reconciliation. The scheduler end-state exception and non-posting preview remain narrow server-owned contracts. These controls do not claim a financial verifier.
+
+The pinned [JournalEntryReadPlatformServiceImpl](https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/accounting/journalentry/service/JournalEntryReadPlatformServiceImpl.java#L209) treats the journal transaction key as a string and derives a numeric detail reference. Its exact transaction-key filter and loan/savings account filters are separate. A returned numeric command resource ID cannot safely be turned into an invented journal key, and same-account/date journals do not establish command causality. Financial correlation, product-specific invariants and independent accounting review remain open; no formulas or backend code are copied into Odoo.
+
+The versioned migration uses the pinned Odoo 20 `odoo/modules/migration.py` API (`migrate(cr, version)` in a `migrations/<version>/post-*.py` script). Local upgrade evidence confirms discovery; the ORM regression calls the same runner twice to check retained audit metadata and non-replay. See [OUTCOME_VERIFICATION.md](OUTCOME_VERIFICATION.md) and [VALIDATION.md](VALIDATION.md) for behavior and evidence limits.

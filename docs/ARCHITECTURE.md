@@ -16,8 +16,8 @@ Odoo is authoritative for integration configuration, maker/checker identity, imm
 5. A different checker reviews the exact payload and approves or rejects it. A row lock serializes competing approval actions.
 6. The cron worker selects approved commands using `FOR UPDATE SKIP LOCKED`. It persists `dispatching` through Odoo's cron transaction API before any remote POST.
 7. Dispatch validates the digest and registry schema, then sends one POST. There are no automatic POST retries. The remote idempotency header is additional protection; it is not assumed to be supported by every Fineract version.
-8. The response stores remote resource/command IDs without retaining response bodies. If only a remote command ID is returned, the item awaits Fineract-side verification.
-9. Transport failures, malformed successful responses and server failures require reconciliation. A crash leaves `dispatching` persisted. An administrator records independent evidence of applied/not applied; that action never resends a request. Resource-less scheduler start/stop may be confirmed only by a different administrator, with a fresh authenticated GET of the desired remote active state and a recorded independent audit note. Resource-less financial or unrelated operations remain blocked from applied reconciliation. A matching current scheduler state verifies an end state, not causal proof that a particular POST ran.
+8. A returned response records `response_received_at` and remote resource/command IDs without retaining response bodies. Every successful mutating response remains `remote_pending`, with `completed_at` unset, even when a resource ID is present. A remote command ID can represent Fineract-side maker/checker work; neither identifier proves account, transaction or ledger effects. The separately declared collection preview is a POST-based read and may finish as `done` with its bounded preview digest; it does not post payments.
+9. Transport failures, malformed successful responses and server failures require reconciliation. A crash leaves `dispatching` persisted. Reconciliation requires an administrator different from the maker for either outcome and never resends a request. A manual note or positive ID cannot mark a financial/resource operation applied: no authoritative financial readback verifier is implemented. Only the exact source-declared scheduler start/stop contracts may reach applied completion, after a fresh authenticated, runtime-pinned GET confirms the expected boolean state and independent evidence is recorded. A matching scheduler state verifies an end state, not causal proof that a particular POST ran. Confirmed-not-applied remains a manual independent investigation decision; it is not an automated proof or permission to resend.
 
 ## Transaction boundary
 
@@ -25,7 +25,9 @@ Odoo cannot atomically commit its database and an HTTP transaction in Fineract. 
 
 After the durable reservation, dispatch locks the command again and rechecks its state before network access. The lock remains held through response persistence, serializing dispatch with reconciliation. A reconciliation that wins the reservation-to-dispatch gap prevents the later worker from sending.
 
-A replacement command must only be submitted after a confirmed failure or reconciliation. Different submissions have different keys: business duplicates are not automatically detected. Fineract's own maker checker and permissions remain in force and require a remote operating procedure.
+A replacement command must only be considered after an independently confirmed non-application or definitive pre-send/rejection outcome, under the approved operating procedure. A new command requires its own maker/checker review. Different submissions have different keys: business duplicates are not automatically detected. Fineract's own maker checker and permissions remain in force and require a remote operating procedure.
+
+Version `20.0.10.0.0` intentionally changes historical success presentation. On upgrade, old non-preview `done` commands become `remote_pending`, and old pending commands with a completion timestamp remain pending with that timestamp removed from current completion. Prior state, completion timestamp and status message are retained in dedicated historical fields; resource IDs, payloads, maker/checker and resolution evidence remain. No response-receipt timestamp is invented for old records, and no request is requeued. Genuine preview results retain their completed preview state. See [outcome verification](OUTCOME_VERIFICATION.md) for the operator impact and remaining verifier obligations.
 
 ## Security boundaries
 
@@ -49,7 +51,7 @@ Sync preserves historical records absent from a later response; it does not infe
 
 ## Odoo version policy
 
-This module targets Odoo 20 Community, Python 3.12+, PostgreSQL 16+. Odoo 19 was reviewed as a migration reference, not declared compatible. Odoo 20 replaces `ir.model.access`/`ir.rule` with `ir.access`, uses `res.groups.privilege`, and uses `group_ids` on users. Backporting requires a separate 19.0 branch, security conversion and independent installation tests. Native list/form/search views avoid an Angular or custom JavaScript runtime dependency.
+This module targets Odoo 20 Community and licensed Enterprise, Python 3.12+, PostgreSQL 16+; actual runtime evidence remains CE only. Odoo 19 was reviewed as a migration reference, not declared compatible. Odoo 20 replaces `ir.model.access`/`ir.rule` with `ir.access`, uses `res.groups.privilege`, and uses `group_ids` on users. Backporting requires a separate 19.0 branch, security conversion and independent installation tests. Native list/form/search views avoid an Angular or custom JavaScript runtime dependency.
 
 
 ## ADR 002 — edition-neutral core and optional CRM/Accounting integrations
@@ -60,6 +62,6 @@ The owner subsequently required BOTH Odoo 20 Community and Enterprise compatibil
 
 Local maker/checker identities and Fineract service identities are distinct controls. Remote approval remains unavailable under the current single-service-identity profile. The reviewed Fineract same-user restriction has configuration and checker-superuser exceptions; broad permission must not substitute for remote identity separation. A future remote decision adapter requires environment-only checker credentials, verified authenticated numeric identity, original-audit maker binding and an independently enforced unequal remote checker ID. It must recheck the pending audit before dispatch and must never automatically finalize an earlier local command.
 
-Scheduler start/stop has a narrowly declared resource-less reconciliation path: independently verified status and evidence can confirm it without a remote ID. Other operations continue to require a positive verified resource ID. Client context cannot broaden the exception.
+Scheduler start/stop has a narrowly declared resource-less reconciliation path: independently verified fresh status and evidence can confirm it without a remote ID. Other operations require a reviewed authoritative readback verifier before applied completion; supplying a positive ID is insufficient, and no general verifier exists yet. Client context cannot broaden the exception.
 
 Remote audit and pending-checker reads are administrator-only metadata views. Their projection retains declared audit identifiers, actor/status/timestamp information and resource references, with a 200-row bound. It excludes submitted command JSON, unknown fields, URLs/IP addresses and nested payloads before any result is stored. Raw binary reads are unavailable for those contracts. This preserves useful reconciliation references without copying potentially credential-bearing remote commands into Odoo.

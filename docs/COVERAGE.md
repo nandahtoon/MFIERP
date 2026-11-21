@@ -1,6 +1,6 @@
 # Functional coverage
 
-The original focused workspace provides 21 reviewed write operations. Versions 20.0.2.0.0 through 20.0.9.0.0 add the extended typed workspace described below. It does **not** establish full Mifos X feature parity. The table documents the focused screens; “remain upstream” means those dedicated screen workflows have not yet been verified, even where an underlying API form is now available.
+The original focused workspace provides 21 reviewed write operations. Versions 20.0.2.0.0 through 20.0.9.0.0 add the extended typed workspace described below; 20.0.10.0.0 tightens outcome verification and historical status presentation. It does **not** establish full Mifos X feature parity. The table documents the focused screens; “remain upstream” means those dedicated screen workflows have not yet been verified, even where an underlying API form is now available.
 
 ## Extended workspace
 
@@ -34,18 +34,20 @@ Files are copied into protected command storage with SHA-256 review evidence; by
 
 All create operations submit inactive entities or pending applications; activation/approval is a separate, independently reviewed remote request. Availability and required fields depend on the tenant's product and configuration. The initial forms cover standard individual loans and savings products. A tenant requiring extra application fields needs a reviewed schema/form extension, rather than an arbitrary JSON override.
 
+All successful mutating dispatches remain **Remote Verification Pending**, including creation or financial responses with a resource ID. Response receipt has its own timestamp and does not fill current completion. Applied reconciliation is currently blocked for financial/resource workflows because no reviewed account/transaction/ledger verifier is implemented; a note, positive ID or RPC context cannot bypass that limit. Only the exact scheduler start/stop contracts support independently verified applied completion. A different administrator must handle either reconciliation outcome; confirmed-not-applied is manual investigation evidence and never triggers a resend. The collection preview remains a separately declared read, with no payment posting. See [outcome verification and upgrade impact](OUTCOME_VERIFICATION.md).
+
 ## Acceptance sequence
 
 1. Configure two companies and separate Fineract test tenants; verify isolation under each role.
 2. Synchronize reference records. Confirm office/product IDs and currencies.
-3. Submit a client, approve as a distinct checker, dispatch, refresh and activate it.
-4. Apply for an individual loan using the tenant product's strategy/rates; approve and disburse; repay and compare remote schedule/balance.
-5. Apply for savings; approve, activate, deposit, withdraw and compare remote balance.
+3. After the required workflow verifiers exist and the synthetic lane is authorized, submit a client, approve as a distinct checker, dispatch, independently verify remote identity/status and then separately review activation.
+4. Apply for an individual loan using the tenant product's strategy/rates; separately review each lifecycle command and verify its authoritative remote account, transaction, schedule and ledger effects before proceeding.
+5. Apply for savings; independently verify each approval, activation, deposit and withdrawal against the remote account, transactions and ledger.
 6. Exercise remote 4xx, network timeout and a worker crash after reservation; confirm no automatic resend.
 7. Reconcile independently with the Fineract audit and transaction IDs.
 8. Run the relevant table reports and compare directly with Fineract.
 
-Production acceptance requires this sequence against the intended Fineract version and products. Mock-based tests do not replace it.
+This is a future acceptance obligation, not an executable claim that the current release can complete these journeys. General financial applied-completion verifiers are not implemented. Production acceptance requires the full sequence against the intended Fineract version and products; mock-based tests do not replace it.
 
 ## Rescheduling and provisioning navigation
 
@@ -65,6 +67,6 @@ Products → Share Dividends includes reads, plan creation and separate approval
 
 Operations → Loan Officer Reassignment accepts 1–100 explicit unique loan IDs, distinct source/destination officers and an assignment date. It excludes the frontend-only office selector from the transmitted body. Configuration → Holiday Workflows includes separately reviewed activation without a body. Both workflows require two administrators and remote verification of every affected assignment/schedule. A savings account's More Workflows includes the fixed updateWithHoldTax PUT command with a required boolean, including false; Fineract owns tax eligibility, calculation and posting.
 
-Scheduler start/stop can be reconciled without inventing a resource ID after independently checking remote scheduler status and recording evidence. This exception is declared only for those two resource-less contracts. Negative IDs are rejected, and all financial/resource workflows retain the verified positive-ID requirement.
+Scheduler start/stop can be reconciled by an administrator different from the maker, without inventing a resource ID, only after a fresh authenticated runtime-pinned GET confirms the exact expected boolean status and independent evidence is recorded. This exception is declared only for those two resource-less contracts. Negative IDs are rejected. Financial/resource applied completion remains blocked until reviewed authoritative verifiers exist; positive IDs alone do not meet that requirement.
 
 Remote audit and checker-queue reads expose bounded administrator-only metadata. Submitted command JSON and unknown/nested payloads are excluded before persistence; raw downloads are disabled for these specialized reads. Remote approval/rejection remains blocked until a verified, separate remote checker identity is implemented.

@@ -1,8 +1,10 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
+from pathlib import Path
 from unittest.mock import patch
 
-from odoo import Command
+from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError
+from odoo.modules.migration import exec_script
 from odoo.tests import TransactionCase, tagged
 
 from ..services.fineract import FineractError
@@ -85,7 +87,7 @@ class TestMfierpWorkflows(TransactionCase):
                 "repay_loan", self.payload, wrong.with_user(self.maker))
 
     def test_successful_dispatch_and_remote_pending(self):
-        for response, expected in [({"resourceId": 11, "commandId": 100}, "done"), ({"commandId": 101}, "remote_pending")]:
+        for response in [{"resourceId": 11, "commandId": 100}, {"resourceId": 11}, {"commandId": 101}]:
             command = self._command()
             command.with_user(self.checker).action_approve()
             command.write({"state": "dispatching"})
@@ -93,9 +95,16 @@ class TestMfierpWorkflows(TransactionCase):
                 self._mock_provenance(client)
                 client.return_value.request.return_value = response
                 command._dispatch()
-                self.assertEqual(command.state, expected)
+                self.assertEqual(command.state, "remote_pending")
+                self.assertTrue(command.response_received_at)
+                self.assertFalse(command.completed_at)
+                self.assertEqual(command.result_resource_id, response.get("resourceId", 0))
+                self.assertEqual(command.result_command_id, response.get("commandId", 0))
                 self.assertEqual(client.return_value.request.call_count, 1)
                 self.assertEqual(client.return_value.request.call_args.kwargs["idempotency_key"], command.idempotency_key)
+                with self.assertRaises(UserError):
+                    command._dispatch()
+                self.assertEqual(client.return_value.request.call_count, 1)
 
     def test_timeout_never_replayed(self):
         command = self._command()
@@ -106,6 +115,7 @@ class TestMfierpWorkflows(TransactionCase):
             client.return_value.request.side_effect = FineractError("Timeout", uncertain=True)
             command._dispatch()
             self.assertEqual(command.state, "uncertain")
+            self.assertFalse(command.response_received_at)
             with self.assertRaises(UserError):
                 command._dispatch()
             self.assertEqual(client.return_value.request.call_count, 1)
@@ -243,6 +253,105 @@ class TestMfierpWorkflows(TransactionCase):
         with self.assertRaises(UserError):
             wizard.with_context(reconciliation_without_resource=True).action_record()
         wizard.resource_id = 10
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            with self.assertRaisesRegex(UserError, "authoritative readback verifier"):
+                wizard.with_context(authoritative_verified=True, reconciliation_without_resource=True).action_record()
+            client.assert_not_called()
+        self.assertEqual(command.state, "uncertain")
+        self.assertFalse(command.completed_at)
+        wizard.outcome = "failed"
         wizard.action_record()
-        self.assertEqual(command.state, "done")
+        self.assertEqual(command.state, "failed")
         self.assertEqual(command.resolved_by_id, self.manager)
+        self.assertTrue(command.completed_at)
+
+    def test_reconciliation_preserves_response_and_investigation_references(self):
+        for investigation_id in (0, 99):
+            command = self._command()
+            command.write({"state": "remote_pending", "result_resource_id": 42,
+                "result_command_id": 100, "result_subresource_id": 7,
+                "response_received_at": fields.Datetime.now()})
+            received_at = command.response_received_at
+            wizard = self.env["mfierp.reconcile"].with_user(self.manager).create({
+                "command_id": command.id, "outcome": "failed", "resource_id": investigation_id,
+                "note": "Independent synthetic investigation found no applied transaction; preserve received references."})
+            wizard.action_record()
+            self.assertEqual(command.state, "failed")
+            self.assertEqual(command.result_resource_id, 42)
+            self.assertEqual(command.result_command_id, 100)
+            self.assertEqual(command.result_subresource_id, 7)
+            self.assertEqual(command.response_received_at, received_at)
+            self.assertEqual(command.reconciled_resource_id, investigation_id)
+
+    def test_maker_manager_cannot_reconcile_either_outcome(self):
+        command = self.env["mfierp.command"].with_user(self.manager)._enqueue(self.backend.with_user(self.manager),
+            "repay_loan", self.payload, self.loan.with_user(self.manager))
+        command.write({"state": "uncertain"})
+        for outcome in ["done", "failed"]:
+            wizard = self.env["mfierp.reconcile"].with_user(self.manager).create({"command_id": command.id,
+                "outcome": outcome, "resource_id": 10,
+                "note": "Synthetic independently investigated transaction and remote audit evidence."})
+            with self.assertRaises(AccessError):
+                wizard.action_record()
+            self.assertEqual(command.state, "uncertain")
+            self.assertFalse(command.resolved_by_id)
+
+    def test_outcome_migration_preserves_history_without_replay(self):
+        old_completed = fields.Datetime.subtract(fields.Datetime.now(), days=2)
+        command = self._command()
+        command.with_user(self.checker).action_approve()
+        command.write({"state": "done", "completed_at": old_completed, "result_resource_id": 10,
+            "result_command_id": 99, "status_message": "Old response-based confirmation",
+            "resolution_note": "Historical independently supplied audit note", "resolved_by_id": self.manager.id})
+        preview = self._command()
+        preview.write({"state": "done", "completed_at": old_completed, "preview_digest": "a" * 64,
+            "status_message": "Non-posting collection preview received"})
+        pending = self._command()
+        old_pending = self._command()
+        old_pending.write({"state": "remote_pending", "completed_at": old_completed,
+            "result_resource_id": 42, "result_command_id": 100,
+            "status_message": "Old pending response timestamp"})
+        new_pending = self._command()
+        new_pending.write({"state": "remote_pending"})
+        migrated_at = False
+        migration = Path(__file__).parents[1] / "migrations" / "20.0.10.0.0" / "post-outcome-verification.py"
+        before = command.read(["payload", "payload_digest", "idempotency_key", "maker_id", "checker_id",
+            "approved_at", "result_resource_id", "result_command_id", "resolution_note", "resolved_by_id"])
+        pending_before = old_pending.read(list(before[0].keys()))
+        for _index in range(2):
+            exec_script(self.env.cr, "20.0.9.0.0", str(migration), "mfierp", "post", "20.0.10.0.0")
+            command.invalidate_recordset()
+            self.assertEqual(command.state, "remote_pending")
+            self.assertFalse(command.completed_at)
+            self.assertFalse(command.response_received_at)
+            self.assertEqual(command.legacy_state, "done")
+            self.assertEqual(command.legacy_completed_at, old_completed)
+            self.assertEqual(command.legacy_status_message, "Old response-based confirmation")
+            self.assertTrue(command.legacy_reclassified_at)
+            if migrated_at:
+                self.assertEqual(command.legacy_reclassified_at, migrated_at)
+            migrated_at = command.legacy_reclassified_at
+            self.assertEqual(command.read(list(before[0].keys())), before)
+            self.assertEqual(preview.state, "done")
+            self.assertEqual(preview.completed_at, old_completed)
+            self.assertFalse(preview.legacy_reclassified_at)
+            self.assertEqual(pending.state, "pending")
+            self.assertFalse(pending.legacy_reclassified_at)
+            old_pending.invalidate_recordset()
+            self.assertEqual(old_pending.state, "remote_pending")
+            self.assertFalse(old_pending.completed_at)
+            self.assertFalse(old_pending.response_received_at)
+            self.assertEqual(old_pending.legacy_state, "remote_pending")
+            self.assertEqual(old_pending.legacy_completed_at, old_completed)
+            self.assertEqual(old_pending.legacy_status_message, "Old pending response timestamp")
+            self.assertEqual(old_pending.read(list(pending_before[0].keys())), pending_before)
+            self.assertTrue(old_pending.legacy_reclassified_at)
+            self.assertEqual(new_pending.state, "remote_pending")
+            self.assertFalse(new_pending.completed_at)
+            self.assertFalse(new_pending.legacy_reclassified_at)
+            with self.assertRaises(UserError):
+                command._dispatch()
+        with patch("odoo.addons.mfierp.models.mfierp_backend.MfierpBackend._client") as client:
+            self.env["mfierp.command"]._cron_dispatch()
+            client.assert_not_called()
+        self.assertEqual(command.legacy_reclassified_at, migrated_at)

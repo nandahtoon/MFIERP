@@ -27,19 +27,20 @@
                     <button name="action_approve" string="Approve" type="object" class="oe_highlight" groups="mfierp.group_checker" invisible="state != 'pending'" confirm="Approve this exact payload for dispatch to Fineract?"/>
                     <button name="action_reject" string="Reject" type="object" groups="mfierp.group_checker" invisible="state != 'pending'"/>
                     <button name="action_reconcile" string="Record Reconciliation" type="object" groups="mfierp.group_manager" invisible="state not in ['uncertain', 'dispatching', 'remote_pending']"/>
-                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,dispatching,done"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,dispatching,remote_pending,done"/>
                 </header>
                 <sheet>
                     <div class="alert alert-warning" role="alert" invisible="state not in ['uncertain', 'dispatching', 'remote_pending']">Verify this request in Fineract before taking further action. Do not submit a replacement until the outcome is independently confirmed.</div>
                     <h1><field name="name"/></h1>
                     <group>
                         <group><field name="backend_id"/><field name="operation"/><field name="datatable_id" invisible="not datatable_id"/><field name="datatable_action" invisible="not datatable_id"/><field name="target_id" invisible="not target_id"/><field name="remote_target_id" string="Fineract Target ID" invisible="not remote_target_id"/></group>
-                        <group><field name="maker_id"/><field name="checker_id"/><field name="create_date"/><field name="approved_at"/><field name="dispatched_at"/><field name="completed_at"/></group>
+                        <group><field name="maker_id"/><field name="checker_id"/><field name="create_date"/><field name="approved_at"/><field name="dispatched_at"/><field name="response_received_at"/><field name="completed_at"/></group>
                     </group>
                     <group string="Remote Outcome" invisible="state in ['pending', 'approved', 'rejected']">
                         <field name="result_resource_id" string="Fineract Resource ID" invisible="not result_resource_id"/>
                         <field name="result_subresource_id" invisible="not result_subresource_id"/>
                         <field name="result_command_id" string="Fineract Command ID" invisible="not result_command_id"/>
+                        <field name="reconciled_resource_id" invisible="not reconciled_resource_id"/>
                         <field name="status_message"/>
                         <field name="resolved_by_id" invisible="not resolved_by_id"/>
                         <field name="resolution_note" invisible="not resolution_note"/>
@@ -50,7 +51,12 @@
                         <page string="Files for Review" invisible="not upload_ids"><field name="upload_ids"><list create="false" edit="false" delete="false">
                             <field name="name"/><field name="sha256"/><field name="data" filename="name"/><field name="purged_at"/>
                         </list></field></page>
-                        <page string="Audit References"><group><field name="idempotency_key"/><field name="payload_digest"/></group></page>
+                        <page string="Audit References"><group><field name="idempotency_key"/><field name="payload_digest"/></group>
+                            <group string="Historical Outcome Reclassification" invisible="not legacy_reclassified_at">
+                                <div class="alert alert-warning" role="alert">The earlier outcome metadata did not establish authoritative verification. Its original state, timestamp and message are retained here. At upgrade the command was marked pending verification; see its current state above. No request was resent.</div>
+                                <field name="legacy_state"/><field name="legacy_completed_at"/><field name="legacy_status_message"/><field name="legacy_reclassified_at"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
