@@ -1,0 +1,3 @@
+<odoo>
+    <function model="mfierp.capability" name="_sync_catalog"/>
+</odoo>

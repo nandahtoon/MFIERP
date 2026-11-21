@@ -1,0 +1,63 @@
+<odoo>
+    <record id="mfierp_operation_view_form" model="ir.ui.view">
+        <field name="name">mfierp.operation.form</field><field name="model">mfierp.operation</field>
+        <field name="arch" type="xml">
+            <form string="Fineract Operation">
+                <div class="alert alert-info" role="status">Submit the details for an independent checker to review. Fineract validates product rules, permissions, business date and available funds when the approved command is processed.</div>
+                <group>
+                    <field name="company_id" invisible="True"/><field name="resource_kind" invisible="True"/>
+                    <field name="is_create" invisible="True"/><field name="needs_amount" invisible="True"/>
+                    <field name="backend_id" options="{'no_create': True}"/><field name="operation"/>
+                    <field name="target_id" invisible="is_create" required="not is_create" options="{'no_create': True}"/>
+                    <field name="operation_date"/>
+                </group>
+                <group string="Client / Group / Center" invisible="operation not in ['create_client', 'create_group', 'create_center']">
+                    <field name="office_id" required="operation in ['create_client', 'create_group', 'create_center']" options="{'no_create': True}"/>
+                    <field name="firstname" invisible="operation != 'create_client'" required="operation == 'create_client'"/>
+                    <field name="lastname" invisible="operation != 'create_client'" required="operation == 'create_client'"/>
+                    <field name="mobile_no" invisible="operation != 'create_client'"/>
+                    <field name="name" invisible="operation == 'create_client'" required="operation in ['create_group', 'create_center']"/>
+                </group>
+                <group string="Account Application" invisible="operation not in ['create_loan', 'create_savings']">
+                    <field name="client_id" required="operation in ['create_loan', 'create_savings']" options="{'no_create': True}"/>
+                    <field name="product_id" required="operation in ['create_loan', 'create_savings']" options="{'no_create': True}"/>
+                </group>
+                <group invisible="not needs_amount"><field name="amount" required="needs_amount"/></group>
+                <group string="Loan Terms" invisible="operation != 'create_loan'">
+                    <group><field name="expected_disbursement_date"/><field name="loan_term"/><field name="loan_term_unit"/>
+                        <field name="repayments"/><field name="repayment_every"/><field name="repayment_unit"/></group>
+                    <group><field name="interest_rate"/><field name="amortization"/><field name="interest_type"/>
+                        <field name="interest_period"/><field name="strategy_code" required="operation == 'create_loan'"/></group>
+                </group>
+                <group>
+                    <field name="external_id" invisible="not is_create"/>
+                    <field name="payment_type_id" invisible="operation not in ['repay_loan', 'disburse_loan', 'deposit_savings', 'withdraw_savings']"/>
+                    <field name="note" invisible="is_create or operation in ['activate_client', 'activate_group', 'activate_center', 'activate_savings']"/>
+                </group>
+                <footer><button name="action_submit" type="object" string="Submit for Approval" class="btn-primary"/><button string="Cancel" special="cancel" class="btn-secondary"/></footer>
+            </form>
+        </field>
+    </record>
+    <record id="mfierp_operation_action" model="ir.actions.act_window">
+        <field name="name">New Operation</field><field name="res_model">mfierp.operation</field><field name="view_mode">form</field><field name="target">new</field>
+    </record>
+    <record id="mfierp_reconcile_view_form" model="ir.ui.view">
+        <field name="name">mfierp.reconcile.form</field><field name="model">mfierp.reconcile</field>
+        <field name="arch" type="xml"><form>
+            <div class="alert alert-warning" role="alert" invisible="not resource_required">Applied completion requires an operation-specific authoritative readback verifier. These verifiers are not yet available for financial and other resource operations. A note or resource ID alone cannot confirm completion.</div>
+            <div class="alert alert-info" role="status" invisible="resource_required">This operation has no remote resource ID. Independently verify the scheduler status and record the evidence before confirming it.</div>
+            <group><field name="command_id"/><field name="outcome"/><field name="resource_required" invisible="True"/><field name="resource_id" required="outcome == 'done' and resource_required" invisible="not resource_required"/><field name="note"/></group>
+            <footer><button name="action_record" string="Record Verified Outcome" type="object" class="btn-primary"/><button string="Cancel" special="cancel"/></footer>
+        </form></field>
+    </record>
+    <record id="mfierp_report_view_form" model="ir.ui.view">
+        <field name="name">mfierp.report.form</field><field name="model">mfierp.report</field>
+        <field name="arch" type="xml"><form string="Fineract Table Report">
+            <div class="alert alert-info" role="status">Choose the parameters required by this report. Reports that require additional parameters or non-table output remain available in Mifos X.</div>
+            <group><field name="company_id" invisible="True"/><field name="backend_id"/><field name="report_id"/>
+                <field name="office_id"/><field name="client_id"/><field name="start_date"/><field name="end_date"/><field name="currency_code"/></group>
+            <button name="action_run" string="Run Report" type="object" class="btn-primary"/>
+            <field name="result_html" nolabel="1"/>
+        </form></field>
+    </record>
+</odoo>

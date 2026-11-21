@@ -1,0 +1,39 @@
+name: mfierp
+services:
+  db:
+    image: postgres:18.3
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: mfierp
+      POSTGRES_PASSWORD: ${MFIERP_DB_PASSWORD:?Set MFIERP_DB_PASSWORD in .env}
+    volumes:
+      - db:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U mfierp -d postgres]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  odoo:
+    image: odoo:20.0
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:18069:8069"
+    environment:
+      HOST: db
+      USER: mfierp
+      PASSWORD: ${MFIERP_DB_PASSWORD:?Set MFIERP_DB_PASSWORD in .env}
+      MFIERP_DEFAULT_USERNAME: ${MFIERP_DEFAULT_USERNAME:-}
+      MFIERP_DEFAULT_PASSWORD: ${MFIERP_DEFAULT_PASSWORD:-}
+      MFIERP_SECRET_BINDING_KEY: ${MFIERP_SECRET_BINDING_KEY:-}
+      REQUESTS_CA_BUNDLE: ${REQUESTS_CA_BUNDLE:-/etc/ssl/certs/ca-certificates.crt}
+    command: [odoo, --database=mfierp, --db-filter=^mfierp$, --no-database-list]
+    volumes:
+      - ./addons:/mnt/extra-addons:ro
+      - odoo:/var/lib/odoo
+    restart: unless-stopped
+volumes:
+  db:
+  odoo:

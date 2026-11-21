@@ -1,0 +1,4 @@
+# Generated evidence must retain deterministic bytes on Windows and Linux.
+docs/parity/FULL_FUNCTIONAL_MATRIX.csv text eol=lf
+docs/parity/FULL_FUNCTIONAL_MATRIX.summary.json text eol=lf
+docs/parity/CURATED_WORKFLOWS.json text eol=lf

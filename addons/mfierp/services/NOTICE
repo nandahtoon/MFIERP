@@ -1,0 +1,9 @@
+The catalog.json API metadata is derived from the publicly exposed Apache
+Fineract OpenAPI 3 contract (API version and source digest are recorded in the
+file). Apache Fineract is licensed under Apache License, Version 2.0; a copy
+is included in LICENSE-APACHE-2.0.txt. API field and route declarations are
+transformed into native Odoo form contracts. No Apache Fineract server or
+Mifos X Angular application source code is vendored in this addon.
+
+Mifos X frontend source is used as a behavioral reference. Its revision and
+file/line provenance are recorded in the project's parity inventory.

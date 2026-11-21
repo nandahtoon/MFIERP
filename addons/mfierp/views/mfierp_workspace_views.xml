@@ -1,0 +1,150 @@
+<odoo>
+    <record id="mfierp_input_view_list" model="ir.ui.view">
+        <field name="name">mfierp.input.list</field><field name="model">mfierp.input</field>
+        <field name="arch" type="xml"><list create="false" delete="false" editable="bottom">
+            <field name="included" readonly="required or locked"/>
+            <field name="label"/><field name="kind"/><field name="required"/><field name="locked" column_invisible="True"/>
+            <field name="value_summary" string="Current Value"/>
+            <field name="options_text" optional="hide"/>
+            <button name="action_details" string="Edit / Details" type="object" icon="fa-pencil"/>
+        </list></field>
+    </record>
+    <record id="mfierp_input_view_form" model="ir.ui.view">
+        <field name="name">mfierp.input.form</field><field name="model">mfierp.input</field>
+        <field name="arch" type="xml"><form create="false" delete="false">
+            <h2><field name="label"/></h2>
+            <group><field name="kind"/><field name="required"/><field name="locked" invisible="True"/>
+                <field name="included" readonly="required or locked"/><field name="options_text" invisible="not options_text"/>
+                <field name="text_value" invisible="kind != 'string'" readonly="locked"/>
+                <field name="integer_value" invisible="kind != 'integer'" readonly="locked"/>
+                <field name="number_value" invisible="kind != 'number'" readonly="locked"/>
+                <field name="boolean_value" invisible="kind != 'boolean'" readonly="locked"/>
+                <field name="date_value" invisible="kind != 'date'" readonly="locked"/>
+                <field name="binary_value" filename="binary_name" invisible="kind != 'binary'"/>
+                <field name="binary_name" invisible="kind != 'binary'"/>
+                <field name="secret_reference" invisible="kind != 'secret'"/>
+                <field name="description" invisible="not description"/>
+            </group>
+            <button name="action_add_item" string="Add Row" type="object" class="btn-primary" invisible="kind != 'array'"/>
+            <field name="child_ids" invisible="kind not in ['object', 'array']" context="{'list_view_ref': 'mfierp.mfierp_input_view_list'}"/>
+            <footer><button string="Apply" special="save" class="btn-primary"/><button string="Cancel" special="cancel"/></footer>
+        </form></field>
+    </record>
+    <record id="mfierp_request_view_form" model="ir.ui.view">
+        <field name="name">mfierp.request.form</field><field name="model">mfierp.request</field>
+        <field name="arch" type="xml"><form delete="false">
+            <header>
+                <button name="action_load" string="Load Workflow Fields" type="object" class="oe_highlight" invisible="initialized"/>
+                <button name="action_execute" string="Read from Fineract" type="object" class="oe_highlight" invisible="not initialized or method != 'GET'"/>
+                <button name="action_execute" string="Submit for Independent Approval" type="object" class="oe_highlight" invisible="not initialized or method == 'GET' or command_id"/>
+            </header>
+            <sheet>
+                <h1><field name="name"/></h1>
+                <div class="alert alert-info" role="status">These fields come from the pinned Fineract API contract. Include each optional value or section you intend to submit. Open Details to edit structured fields; Add Row creates typed collection items. Fineract validates all business and product rules.</div>
+                <group><field name="company_id" invisible="True"/><field name="target_id" invisible="True"/>
+                    <field name="initialized" invisible="True"/><field name="method" invisible="True"/>
+                    <field name="backend_id" readonly="initialized" options="{'no_create': True}"/>
+                    <field name="capability_id" readonly="initialized" required="not datatable_id" invisible="datatable_id" options="{'no_create': True}"/>
+                    <field name="datatable_id" readonly="initialized" invisible="not datatable_id" options="{'no_create': True}"/>
+                    <field name="datatable_action" readonly="initialized" invisible="not datatable_id"/>
+                    <field name="output_mode" invisible="method != 'GET' or datatable_id"/>
+                    <field name="command_id" invisible="not command_id"/>
+                </group>
+                <notebook>
+                    <page string="Workflow Fields"><field name="root_input_ids" context="{'list_view_ref': 'mfierp.mfierp_input_view_list'}"/></page>
+                    <page string="Instructions"><field name="instructions"/></page>
+                    <page string="Fineract Results" invisible="method != 'GET'"><field name="result_status"/><field name="download_data" filename="download_name" invisible="not download_data"/><field name="download_name" invisible="True"/><field name="result_html"/><field name="result_text" class="font-monospace"/></page>
+                </notebook>
+            </sheet>
+        </form></field>
+    </record>
+    <record id="mfierp_capability_view_list" model="ir.ui.view">
+        <field name="name">mfierp.capability.list</field><field name="model">mfierp.capability</field>
+        <field name="arch" type="xml"><list create="false" edit="false" delete="false" decoration-muted="not executable">
+            <field name="category"/><field name="name"/><field name="method"/><field name="executable" string="Typed Contract Available"/>
+            <field name="blocked_reason" optional="show"/><field name="admin_only" optional="hide"/>
+            <button name="action_open" type="object" string="Open Workflow" invisible="not executable"/>
+        </list></field>
+    </record>
+    <record id="mfierp_capability_view_search" model="ir.ui.view">
+        <field name="name">mfierp.capability.search</field><field name="model">mfierp.capability</field>
+        <field name="arch" type="xml"><search>
+            <field name="name"/><field name="category"/><field name="resource"/>
+            <filter name="typed" string="Typed Forms" domain="[('executable', '=', True)]"/>
+            <filter name="gaps" string="Contract Gaps" domain="[('executable', '=', False)]"/>
+            <filter name="reads" string="Read Workflows" domain="[('method', '=', 'GET')]"/>
+            <group><filter name="group_category" string="Area" context="{'group_by': 'category'}"/><filter name="group_method" string="Method" context="{'group_by': 'method'}"/></group>
+        </search></field>
+    </record>
+    <record id="mfierp_capability_view_form" model="ir.ui.view">
+        <field name="name">mfierp.capability.form</field><field name="model">mfierp.capability</field>
+        <field name="arch" type="xml"><form create="false" edit="false" delete="false">
+            <header><button name="action_open" type="object" string="Open Workflow" class="oe_highlight" invisible="not executable"/></header>
+            <sheet><h1><field name="name"/></h1>
+                <group><field name="category"/><field name="method"/><field name="resource"/><field name="source_version"/><field name="executable"/><field name="admin_only"/><field name="blocked_reason" invisible="executable"/></group>
+                <field name="description"/>
+            </sheet>
+        </form></field>
+    </record>
+    <record id="mfierp_capability_action" model="ir.actions.act_window">
+        <field name="name">Extended Mifos X Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="context">{'search_default_group_category': 1}</field>
+    </record>
+    <record id="mfierp_reschedule_action" model="ir.actions.act_window">
+        <field name="name">Loan Rescheduling Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resource', '=', 'rescheduleloans'), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_provisioning_action" model="ir.actions.act_window">
+        <field name="name">Provisioning Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resource', 'in', ['provisioningentries', 'provisioningcriteria']), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_deposit_action" model="ir.actions.act_window">
+        <field name="name">Fixed and Recurring Deposit Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resource', 'in', ['fixeddepositaccounts', 'recurringdepositaccounts']), ('executable', '=', True)]</field>
+        <field name="context">{'search_default_group_category': 1}</field>
+    </record>
+    <record id="mfierp_standing_instruction_action" model="ir.actions.act_window">
+        <field name="name">Standing Instruction Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', 'in', ['standinginstructions', 'standinginstructionrunhistory']), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_dividend_action" model="ir.actions.act_window">
+        <field name="name">Share Dividend Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', '=', 'shareproduct'), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_scheduler_action" model="ir.actions.act_window">
+        <field name="name">Scheduler Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', 'in', ['scheduler', 'jobs']), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_reassignment_action" model="ir.actions.act_window">
+        <field name="name">Loan Officer Reassignment</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('key', '=', 'post_loanReassignment__reassignLoans'), ('executable', '=', True)]</field>
+    </record>
+    <record id="mfierp_holiday_action" model="ir.actions.act_window">
+        <field name="name">Holiday Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', '=', 'holidays'), ('executable', '=', True)]</field>
+    </record>
+    <menuitem id="mfierp_menu_standing_instruction" name="Standing Instructions" parent="mfierp_menu_operations" action="mfierp_standing_instruction_action" sequence="35"/>
+    <menuitem id="mfierp_menu_dividend" name="Share Dividends" parent="mfierp_menu_products" action="mfierp_dividend_action" sequence="30" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_scheduler" name="Scheduler Workflows" parent="mfierp_menu_configuration" action="mfierp_scheduler_action" sequence="35" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_reassignment" name="Loan Officer Reassignment" parent="mfierp_menu_operations" action="mfierp_reassignment_action" sequence="36" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_holiday" name="Holiday Workflows" parent="mfierp_menu_configuration" action="mfierp_holiday_action" sequence="36" groups="mfierp.group_manager"/>
+    <record id="mfierp_group_center_workflow_action" model="ir.actions.act_window">
+        <field name="name">Group and Center Workflows</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('executable', '=', True), '|', ('resource', 'in', ['groups', 'centers']), ('context_resource', 'in', ['groups', 'centers'])]</field>
+        <field name="context">{'search_default_group_category': 1}</field>
+    </record>
+    <record id="mfierp_collection_sheet_action" model="ir.actions.act_window">
+        <field name="name">Individual Collection Sheets</field><field name="res_model">mfierp.capability</field>
+        <field name="view_mode">list,form</field><field name="domain">[('resource', '=', 'collectionsheet'), ('executable', '=', True)]</field>
+    </record>
+    <menuitem id="mfierp_menu_rescheduling" name="Loan Rescheduling" parent="mfierp_menu_operations" action="mfierp_reschedule_action" sequence="15"/>
+    <menuitem id="mfierp_menu_provisioning" name="Provisioning Workflows" parent="mfierp_menu_accounting" action="mfierp_provisioning_action" groups="mfierp.group_manager" sequence="23"/>
+    <menuitem id="mfierp_menu_deposits" name="Deposit Workflows" parent="mfierp_menu_portfolio" action="mfierp_deposit_action" sequence="19"/>
+    <menuitem id="mfierp_menu_group_center_workflows" name="Group and Center Workflows" parent="mfierp_menu_portfolio" action="mfierp_group_center_workflow_action" sequence="20"/>
+    <menuitem id="mfierp_menu_collection_sheets" name="Individual Collection Sheets" parent="mfierp_menu_operations" action="mfierp_collection_sheet_action" groups="mfierp.group_operator,mfierp.group_checker" sequence="16"/>
+    <menuitem id="mfierp_menu_workspace" name="Extended Workflows" parent="mfierp_menu_root" action="mfierp_capability_action" sequence="35"/>
+</odoo>
