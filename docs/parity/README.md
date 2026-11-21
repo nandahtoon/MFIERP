@@ -23,7 +23,7 @@ The [full functional matrix](FULL_FUNCTIONAL_MATRIX.csv), [generated summary](FU
 
 At the pinned source revision, the extractor verifies 2,863 application files: 1,373 TypeScript, 743 HTML and 747 SCSS files. It finds 748 component screens, 745 templates (including two inline templates), template events/navigation, dialog actions, routes, switch branches, HTTP obligations and explicit review gaps. Forty-one upstream source spec files are hash-verified but excluded from operator action extraction; their existence is not Odoo test evidence. Cross-file aliases, computed targets, rendered Angular control flow, feature flags and business permissions still need semantic review. A directory-derived domain is provisional, and an API candidate never promotes a row to implementation or acceptance.
 
-The 8,063 rows comprise 8,022 automatic extraction obligations and 41 curated rows. Every automatic row remains `NOT_MAPPED`. The curated input adds 25 broad D01-D20/ERP requirements, one mapped WP01 outcome-verification requirement, 11 source-reviewed workflows and four external approval gates. Total states are **8,047 `NOT_MAPPED`, 12 `SOURCE_MAPPED`, four `RED_APPROVAL_BLOCKED`**. There are no `OPERATOR_ACCEPTED`, `STAGING_UAT_PASS` or approved exclusion rows. The reviewed workflows and safety requirement link existing native building blocks without claiming complete task UX, office segregation or financial UAT.
+The 8,064 rows comprise 8,022 automatic extraction obligations and 42 curated rows. Every automatic row remains `NOT_MAPPED`. The curated input adds 25 broad D01-D20/ERP requirements, two mapped safety/lifecycle requirements, 11 source-reviewed workflows and four external approval gates. Total states are **8,047 `NOT_MAPPED`, 13 `SOURCE_MAPPED`, four `RED_APPROVAL_BLOCKED`**. There are no `OPERATOR_ACCEPTED`, `STAGING_UAT_PASS` or approved exclusion rows. The reviewed workflows and narrow requirements link existing native building blocks without claiming complete task UX, office segregation, CE/EE acceptance or financial UAT.
 
 The following gap table is a triage view of provisional domain assignments. Counts include screens, handlers, route branches and review obligations that can overlap within one workflow; they must not be summed into a feature denominator. All domains still require source semantics, native operator journeys and acceptance evidence.
 
@@ -48,7 +48,7 @@ The following gap table is a triage view of provisional domain assignments. Coun
 | D17 Tasks/recovery | 114 | 0 | 0 | Exceptions, uncertainty and operator recovery |
 | D18 Integration | 12 | 0 | 1 | Clean runtime, version selectors and source flags |
 | D19 UX/accessibility | 1,378 | 0 | 0 | Shared controls, navigation, language and role UX |
-| D20 Reliability/editions | 2 | 0 | 1 | Sync/operations and licensed EE evidence |
+| D20 Reliability/editions | 2 | 1 | 1 | Sync/operations and licensed EE evidence |
 
 The separate gates are Oracle clean-runtime/synthetic-UAT handoff, approved office policy, licensed EE testing and signed GL ownership/bridge policy. Required approval roles in a row are unassigned requirements, not named approvers or signatures. CE CI is independent of EE (`EE_NOT_TESTED`); no source feature is silently excluded because a feature flag is off in one environment. Continue local WP01 safety work and bounded source triage while external gates remain closed.
 

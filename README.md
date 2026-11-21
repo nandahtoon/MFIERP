@@ -31,12 +31,13 @@ See [deployment instructions](docs/DEPLOYMENT.md). The local developer app uses 
 | [Sources](docs/SOURCES.md) | Pinned MFIERP, Odoo 19/20, Mifos X and Fineract research provenance |
 | [Validation](docs/VALIDATION.md) | Checks actually performed and remaining acceptance work |
 | [Outcome verification](docs/OUTCOME_VERIFICATION.md) | Pending response semantics, reconciliation limits and 20.0.10.0.0 upgrade impact |
+| [Edition test matrix](docs/EDITION_TEST_MATRIX.md) | CE optional-app absence/uninstall lane and separate EE/adapter evidence gaps |
 | [Oracle staging](docs/ORACLE-STAGING.md) | Discovered hosting, runtime provenance and credential boundary |
 | [Functional matrix](docs/parity/README.md#wp00-functional-inventory) | Pinned screen/action evidence obligations, current gaps and reproducible extraction |
 | [Work package plan](docs/parity/WORK_PACKAGE_PLAN.md) | Dependency order, exact implementation evidence and external acceptance gates |
 | [Agent conventions](AGENTS.md) | Rules for future coding work |
 
-The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Its 8,063 extraction/review obligations include 748 component screens; no workflow is operator-accepted or live-UAT-passed. The row count is not an approved feature denominator. Financial production acceptance requires verification against the intended Fineract version and tenant products.
+The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Its 8,064 extraction/review obligations include 748 component screens; no workflow is operator-accepted or live-UAT-passed. The row count is not an approved feature denominator. Financial production acceptance requires verification against the intended Fineract version and tenant products.
 
 The addon is licensed under LGPL-3.0-or-later. No upstream Angular or Java application code is vendored.
 

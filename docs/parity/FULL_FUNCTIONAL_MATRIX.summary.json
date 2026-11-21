@@ -1,7 +1,7 @@
 {
   "extractor_version": "1",
   "source_revision": "34c7f278861ef25052f2e00d106d8527f5d270d3",
-  "rows": 8063,
+  "rows": 8064,
   "by_row_kind": {
     "approval_gate": 4,
     "computed_http_review": 12,
@@ -11,7 +11,7 @@
     "inventory_gap": 8,
     "model_binding_review": 13,
     "navigation": 855,
-    "owner_requirement": 26,
+    "owner_requirement": 27,
     "reviewed_workflow": 11,
     "route_review": 610,
     "screen": 748,
@@ -41,12 +41,12 @@
     "D17": 114,
     "D18": 13,
     "D19": 1378,
-    "D20": 3
+    "D20": 4
   },
   "by_status": {
     "NOT_MAPPED": 8047,
     "RED_APPROVAL_BLOCKED": 4,
-    "SOURCE_MAPPED": 12
+    "SOURCE_MAPPED": 13
   },
   "status_definitions": {
     "NOT_MAPPED": "Extraction or an unresolved obligation only; no reviewed semantic mapping or completion inferred.",

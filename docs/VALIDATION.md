@@ -4,11 +4,12 @@
 
 | Check | Result |
 | --- | --- |
-| Python service/workspace/inventory/datatable/administration/audit tests | 115 passed |
+| Python service/workspace/inventory/datatable/administration/audit/lifecycle tests | 126 passed |
 | Ruff (Python syntax, undefined/unused names, selected correctness checks) | Passed |
 | Python compilation, XML parsing, manifest resources and Git whitespace checks | Passed |
 | Clean Odoo 20 install and post-install ORM/workflow tests | 65 passed locally, 0 failures/errors |
 | Odoo 20 upgrade and post-install ORM/workflow tests | 65 passed locally, 0 failures/errors |
+| CE optional-app absence and empty-core uninstall | Passed on isolated test databases; populated-target guards retained |
 | Public Oracle staging HTTPS web root and runtime config | HTTP 200 |
 | Public Oracle staging health | HTTP 200, UP |
 | Public Oracle staging actuator provenance | Read; observed version/full commit recorded in ignored local evidence; dirty=true |
@@ -90,3 +91,13 @@ The matrix adds one `SOURCE_MAPPED` owner safety requirement, `CURATED-REQ-WP01-
 Playwright verified the native command form and reconciliation dialog in the isolated `mfierp_demo` database using an explicitly labelled synthetic fixture on a dispatch-disabled, sync-disabled connection. A positive resource ID plus an independent-evidence note was rejected by the server's unsupported-verifier guard; the record remained pending with no completion timestamp. Audit References displayed the retained historical state, time and message. Screenshots are retained locally as `output/playwright/wp01-applied-blocked.png` and `wp01-historical-audit.png`. The fixture and browser check sent no Fineract requests. This targeted desktop check is not a full role, mobile/accessibility or financial operator acceptance pass.
 
 The local development archive `dist/mfierp-20.0.10.0.0.zip` was built twice with identical SHA-256 `125a3c64a4b0e798900cb6628181acee4494a30f6fb26534c3fcc819dbce958f`. Its 44 addon files include the versioned migration and exclude ignored caches/configuration. This is a local review artifact, not a tagged release or deployment approval.
+
+Exact-head WP01 [CI 44872662076](https://github.com/nandahtoon/MFIERP/actions/runs/44872662076) passed both services and standard-image CE install/upgrade at `9afffb90b274a19fa78bfceb0942039f6fd4778e`. Later lifecycle/CI changes require their own head's result.
+
+## ERP-01 narrow CE lifecycle evidence — 2026-11-21
+
+The guarded shell harness passed against `mfierp_test_wp01_final_clean` and, after adding orphan-attachment protection, `mfierp_test_expanded` (`.research/core-lifecycle-final.log`). It refused populated-data removal by design and used Odoo's standard uninstall API on an empty installed core. Fresh-registry inspection verified removal of 12 MFIERP models and their tables, 528 owned XML IDs, 4 crons, 36 menus and 25 access records, together with fields/views/actions/groups. Standard installed module versions and base references were unchanged. CRM/Accounting/EE models were absent; requests/urllib calls were denied during uninstall. No Fineract requests or other local services/databases were changed.
+
+Eleven new offline guard/orchestration tests bring the pure suite to **126 passed**; Ruff passed. Independent agent technical review found no material lifecycle issue. The new CI step follows clean install/upgrade and uses the same explicit test-only flags. Exact-head CI must pass after this increment is published. The new `CURATED-REQ-ERP01-CE-LIFECYCLE` row is only `SOURCE_MAPPED`; totals are **8,064 rows, 8,047 NOT_MAPPED, 13 SOURCE_MAPPED, four approval gates**. Full CE/EE and financial acceptance remain open. See [the edition matrix](EDITION_TEST_MATRIX.md) for actual public CE source findings and unimplemented optional adapters.
+
+Current matrix SHA-256: CSV `17fd5ed8a1a76fc725199b0d15c4ab00e48c602b49f5e2286b93344535782dbc`; summary `c9e98b995db421d69e9c9c05d3b48c44c13570117a2696c6c7ddfa157e2efecd`. Offline schema, source identity, curated-row and summary consistency tests passed.

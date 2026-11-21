@@ -47,6 +47,8 @@ docker compose run --rm odoo odoo --database=mfierp_test --update=mfierp --test-
 
 Do not run parallel jobs against the same database. Remote financial calls are mocked in these tests. Complete the live tenant acceptance sequence in COVERAGE.md before production deployment.
 
+The CI workflow also runs an empty-core CE uninstall check after installation and upgrade. Its explicit database/opt-in guard refuses demo/acceptance targets, any MFIERP tenant/form/attachment data and optional/dependent modules; it does not clear data to satisfy the test. Use only the isolated lane described in [EDITION_TEST_MATRIX.md](EDITION_TEST_MATRIX.md). A pass does not authorize uninstalling a populated deployment or establish licensed EE compatibility.
+
 ## Production configuration
 
 Use a managed Odoo deployment or hardened image pinned to a tested digest, protected PostgreSQL, managed secrets, TLS ingress, restricted egress and backups. Disable public database management, set a random master password, restrict database selection and configure Odoo workers/proxy/time limits. The Compose file is a developer environment.
