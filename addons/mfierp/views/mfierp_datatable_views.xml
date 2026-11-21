@@ -1,0 +1,32 @@
+<odoo>
+    <record id="mfierp_datatable_view_list" model="ir.ui.view">
+        <field name="name">mfierp.datatable.list</field><field name="model">mfierp.datatable</field>
+        <field name="arch" type="xml"><list create="false" edit="false" delete="false" decoration-muted="not executable">
+            <field name="name"/><field name="backend_id"/><field name="application_table"/><field name="multi_row"/>
+            <field name="executable"/><field name="blocked_reason"/><field name="refreshed_at"/>
+            <button name="action_read_entries" string="Read Entries" type="object" invisible="not executable"/>
+        </list></field>
+    </record>
+    <record id="mfierp_datatable_view_form" model="ir.ui.view">
+        <field name="name">mfierp.datatable.form</field><field name="model">mfierp.datatable</field>
+        <field name="arch" type="xml"><form create="false" edit="false" delete="false">
+            <header>
+                <button name="action_read_entries" string="Read Entries" type="object" class="oe_highlight" invisible="not executable"/>
+                <button name="action_create_entry" string="Create Entry" type="object" groups="mfierp.group_operator" invisible="not executable"/>
+                <button name="action_update_entry" string="Update Entry" type="object" groups="mfierp.group_operator" invisible="not executable"/>
+                <button name="action_delete_entry" string="Delete Entry" type="object" groups="mfierp.group_operator" invisible="not executable"/>
+            </header>
+            <sheet><h1><field name="name"/></h1>
+                <div class="alert alert-info" role="status">An administrator refreshes registered table contracts from the Fineract connection. Writes require independent approval. Multi-row update and delete act on one explicit entry ID. Remote metadata changes invalidate reviewed requests.</div>
+                <group><field name="backend_id"/><field name="company_id" groups="base.group_multi_company"/><field name="application_table"/>
+                    <field name="multi_row"/><field name="executable"/><field name="blocked_reason" invisible="executable"/>
+                    <field name="refreshed_at"/><field name="metadata_digest"/>
+                </group>
+            </sheet>
+        </form></field>
+    </record>
+    <record id="mfierp_datatable_action" model="ir.actions.act_window">
+        <field name="name">Registered Data Tables</field><field name="res_model">mfierp.datatable</field><field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="mfierp_menu_datatable" name="Registered Data Tables" parent="mfierp_menu_portfolio" action="mfierp_datatable_action" sequence="35"/>
+</odoo>

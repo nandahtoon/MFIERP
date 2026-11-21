@@ -1,0 +1,13 @@
+.research/
+__pycache__/
+*.py[cod]
+.env
+.venv/
+.pytest_cache/
+.ruff_cache/
+artifacts/
+*.log
+output/playwright/
+.playwright-cli/
+dist/
+config/oracle-staging.json

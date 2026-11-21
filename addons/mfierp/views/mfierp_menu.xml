@@ -1,0 +1,78 @@
+<odoo>
+    <record id="mfierp_office_action" model="ir.actions.act_window">
+        <field name="name">Offices</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'office')]</field>
+    </record>
+    <record id="mfierp_staff_action" model="ir.actions.act_window">
+        <field name="name">Staff</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'staff')]</field>
+    </record>
+    <record id="mfierp_client_action" model="ir.actions.act_window">
+        <field name="name">Clients</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'client')]</field>
+    </record>
+    <record id="mfierp_group_action" model="ir.actions.act_window">
+        <field name="name">Groups</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'group')]</field>
+    </record>
+    <record id="mfierp_center_action" model="ir.actions.act_window">
+        <field name="name">Centers</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'center')]</field>
+    </record>
+    <record id="mfierp_loan_product_action" model="ir.actions.act_window">
+        <field name="name">Loan Products</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'loan_product')]</field>
+    </record>
+    <record id="mfierp_savings_product_action" model="ir.actions.act_window">
+        <field name="name">Savings Products</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'savings_product')]</field>
+    </record>
+    <record id="mfierp_loan_action" model="ir.actions.act_window">
+        <field name="name">Loans</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'loan')]</field>
+    </record>
+    <record id="mfierp_savings_action" model="ir.actions.act_window">
+        <field name="name">Savings Accounts</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'savings')]</field>
+    </record>
+    <record id="mfierp_charge_action" model="ir.actions.act_window">
+        <field name="name">Charge Definitions</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'charge')]</field>
+    </record>
+    <record id="mfierp_glaccount_action" model="ir.actions.act_window">
+        <field name="name">General Ledger Accounts</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'glaccount')]</field>
+    </record>
+    <record id="mfierp_journal_action" model="ir.actions.act_window">
+        <field name="name">Journal Entries</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'journal')]</field>
+    </record>
+    <record id="mfierp_report_action" model="ir.actions.act_window">
+        <field name="name">Report Catalog</field><field name="res_model">mfierp.record</field><field name="view_mode">list,form</field>
+        <field name="domain">[('kind', '=', 'report')]</field>
+    </record>
+    <menuitem id="mfierp_menu_root" name="MFIERP" sequence="15" groups="mfierp.group_reader" web_icon="mfierp,static/description/icon.svg"/>
+    <menuitem id="mfierp_menu_portfolio" name="Portfolio" parent="mfierp_menu_root" sequence="10"/>
+    <menuitem id="mfierp_menu_products" name="Products" parent="mfierp_menu_root" sequence="20"/>
+    <menuitem id="mfierp_menu_accounting" name="Accounting and Reports" parent="mfierp_menu_root" sequence="30"/>
+    <menuitem id="mfierp_menu_operations" name="Operations" parent="mfierp_menu_root" sequence="40" groups="mfierp.group_operator,mfierp.group_checker"/>
+    <menuitem id="mfierp_menu_configuration" name="Configuration" parent="mfierp_menu_root" sequence="50" groups="mfierp.group_manager"/>
+    <menuitem id="mfierp_menu_office" name="Offices" parent="mfierp_menu_configuration" action="mfierp_office_action" sequence="10"/>
+    <menuitem id="mfierp_menu_staff" name="Staff" parent="mfierp_menu_configuration" action="mfierp_staff_action" sequence="11"/>
+    <menuitem id="mfierp_menu_client" name="Clients" parent="mfierp_menu_portfolio" action="mfierp_client_action" sequence="12"/>
+    <menuitem id="mfierp_menu_group" name="Groups" parent="mfierp_menu_portfolio" action="mfierp_group_action" sequence="13"/>
+    <menuitem id="mfierp_menu_center" name="Centers" parent="mfierp_menu_portfolio" action="mfierp_center_action" sequence="14"/>
+    <menuitem id="mfierp_menu_loan_product" name="Loan Products" parent="mfierp_menu_products" action="mfierp_loan_product_action" sequence="15"/>
+    <menuitem id="mfierp_menu_savings_product" name="Savings Products" parent="mfierp_menu_products" action="mfierp_savings_product_action" sequence="16"/>
+    <menuitem id="mfierp_menu_loan" name="Loans" parent="mfierp_menu_portfolio" action="mfierp_loan_action" sequence="17"/>
+    <menuitem id="mfierp_menu_savings" name="Savings Accounts" parent="mfierp_menu_portfolio" action="mfierp_savings_action" sequence="18"/>
+    <menuitem id="mfierp_menu_charge" name="Charge Definitions" parent="mfierp_menu_products" action="mfierp_charge_action" sequence="19"/>
+    <menuitem id="mfierp_menu_glaccount" name="General Ledger Accounts" parent="mfierp_menu_accounting" action="mfierp_glaccount_action" sequence="20"/>
+    <menuitem id="mfierp_menu_journal" name="Journal Entries" parent="mfierp_menu_accounting" action="mfierp_journal_action" sequence="21"/>
+    <menuitem id="mfierp_menu_report" name="Report Catalog" parent="mfierp_menu_accounting" action="mfierp_report_action" sequence="22"/>
+    <menuitem id="mfierp_menu_explorer" name="Portfolio Explorer" parent="mfierp_menu_portfolio" action="mfierp_record_action" sequence="90"/>
+    <menuitem id="mfierp_menu_new_operation" name="New Operation" parent="mfierp_menu_operations" action="mfierp_operation_action" sequence="10" groups="mfierp.group_operator"/>
+    <menuitem id="mfierp_menu_approval" name="Approval Inbox" parent="mfierp_menu_operations" action="mfierp_approval_action" sequence="20" groups="mfierp.group_checker"/>
+    <menuitem id="mfierp_menu_commands" name="Command Register" parent="mfierp_menu_operations" action="mfierp_command_action" sequence="30"/>
+    <menuitem id="mfierp_menu_backends" name="Fineract Connections" parent="mfierp_menu_configuration" action="mfierp_backend_action" sequence="10"/>
+</odoo>

@@ -1,0 +1,9 @@
+{
+  "environment": "staging",
+  "data_class": "synthetic_non_production",
+  "origin": "https://your-approved-staging.example",
+  "api_url": "https://your-approved-staging.example/fineract-provider/api/v1",
+  "tenant": "default",
+  "mutation_enabled": false,
+  "note": "Copy to oracle-staging.json locally. Discover version/commit through the GET-only verifier; supply credentials through deployment secrets."
+}

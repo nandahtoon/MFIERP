@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
+{
+    "name": "MFIERP — Mifos X Operations",
+    "summary": "Native microfinance operations backed by Apache Fineract",
+    "version": "20.0.10.0.0",
+    "category": "Accounting/Accounting",
+    "author": "MFIERP contributors",
+    "website": "https://github.com/nandahtoon/MFIERP",
+    "license": "LGPL-3",
+    "depends": ["base", "web"],
+    "external_dependencies": {"python": ["requests"]},
+    "data": [
+        "security/mfierp_security.xml",
+        "security/ir.access.csv",
+        "views/mfierp_backend_views.xml",
+        "views/mfierp_record_views.xml",
+        "views/mfierp_command_views.xml",
+        "wizard/mfierp_operation_views.xml",
+        "views/mfierp_menu.xml",
+        "views/mfierp_workspace_views.xml",
+        "views/mfierp_datatable_views.xml",
+        "data/mfierp_catalog.xml",
+        "data/mfierp_cron.xml",
+    ],
+    "application": True,
+    "installable": True,
+}
