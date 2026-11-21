@@ -1,6 +1,6 @@
 # Source provenance and learning record
 
-Reviewed on 2026-11-18. MFIERP is authoritative for integration decisions; upstream projects are authoritative for their respective APIs/framework behavior. Reviewed branch heads are evidence, not deployment promises.
+Initial review on 2026-11-18; WP00 provenance extended on 2026-11-20. MFIERP is authoritative for integration decisions; upstream projects are authoritative for their respective APIs/framework behavior. Reviewed branch heads are evidence, not deployment promises.
 
 | Source | Reviewed revision | Applied learning |
 | --- | --- | --- |
@@ -10,7 +10,7 @@ Reviewed on 2026-11-18. MFIERP is authoritative for integration decisions; upstr
 | [Mifos X Web App](https://github.com/openMF/web-app/tree/bc59713525c4a95ca21f2c9cf1e03f0f95a1771c) | `bc59713525c4a95ca21f2c9cf1e03f0f95a1771c` | Navigation taxonomy; clients, loans and savings service endpoint patterns; Angular UI is not copied |
 | [Apache Fineract](https://github.com/apache/fineract/tree/6a28754c6839fa64f5faf1873f9fcb52bc330fd9) | `6a28754c6839fa64f5faf1873f9fcb52bc330fd9` | Reports, journal, loan and savings REST contracts, command handling and financial authority |
 | [Fineract stable documentation](https://fineract.apache.org/docs/stable/) | Reports version 1.16.1 at review time | HTTPS, service authentication, command processing, idempotency and operational model |
-| [Owner's Mifos X frontend](https://github.com/nandahtoon/Mifosx-web-app/tree/34c7f278861ef25052f2e00d106d8527f5d270d3) | `34c7f278861ef25052f2e00d106d8527f5d270d3` | 720 literal HTTP calls, 180 action components, fixed command payloads and product accounting mappings; see parity inventory |
+| [Owner's Mifos X frontend](https://github.com/nandahtoon/Mifosx-web-app/tree/34c7f278861ef25052f2e00d106d8527f5d270d3) | `34c7f278861ef25052f2e00d106d8527f5d270d3` | Functional target for full operator parity; literal HTTP inventory, 748 component screens and extracted review obligations; see parity inventory |
 | Oracle public OpenAPI | API 1.16.0-SNAPSHOT; canonicalized SHA-256 embedded in catalog | 602 paths, 966 HTTP operations and 1,491 schemas; transformed native contracts with Apache attribution |
 
 Additional framework references:
@@ -38,3 +38,23 @@ Version 20.0.9.0.0 uses the pinned owner bulk-loan-reassignmnet and view-holiday
 Remote maker-checker identity research at the Apache revision above used [MakercheckersApiResource](https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-provider/src/main/java/org/apache/fineract/commands/api/MakercheckersApiResource.java), [PortfolioCommandSourceWritePlatformServiceImpl](https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-core/src/main/java/org/apache/fineract/commands/service/PortfolioCommandSourceWritePlatformServiceImpl.java), [AppUser permission checks](https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-core/src/main/java/org/apache/fineract/useradministration/domain/AppUser.java) and [AuthenticationApiResource](https://github.com/apache/fineract/blob/6a28754c6839fa64f5faf1873f9fcb52bc330fd9/fineract-security/src/main/java/org/apache/fineract/infrastructure/security/api/AuthenticationApiResource.java). AuditData returns maker/checker usernames rather than numeric IDs; makerId-filtered pending audits and the scoped user lookup can bind original maker identity. Basic authentication POST returns the authenticated ID but also sensitive authentication material, which any future identity adapter must discard in memory without persistence or logging. GET /users/{id} does not prove the caller's identity. No such authentication call or remote decision was performed here.
 
 AuditData.commandAsJson and AuditReadPlatformServiceImpl's direct aud.command_as_json selection motivated the audit metadata projection. The native adapter retains declared scalar audit evidence, excludes submitted payloads and unneeded URLs/IPs, and bounds row/text sizes before persisting read results. This projection is independently authored; no upstream Java implementation is copied.
+
+## WP00 source identity and extraction boundary
+
+The canonical source envelope binds owner revision `34c7f278861ef25052f2e00d106d8527f5d270d3` to Git tree `559162e9aeb0903a7909752ec8f1e513827f105f`. Its complete recursive tree contains 3,998 entries and 3,096 blobs. The source-fetch helper reconstructs the Git subtree identities and checks selected blob hashes against the archive before writing ignored reference caches. The reviewed archive SHA-256 is `2b826fd596c39e5e8a5cddba6a25342884079fd22acbeee441a9bf0b5722b660`.
+
+The app scope selects 2,863 `.ts`, `.html` and `.scss` files under `src/app`; this includes 41 upstream spec files verified for provenance but excluded from operator extraction. The supporting scope selects another 28 files: 27 outside `src/app` plus its error-handler README. It includes governance, environment templates/configuration, translation dictionaries, KYC configuration and Playwright configuration. The combined selection is 2,891 blobs; 205 repository blobs remain unselected. The matrix extraction itself covers the 2,863-file app scope only, leaving 233 repository blobs outside that extraction. Asset/build/configuration coverage remains explicit review work, even when a supporting file has been read.
+
+The extractor records pinned source URL/line/column, expression and extraction evidence in [FULL_FUNCTIONAL_MATRIX.csv](parity/FULL_FUNCTIONAL_MATRIX.csv). Conservative syntax extraction cannot prove Angular rendered behavior, computed targets, permissions or an end-to-end financial task. All automatic rows start `NOT_MAPPED`; curated source mappings and owner requirements are separately tracked in [CURATED_WORKFLOWS.json](parity/CURATED_WORKFLOWS.json). Source review does not establish licensed EE compatibility or deployed Oracle behavior. Reproduction commands and the provisional domain gap table are in the [parity README](parity/README.md#wp00-functional-inventory).
+
+## WP00 interpretation and decision log
+
+| Evidence or conflict | Applied decision and remaining obligation |
+| --- | --- |
+| The master mandate records an earlier 1,094-contract/942-typed baseline; the current catalog has 1,097/945. | Retain historical figures as checkpoints. Current catalog and source inventories supply current counts; neither establishes workflow acceptance or a product completion percentage. |
+| Earlier Community-only target language conflicts with the [owner amendment at `8d4d22e`](https://github.com/nandahtoon/MFIERP/commit/8d4d22eaea6caaed28a98a801bd0596907cc0d3a). | [ADR 002](ODOO_20_EDITION_CRM_ACCOUNTING_ADR.md) governs: edition-neutral core, optional CRM/Accounting adapters and separate licensed EE evidence. EE remains `EE_NOT_TESTED`; no CRM/Accounting bridge is claimed. |
+| The pinned Mifos source contains Angular-specific development instructions and environment feature flags. | Read these as source-project context. MFIERP's Odoo conventions govern its implementation; no Angular code or skill is installed/copied. A flag alone never grants an approved scope exclusion. Cross-file and feature-flag semantics remain explicit review obligations. |
+| An HTTP contract match or successful resource-ID response does not establish an operator financial outcome. | Preserve source candidates separately from workflow statuses. WP01 must distinguish response receipt from verified account/transaction/ledger readback before financial completion. No financial calculation is transferred into Odoo. |
+| Supporting source files and a verified full Git tree exceed the app extractor's scope. | Record repository identity and selected/excluded files honestly. Do not call app-only extraction a complete approved operator denominator; semantic triage and owner scope review remain open. |
+
+These are repository interpretation records, not finance-policy signatures, scope waivers, Oracle mutation approval or release authorization. The [work package plan](parity/WORK_PACKAGE_PLAN.md) preserves exact baseline and current CI evidence separately.

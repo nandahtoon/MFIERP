@@ -17,6 +17,55 @@ The [machine-readable inventory](mifos-endpoints.json) compares 720 literal HTTP
 
 The inventory is intentionally conservative about verification: every `operator_workflow_verified` and `live_uat_verified` flag remains false. Matching ignores query strings and does not prove command or payload equivalence. Literal source segments must fit declared path parameter types/enums: a preview name cannot be counted as a numeric transaction lookup. This correction reduces false typed candidates; it does not remove a working addon feature. Multiple frontend calls can share one backend operation, and one computed call can represent many workflows. These counts are not a percentage of product completion.
 
+## WP00 functional inventory
+
+The [full functional matrix](FULL_FUNCTIONAL_MATRIX.csv), [generated summary](FULL_FUNCTIONAL_MATRIX.summary.json), [curated workflow evidence](CURATED_WORKFLOWS.json) and [work package plan](WORK_PACKAGE_PLAN.md) establish a reproducible review baseline for [master issue #5](https://github.com/nandahtoon/MFIERP/issues/5) and [ERP issue #6](https://github.com/nandahtoon/MFIERP/issues/6). The matrix has 49 columns covering source facts, contract candidates, native context, permissions, financial effects, negative/reversal paths, edition evidence, tests and acceptance. It is an inventory of evidence obligations, not an approved count of distinct business features.
+
+At the pinned source revision, the extractor verifies 2,863 application files: 1,373 TypeScript, 743 HTML and 747 SCSS files. It finds 748 component screens, 745 templates (including two inline templates), template events/navigation, dialog actions, routes, switch branches, HTTP obligations and explicit review gaps. Forty-one upstream source spec files are hash-verified but excluded from operator action extraction; their existence is not Odoo test evidence. Cross-file aliases, computed targets, rendered Angular control flow, feature flags and business permissions still need semantic review. A directory-derived domain is provisional, and an API candidate never promotes a row to implementation or acceptance.
+
+The 8,062 rows comprise 8,022 automatic extraction obligations and 40 curated rows. Every automatic row remains `NOT_MAPPED`. The curated input adds 25 D01-D20/ERP requirements, 11 source-reviewed workflows and four external approval gates. Total states are **8,047 `NOT_MAPPED`, 11 `SOURCE_MAPPED`, four `RED_APPROVAL_BLOCKED`**. There are no `OPERATOR_ACCEPTED`, `STAGING_UAT_PASS` or approved exclusion rows. The reviewed workflows link existing native building blocks without claiming complete task UX, office segregation or financial UAT.
+
+The following gap table is a triage view of provisional domain assignments. Counts include screens, handlers, route branches and review obligations that can overlap within one workflow; they must not be summed into a feature denominator. All domains still require source semantics, native operator journeys and acceptance evidence.
+
+| Domain | NOT_MAPPED | SOURCE_MAPPED | Approval gates | Next review focus |
+| --- | ---: | ---: | ---: | --- |
+| D01 Organization/admin | 1,410 | 2 | 0 | Hierarchy, setup and scheduler conditions |
+| D02 Clients/KYC | 503 | 0 | 0 | Identity, lifecycle, KYC and exception paths |
+| D03 Groups/centers | 430 | 0 | 0 | Membership, joint workflows and meetings |
+| D04 Individual loans/products | 969 | 1 | 0 | Complete lifecycle, reversals and readback |
+| D05 Advanced lending | 247 | 0 | 0 | Restructure, guarantors and computed targets |
+| D06 Savings | 488 | 1 | 0 | Cash, tax, holds, closure and readback |
+| D07 Deposits | 661 | 0 | 0 | Maturity/settlement and product conditions |
+| D08 Shares/dividends | 519 | 2 | 0 | Approval versus allocation/payout evidence |
+| D09 Charges/transfers | 274 | 0 | 0 | Charge/instruction/transfer lifecycle |
+| D10 Collections | 28 | 0 | 0 | Group/batch behavior and per-account evidence |
+| D11 Cash/branch | 85 | 0 | 0 | Cash custody and approved ledger ownership |
+| D12 Accounting/GL | 485 | 2 | 1 | GL comparison, period controls and bridge policy |
+| D13 Reports | 146 | 0 | 0 | Filters, export, tenant options and source totals |
+| D14 Documents/datatables/surveys | 207 | 2 | 0 | Schema/inline forms, survey and privacy paths |
+| D15 Bulk/migration | 22 | 0 | 0 | Computed import targets, preview and row outcomes |
+| D16 Audit/permissions | 67 | 1 | 1 | Office policy, remote checker identity and privacy |
+| D17 Tasks/recovery | 114 | 0 | 0 | Exceptions, uncertainty and operator recovery |
+| D18 Integration | 12 | 0 | 1 | Clean runtime, version selectors and source flags |
+| D19 UX/accessibility | 1,378 | 0 | 0 | Shared controls, navigation, language and role UX |
+| D20 Reliability/editions | 2 | 0 | 1 | Sync/operations and licensed EE evidence |
+
+The separate gates are Oracle clean-runtime/synthetic-UAT handoff, approved office policy, licensed EE testing and signed GL ownership/bridge policy. Required approval roles in a row are unassigned requirements, not named approvers or signatures. CE CI is independent of EE (`EE_NOT_TESTED`); no source feature is silently excluded because a feature flag is off in one environment. Continue local WP01 safety work and bounded source triage while external gates remain closed.
+
+### Reproduce the source and matrix
+
+Use the public pinned source only; the cache is reference material and is never executed. The helper fetches the commit-to-tree relationship and complete recursive tree, rejects truncated or tampered trees, verifies Git blob hashes before replacing a cache and writes an ignored `.source-lock.json`.
+
+```text
+python scripts/fetch_mifos_source.py .research/mifos-repository-tree.json .research/mifos-full-34c7f27 --revision 34c7f278861ef25052f2e00d106d8527f5d270d3 --scope app --fetch-tree
+python scripts/fetch_mifos_source.py .research/mifos-repository-tree.json .research/mifos-supporting-34c7f27 --revision 34c7f278861ef25052f2e00d106d8527f5d270d3 --scope supporting
+python scripts/build_functional_matrix.py --source-root .research/mifos-full-34c7f27 --tree .research/mifos-repository-tree.json --endpoints docs/parity/mifos-endpoints.json --catalog addons/mfierp/services/catalog.json --curated docs/parity/CURATED_WORKFLOWS.json --output docs/parity/FULL_FUNCTIONAL_MATRIX.csv --summary docs/parity/FULL_FUNCTIONAL_MATRIX.summary.json
+```
+
+The commit points to Git root tree `559162e9aeb0903a7909752ec8f1e513827f105f`: 3,998 tree entries and 3,096 blobs. The reviewed archive SHA-256 is `2b826fd596c39e5e8a5cddba6a25342884079fd22acbeee441a9bf0b5722b660`. Application extraction selects 2,863 blobs, leaving 233 outside its extraction scope. The separate supporting selection verifies 28 files (governance, environment/configuration, translations and the app error-handler README), so the combined selected caches contain 2,891 files; 205 repository blobs remain explicitly unselected. Full repository tree verification does not mean all repository assets have been semantically reviewed or extracted as operator features. Selection rules and excluded scope are recorded by the helper and matrix manifests.
+
+The canonical matrix manifest identifies `CANONICAL_COMPLETE_REPOSITORY_TREE`, a verified root tree identity and the app-only extraction boundary. Legacy app blob lists are accepted only as `LEGACY_APP_BLOB_LIST_UNVERIFIED_ROOT`, with no verified root-tree claim; use the canonical input above for published reproduction. Curated source mappings are explicit tracked input. Higher statuses require cumulative evidence, and placeholders such as `EE_NOT_TESTED` cannot satisfy a test gate. Deterministic regeneration, schema/source-link/status validation and focused extractor/cache tests are separate from Odoo workflow and live UAT evidence.
+
 ## Separately reviewed variants
 
 `scripts/command_contracts.py`, `scripts/admin_contracts.py` and `scripts/organization_contracts.py` declare 108 fixed commands, reviewed against pinned frontend handlers and relevant Fineract implementations. The compiled entries include their source links. They cover client activation/reactivation/closure/rejection/withdrawal/staff assignment/savings linkage/transfers; loan approval/rejection/withdrawal/disbursement to savings/officer assignment/reversals/closure/waiver/recovery/charge-off; savings lifecycle/officer changes; fixed and recurring deposit approval/rejection/withdrawal/closure; savings holds/blocking/as-of interest; group and center activation/closure; group staff assignment; shares activation/approval/rejection/closure/purchase/redemption/reversal; manager-only role enable/disable, survey activation/deactivation and job execution without custom parameters; loan reschedule submission/approval/rejection/pending reads; charge payment/waiver/inactivation; provisioning journal generation/recreation; standing-instruction updates; dividend approval; and scheduler start/stop.

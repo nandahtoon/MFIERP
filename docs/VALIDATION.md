@@ -1,4 +1,4 @@
-# Validation record — 2026-11-19
+# Validation record — updated 2026-11-20
 
 ## Proven locally
 
@@ -52,12 +52,12 @@ Version 20.0.8.0.0 adds regressions for source-fixed standing-instruction update
 
 Playwright also verified Configuration → Scheduler Workflows and the separately listed fixed start/stop contracts in the upgraded synthetic local demo. No scheduler or other business command was submitted during this browser check.
 
-## 20.0.8.0.1 P1 hardening (pending exact-head CI)
+## 20.0.8.0.1 P1 hardening (historical pre-integration checkpoint)
 
 - Resource-less scheduler start/stop reconciliation requires a separate administrator, an evidence note and a fresh authenticated Fineract GET returning the expected `active` boolean. No remote POST is retried; other commands still require a positive verified resource ID when marked applied.
 - Before any dispatch, the pinned Fineract actuator info must explicitly attest `git.dirty=false`; dirty or missing values reject the request before network mutation.
 - Added mocked Odoo regressions for matching/mismatching scheduler state, independent administrator restriction and dirty/missing provenance.
-- No Oracle tenant mutation or shared deployment is authorized. Exact-head CI must be read after this commit; do not count this entry as a test pass.
+- No Oracle tenant mutation or shared deployment is authorized. This original checkpoint did not establish a test pass; later integrated exact-head evidence is recorded below.
 
 Version 20.0.9.0.0 adds typed bulk officer reassignment, body-less holiday activation, false/true savings withholding, administrator role boundaries, mandatory bulk/holiday reconciliation, scheduler status verification followed by evidence-based ID-less reconciliation, negative-ID rejection and forged-context refusal for financial commands. Remote audit reads now prove that submitted command JSON and unknown fields are excluded before persistence and cannot be obtained through binary read mode. The projection has separate shape, bounds, null and malformed-reference tests.
 
@@ -67,4 +67,14 @@ Audit metadata projection and binary-output rejection cover both v1 audit detail
 
 ## Integrated master-mandate baseline — 2026-11-20
 
-The implementation was rebased onto owner mandate/ADR commit 8d4d22e and safety commit 99499d6, preserving clean-build dispatch attestation and independent fresh scheduler status verification. The scheduler regression now also rejects a fabricated positive resource ID; reconciliation uses a different administrator and an authenticated GET. The integrated working tree passed 64 tracked pure tests and 62 Odoo post-tests on both clean installation (mfierp_test_wp00_baseline_clean) and upgrade (mfierp_test_expanded). These are CE/source-runtime results with mocked business calls, not EE or Oracle UAT. Exact-head CI for the integrated implementation is pending publication and must be checked separately from the earlier 8d4d22e run.
+The implementation was rebased onto owner mandate/ADR commit 8d4d22e and safety commit 99499d6, preserving clean-build dispatch attestation and independent fresh scheduler status verification. The scheduler regression now also rejects a fabricated positive resource ID; reconciliation uses a different administrator and an authenticated GET. The integrated baseline at [`6bf1b64dedebd0470f8d5bbb76b6b298ebebac5e`](https://github.com/nandahtoon/MFIERP/commit/6bf1b64dedebd0470f8d5bbb76b6b298ebebac5e) passed 64 tracked pure tests and 62 Odoo post-tests on both clean installation (`mfierp_test_wp00_baseline_clean`) and upgrade (`mfierp_test_expanded`). Its exact-head [standard-image CI run 44745924805](https://github.com/nandahtoon/MFIERP/actions/runs/44745924805) passed. These are CE results with mocked business calls, not EE or Oracle UAT, and they must not be transferred to a later head without its own checks.
+
+## WP00 inventory evidence — local development increment
+
+The source-cache and matrix helpers add 51 focused tests for canonical commit/tree identity, blob verification, archive/path defenses, atomic cache replacement, conservative source extraction, stable obligation IDs, curated evidence validation, cumulative status gates and offline tracked-artifact consistency. The complete local pure suite passed **115 tests**; Ruff passed. These checks validate inventory integrity, not the underlying operator workflow or financial outcome. The addon code is unchanged by this WP00 increment; the 62-test CE install/upgrade baseline above remains separately identified. Exact-head standard-image CI must be checked after publication.
+
+Two canonical full-source regenerations produced identical bytes: CSV SHA-256 `31085840c41410a379c0bc71f795481992a40d6283f0c8495fb8e1c3ef499ce0` and summary SHA-256 `20656f01f8e555668cf8717a1794db4bb17d0e100db13336b9488556d4b2fa75`. The tracked consistency test runs offline in the ordinary CI suite; full source regeneration additionally needs the pinned public source cache. The generator and Git attributes retain generated evidence as LF on Windows and Linux.
+
+The canonical Mifos source tree has 3,096 blobs. The app extractor verifies 2,863 files and 748 component screens; the separate supporting cache verifies 28 additional files, leaving 205 unselected repository blobs. The generated matrix currently records 8,062 evidence obligations: 8,047 `NOT_MAPPED`, 11 `SOURCE_MAPPED` and four `RED_APPROVAL_BLOCKED`. Forty curated rows include D01-D20/ERP requirements and explicit approval gates; no automatic extraction is promoted by API matching. The matrix does not establish an owner-approved workflow denominator or a signed exclusion. Reproduction, the provisional domain gap table and source pins are in the [parity README](parity/README.md#wp00-functional-inventory).
+
+Core `base`/`web` dependencies and successful CE installation are separate from explicit optional-app absence/uninstall tests and licensed EE tests. CRM/Accounting adapters are not implemented, no bridge posting is enabled, and `EE_NOT_TESTED` remains. Oracle financial UAT, approved office segregation, finance ownership/bridge policy and independent acceptance remain outstanding. No new browser or live financial test pass is inferred from the source matrix.

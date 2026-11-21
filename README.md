@@ -1,6 +1,6 @@
 # MFIERP — MiFosXinOdoo
 
-Native Odoo 20 Community screens for Mifos X operations, backed by Apache Fineract. Fineract owns the financial engine; Odoo provides the operator workspace, company boundaries, maker/checker workflow and command audit register.
+Native Odoo 20 screens for Mifos X operations, backed by Apache Fineract. The required target covers Community and Enterprise; current runtime evidence is Community only. Fineract owns the financial engine; Odoo provides the operator workspace, company boundaries, maker/checker workflow and command audit register.
 
 ## Included
 
@@ -29,9 +29,11 @@ See [deployment instructions](docs/DEPLOYMENT.md). The local developer app uses 
 | [Sources](docs/SOURCES.md) | Pinned MFIERP, Odoo 19/20, Mifos X and Fineract research provenance |
 | [Validation](docs/VALIDATION.md) | Checks actually performed and remaining acceptance work |
 | [Oracle staging](docs/ORACLE-STAGING.md) | Discovered hosting, runtime provenance and credential boundary |
+| [Functional matrix](docs/parity/README.md#wp00-functional-inventory) | Pinned screen/action evidence obligations, current gaps and reproducible extraction |
+| [Work package plan](docs/parity/WORK_PACKAGE_PLAN.md) | Dependency order, exact implementation evidence and external acceptance gates |
 | [Agent conventions](AGENTS.md) | Rules for future coding work |
 
-The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Financial production acceptance requires verification against the intended Fineract version and tenant products.
+The target is Odoo 20; Odoo 19 requires a separate security backport. API form coverage does not establish complete Mifos X feature parity. The [source inventory](docs/parity/README.md) records remaining contract, workflow and acceptance work. Its 8,062 extraction/review obligations include 748 component screens; no workflow is operator-accepted or live-UAT-passed. The row count is not an approved feature denominator. Financial production acceptance requires verification against the intended Fineract version and tenant products.
 
 The addon is licensed under LGPL-3.0-or-later. No upstream Angular or Java application code is vendored.
 
